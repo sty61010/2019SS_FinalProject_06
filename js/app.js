@@ -1,7 +1,18 @@
 
 
 var score1=0;
-// var scoreBoard;
+var score2=0;
+var score3=0;
+var score4=0;
+var scoreText1;
+var scoreText2;
+var scoreText3;
+var scoreText4;
+var scoreString1='P1:';
+var scoreString2='P2:';
+var scoreString3='P3:';
+var scoreString4='P4:';
+
 var mainState = {
     preload: function(){
         // Map sprites
@@ -12,10 +23,17 @@ var mainState = {
         game.load.image('blue-flag', 'assets/blue-flag.png');
         game.load.image('red-flag', 'assets/red-flag.png');
 
+        game.load.image('pixel', 'assets/flame.png');
+        game.load.image('pixel2', 'assets/pixel.png')
         // Weapon sprites
-        game.load.image('bomb', 'assets/bomb.png');
-        // game.load.image('explosion', 'assets/explosion.png');
-        game.load.spritesheet('explosion', 'assets/blue_flame.png', 60, 60);
+        game.load.spritesheet('coin', 'assets/coin.png', 40, 40);
+
+        // game.load.image('bomb', 'assets/bomb.png');
+        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
+        game.load.image('explosion', 'assets/explosion.png');
+        // game.load.spritesheet('explosion', 'assets/blue_flame.png', 60, 60);
+        // game.load.spritesheet('explosion', 'assets/explosion2.png', 128, 128);
+
         // Player sprites
         game.load.image('bomber', 'assets/bomber.png');
         game.load.image('bomber-front', 'assets/bomber-front.png');
@@ -61,6 +79,7 @@ var mainState = {
 
         // Group container of game sprites
         this.grassList = game.add.group();
+        this.coinList = game.add.group();
         this.wallList = game.add.group();
         this.bootList = game.add.group();
         this.starList = game.add.group();
@@ -90,6 +109,7 @@ var mainState = {
         this.sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
         this.dKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
+        this.qKey=game.input.keyboard.addKey(Phaser.Keyboard.Q);
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
         // Creates listeners for player 2's controls
@@ -113,8 +133,14 @@ var mainState = {
         if(!gameInPlay){
             this.showRoundWinner(null);
         }
-        game.add.text(620, 50, 'P1:'+score1, { font: '40px Georgia', fill: '#fff' });
-        game.add.text(620, 250, 'P2:', { font: '40px Georgia', fill: '#fff' });
+
+        scoreText1=game.add.text(620, 50, scoreString1+score1, { font: '30px Georgia', fill: '#fff' });
+        scoreText2=game.add.text(620, 200, scoreString2+score2, { font: '30px Georgia', fill: '#fff' });
+        scoreText3=game.add.text(620, 350, scoreString3+score3, { font: '30px Georgia', fill: '#fff' });
+        scoreText4=game.add.text(620, 500, scoreString4+score4, { font: '30px Georgia', fill: '#fff' });
+
+
+
 
     },
 
@@ -142,7 +168,7 @@ var mainState = {
             this.player.body.velocity.y = 0;
         }
 
-        if (this.enterKey.justUp){
+        if (this.spaceKey.justUp){
             if(gameInPlay)
                 this.dropBomb(1);
         }
@@ -173,7 +199,7 @@ var mainState = {
             this.player_2.body.velocity.y = 0;
         }
 
-        if (this.spaceKey.justUp){
+        if (this.qKey.isDown){
             if(gameInPlay)
                 this.dropBomb(2);
         }
@@ -198,39 +224,57 @@ var mainState = {
 
         game.physics.arcade.overlap(this.player, this.starList, function(){this.starUp(1);}, null, this);
         game.physics.arcade.overlap(this.player_2, this.starList, function(){this.starUp(2);}, null, this);
+        
+        game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
+        game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
+
     },
 
     createMap: function(){
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
                 if( x == 1 && x == y){
-                    this.addBlueFlag();
-                    this.addRedFlag();
+                    // this.addBlueFlag();
+                    // this.addRedFlag();
+                    this.addCoin();
                 }
                 if (x === 0 || y === 0 || x == 14 || y == 14){
                     this.addWall(x, y);
                 }
                 else if(x % 2 === 0 && y % 2 === 0){
-                    this.addWall(x, y);
+                    // this.addWall(x, y);
+                    this.addCoin(x,y);
                 } else if(x < 4 && y < 4 || x > 10 && y > 10){
-                    this.addGrass(x, y);
+                    // this.addGrass(x, y);
                 } else {
                     if(Math.floor(Math.random() * 3)){
-                        this.addBrick(x, y);
+                        // this.addBrick(x, y);
                         if(Math.floor(Math.random() * 1.02)){
                             this.addBoots(x, y);
                         }
                         if(Math.floor(Math.random() * 1.02)){
                             this.addStar(x, y);
                         }
-                    } else {
-                        this.addGrass(x, y);
+                    } 
+                    else {
+                        // this.addGrass(x, y);
                     }
                 }
             }
         }
     },
+    getCoin:function(player, coin){
+        powerUp.play();
+        if(player == this.player){
+            score1+=1;
+            scoreText1.text = scoreString1 + score1;
 
+        } else if(player==this.player_2){
+            score2+=1;
+            scoreText2.text=scoreString2+score2;
+        }
+        coin.kill();
+    },
     burn: function(player){
         if(player == 1){
             this.player.kill();
@@ -238,13 +282,23 @@ var mainState = {
             this.player_2.kill();
         }
         if(gameInPlay){
-            var score = Number(scoreBoard[player - 1].innerText);
-            scoreBoard[player - 1].innerText = score + 1;
 
-            if(score + 1 == 5){
-                this.showGameWinner(player);
+            if(player==1){
+                score2+=1;
+            }
+            else if(player==2){
+                score1+=1;
+            }
+
+            if(score1 == 1){
+                this.showGameWinner(1);
                 winner.play();
-            } else {
+            } 
+            else if(score2==1){
+                this.showGameWinner(2);
+                winner.play();
+            }
+            else {
                 this.showRoundWinner(player);
                 roundEnd.play();
             }
@@ -255,12 +309,21 @@ var mainState = {
     getFlag: function(player){
 
         if(gameInPlay){
-            var score = Number(scoreBoard[player - 1].innerText);
-            scoreBoard[player - 1].innerText = score + 1;
 
-            if(score + 1 === 5){
+            if(player==1){
+                score1+=1;
+            }
+            else if (player==2){
+                score2+=1;
+            }
+            if(score1 == 2){
                 this.showGameWinner(player);
-            } else {
+            }
+            else if(score2==2){
+                this.showGameWinner(player);
+ 
+            }
+            else {
                 this.showRoundWinner(player);
             }
         }
@@ -310,9 +373,19 @@ var mainState = {
         star.body.immovable = true;
         this.starList.add(star);
     },
+    addCoin: function(x, y){
+        var coin = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'coin');
 
+        game.physics.arcade.enable(coin);
+        coin.body.immovable = true;
+        // coin.scale.setTo(0.5);        
+
+        coin.anchor.setTo(1);
+        coin.animations.add('coin', [0,1,2,3,4],5,true);
+        coin.play('coin');
+        this.coinList.add(coin);
+    },
     addPlayers: function(){
-
         this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'bomber');
         game.physics.arcade.enable(this.player);
 
@@ -360,9 +433,38 @@ var mainState = {
         this.grassList.add(grass);
 
     },
+    bombExplosion: function(x,y) {
+        ///sound
+        // this.roarSound.play();
+        // this.firefistSound.play();
+        ///emitter
+        this.emitter = game.add.emitter(0, 0, 150);
+        this.emitter.makeParticles('pixel');
+        this.emitter.setYSpeed(-500, 500);
+        this.emitter.setXSpeed(-500, 500);
+        this.emitter.setScale(2, 0, 2, 0, 800);
+        this.emitter.gravity = 0;
+        // this.emitter.scale.setTo(0.1,0.1);
 
+        this.emitter.x = x;
+        this.emitter.y = y; 
+        this.emitter.start(true, 800, null, 15);
+    },
     detonateBomb: function(player, x, y, explosionList, wallList, brickList){
         bombSound.play();
+
+        // this.bombExplosion(x,y);
+        this.emitter = game.add.emitter(0, 0, 500);
+        this.emitter.makeParticles('pixel');
+        this.emitter.setYSpeed(-500, 500);
+        this.emitter.setXSpeed(-500, 500);
+        this.emitter.setScale(2, 0, 2, 0, 800);
+        this.emitter.gravity = 0;
+        // this.emitter.scale.setTo(0.1,0.1);
+
+        this.emitter.x = x;
+        this.emitter.y = y; 
+        this.emitter.start(true, 800, null, 15);
 
         var fire = [
             game.add.sprite(x, y, 'explosion'),
@@ -383,15 +485,8 @@ var mainState = {
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
 
         }
-        // for (var i = 0; i < fire.length; i++) {
-        //     fire[i].animations.add('explosion', [0,1,2,3], 5, true);
-        //     // fire[i].animation.add('explosion_fire',[0,1,2,3,4],5,true);
-        //     fire[i].play('explosion');
-        //     // explosionList.add(fire[i]);
-        // }
-
+        
         for (var i = 0; i < fire.length; i++) {
-            // fire[i].animation.add()
             fire[i].body.immovable = true;
             explosionList.add(fire[i]);
         }
@@ -404,7 +499,6 @@ var mainState = {
                 }
             }
         }
-
         setTimeout(function(){
             explosionList.forEach(function(element){
                 element.kill();
@@ -439,6 +533,10 @@ var mainState = {
             gridY = this.player.y - this.player.y % 40;
 
             bomb = game.add.sprite(gridX, gridY, 'bomb');
+            bomb.anchor.setTo(0.5)
+            bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
+            bomb.play('bomb',true,true); 
             game.physics.arcade.enable(bomb);
             bomb.body.immovable = true;
             this.bombList.add(bomb);
@@ -462,6 +560,11 @@ var mainState = {
             gridY = this.player_2.y - this.player_2.y % 40;
 
             bomb = game.add.sprite(gridX, gridY, 'bomb');
+
+            bomb.anchor.setTo(0)
+            bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
+            bomb.play('bomb',true,true);
             game.physics.arcade.enable(bomb);
             bomb.body.immovable = true;
             this.bombList_2.add(bomb);
@@ -526,8 +629,10 @@ var mainState = {
         this.button = game.add.button(230, 350, 'play-again');
 
         this.button.onInputUp.add(function(){
-            scoreBoard[0].innerText = 0;
-            scoreBoard[1].innerText = 0;
+            score1=0;
+            score2=0;
+            score3=0;
+            score4=0;
             this.restartGame();
         }, this);
     },
