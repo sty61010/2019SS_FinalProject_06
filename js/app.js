@@ -1,14 +1,7 @@
-/**
- * Project Name:    Bomberman
- * Project URL:     https://kevinpagtakhan.github.io/bomberman/
- * Description:     This is a game inspired by the original Bomberman developed using JavaScript and Phaser.
- * Version:         1.0.0
- * Author:          Kevin Pagtakhan
- * Author URI:      https://github.com/kevinpagtakhan
- **/
 
-var scoreBoard = document.querySelectorAll(".score");
 
+var score1=0;
+// var scoreBoard;
 var mainState = {
     preload: function(){
         // Map sprites
@@ -21,8 +14,8 @@ var mainState = {
 
         // Weapon sprites
         game.load.image('bomb', 'assets/bomb.png');
-        game.load.image('explosion', 'assets/explosion.png');
-
+        // game.load.image('explosion', 'assets/explosion.png');
+        game.load.spritesheet('explosion', 'assets/blue_flame.png', 60, 60);
         // Player sprites
         game.load.image('bomber', 'assets/bomber.png');
         game.load.image('bomber-front', 'assets/bomber-front.png');
@@ -53,9 +46,9 @@ var mainState = {
         this.PIXEL_SIZE = GAME_SIZE / this.BLOCK_COUNT;
 
         music = game.add.audio('bg-music', 1, true);
-        music.play();
+        // music.play();
 
-        game.stage.backgroundColor = "#49311C";
+        game.stage.backgroundColor = "#000000";
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
 
@@ -120,6 +113,9 @@ var mainState = {
         if(!gameInPlay){
             this.showRoundWinner(null);
         }
+        game.add.text(620, 50, 'P1:'+score1, { font: '40px Georgia', fill: '#fff' });
+        game.add.text(620, 250, 'P2:', { font: '40px Georgia', fill: '#fff' });
+
     },
 
     update: function(){
@@ -241,12 +237,11 @@ var mainState = {
         } else {
             this.player_2.kill();
         }
-
         if(gameInPlay){
             var score = Number(scoreBoard[player - 1].innerText);
             scoreBoard[player - 1].innerText = score + 1;
 
-            if(score + 1 === 5){
+            if(score + 1 == 5){
                 this.showGameWinner(player);
                 winner.play();
             } else {
@@ -254,7 +249,6 @@ var mainState = {
                 roundEnd.play();
             }
         }
-
         gameInPlay = false;
     },
 
@@ -297,6 +291,7 @@ var mainState = {
 
     starUp: function(player){
         powerUp.play();
+        score1+=1;
 
         if(player == 1){
             this.playerPower = true;
@@ -388,8 +383,15 @@ var mainState = {
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
 
         }
+        // for (var i = 0; i < fire.length; i++) {
+        //     fire[i].animations.add('explosion', [0,1,2,3], 5, true);
+        //     // fire[i].animation.add('explosion_fire',[0,1,2,3,4],5,true);
+        //     fire[i].play('explosion');
+        //     // explosionList.add(fire[i]);
+        // }
 
         for (var i = 0; i < fire.length; i++) {
+            // fire[i].animation.add()
             fire[i].body.immovable = true;
             explosionList.add(fire[i]);
         }
@@ -541,6 +543,9 @@ var mainState = {
 
 var GAME_SIZE = 600;
 var gameInPlay = false;
-var game = new Phaser.Game(800, 600);
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'canvas');
+
 game.state.add('main', mainState);
 game.state.start('main');
+
