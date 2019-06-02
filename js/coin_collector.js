@@ -1,62 +1,9 @@
 
 
-var score1=0;
-var score2=0;
-var score3=0;
-var score4=0;
-var scoreText1;
-var scoreText2;
-var scoreText3;
-var scoreText4;
-var scoreString1='P1:';
-var scoreString2='P2:';
-var scoreString3='P3:';
-var scoreString4='P4:';
 
-var mainState = {
+
+var coincollectState = {
     preload: function(){
-        // Map sprites
-        game.load.image('ground', 'assets/ground.png');
-        game.load.image('grass', 'assets/grass.png');
-        game.load.image('wall', 'assets/wall.png');
-        game.load.image('brick', 'assets/brick.png');
-        game.load.image('blue-flag', 'assets/blue-flag.png');
-        game.load.image('red-flag', 'assets/red-flag.png');
-
-        game.load.image('pixel', 'assets/flame.png');
-        game.load.image('pixel2', 'assets/pixel.png')
-        // Weapon sprites
-        game.load.spritesheet('coin', 'assets/coin.png', 40, 40);
-
-        // game.load.image('bomb', 'assets/bomb.png');
-        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
-        game.load.image('explosion', 'assets/explosion.png');
-        // game.load.spritesheet('explosion', 'assets/blue_flame.png', 60, 60);
-        // game.load.spritesheet('explosion', 'assets/explosion2.png', 128, 128);
-
-        // Player sprites
-        game.load.image('bomber', 'assets/bomber.png');
-        game.load.image('bomber-front', 'assets/bomber-front.png');
-        game.load.image('bomber-left', 'assets/bomber-left.png');
-        game.load.image('bomber-right', 'assets/bomber-right.png');
-        game.load.image('bomber-back', 'assets/bomber-back.png');
-
-        // Button sprites
-        game.load.image('next-round', 'assets/next-round.png');
-        game.load.image('start-game', 'assets/start-game.png');
-        game.load.image('play-again', 'assets/play-again.png');
-        // Power up sprites
-        game.load.image('boots', 'assets/boots.png');
-        game.load.image('star', 'assets/star.png');
-        // Audio clip sprites
-        game.load.audio('bomb-sound', 'assets/bomb-sound.wav');
-        game.load.audio('power-up', 'assets/power-up.wav');
-        game.load.audio('winner', 'assets/winner.wav');
-        game.load.audio('intro', 'assets/intro.wav');
-        game.load.audio('game-start', 'assets/game-start.wav');
-        game.load.audio('round-end', 'assets/round-end.wav');
-
-        game.load.audio('bg-music', 'assets/48-battle.mp3');
     },
 
     create: function(){
@@ -65,8 +12,8 @@ var mainState = {
 
         music = game.add.audio('bg-music', 1, true);
         // music.play();
-
-        game.stage.backgroundColor = "#000000";
+        this.bg_score = game.add.image(600, 0, 'background_score'); 
+        // game.stage.backgroundColor = "#000000";
         game.physics.startSystem(Phaser.Physics.ARCADE);
         game.world.enableBody = true;
 
@@ -134,11 +81,22 @@ var mainState = {
             this.showRoundWinner(null);
         }
 
-        scoreText1=game.add.text(620, 50, scoreString1+score1, { font: '30px Georgia', fill: '#fff' });
-        scoreText2=game.add.text(620, 200, scoreString2+score2, { font: '30px Georgia', fill: '#fff' });
-        scoreText3=game.add.text(620, 350, scoreString3+score3, { font: '30px Georgia', fill: '#fff' });
-        scoreText4=game.add.text(620, 500, scoreString4+score4, { font: '30px Georgia', fill: '#fff' });
-
+        // scoreText1=game.add.text(620, 50, scoreString1+score1, { font: '30px Georgia', fill: '#fff' });
+        // scoreText2=game.add.text(620, 200, scoreString2+score2, { font: '30px Georgia', fill: '#fff' });
+        // scoreText3=game.add.text(620, 350, scoreString3+score3, { font: '30px Georgia', fill: '#fff' });
+        // scoreText4=game.add.text(620, 500, scoreString4+score4, { font: '30px Georgia', fill: '#fff' });
+        scoreString1 = 'Player 1: ';
+        scoreText1 = game.add.text(game.width-170, 40, scoreString1 + score1, {  font: '28px Georgia', fill: '#fff' });
+        scoreString2 = 'Player 2: ';
+        scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
+        scoreString3 = 'Player 3: ';
+        scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
+        scoreString4 = 'Player 4: ';
+        scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
+        
+        levelString = 'Level : ';
+        levelText = game.add.text(game.width-170, 440, levelString + game.global.level, {  font: '28px Georgia', fill: '#fff' });
+       
 
 
 
@@ -473,12 +431,12 @@ var mainState = {
             game.add.sprite(x + 40, y, 'explosion'),
             game.add.sprite(x - 40, y, 'explosion')
         ];
-        if(player == 1 && mainState.playerPower){
+        if(player == 1 && coincollectState.playerPower){
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
-        } else if (player == 2 && mainState.playerPower_2) {
+        } else if (player == 2 && coincollectState.playerPower_2) {
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
@@ -549,7 +507,7 @@ var mainState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList);
-                mainState.enablePlayerBomb(1);
+                coincollectState.enablePlayerBomb(1);
             }, 2000);
 
             setTimeout(this.thisEnableBomb, 2000);
@@ -577,7 +535,7 @@ var mainState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList_2, wallList, brickList);
-                mainState.enablePlayerBomb(2);
+                coincollectState.enablePlayerBomb(2);
             }, 2000);
 
         }
@@ -641,16 +599,9 @@ var mainState = {
         gameInPlay = true;
         music.stop();
         gameStart.play();
-        game.state.start('main');
+        game.state.start('coincollect');
     }
 
 };
 
-var GAME_SIZE = 600;
-var gameInPlay = false;
-
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'canvas');
-
-game.state.add('main', mainState);
-game.state.start('main');
 

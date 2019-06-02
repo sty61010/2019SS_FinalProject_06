@@ -1,8 +1,3 @@
-/* @font-face {
-  font-family: 'Arcade';
-  src: url('/fonts/ARCADE.ttf');
-}
-
 html, body{
     min-height: 100%;
     min-width: 100%;
@@ -16,7 +11,6 @@ body{
     background: black;
     display: table-cell;
     vertical-align: middle;
-    font-family: 'Arcade';
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -59,10 +53,10 @@ h1, h2, h3, h4, h5, h6{
     text-shadow: 1px 1px 0px #000;
 }
 
-canvas{
-    margin: auto;
-}
+
 
 .center{
     text-align: center;
-} */
+}
+
+
