@@ -22,11 +22,12 @@ var bomb1=0;
 var bomb2=0;
 var bomb3=0;
 var bomb4=0;
-var live1=0;
-var live2=0;
-var live3=0;
-var live4=0;
-
+var live1=3;
+var live2=3;
+var live3=1;
+var live4=1;
+var livegroup1;
+var livegroup2;
 //var myHealthBar1;
 //var myHealthBar2;
 // Add all the states

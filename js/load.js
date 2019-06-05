@@ -78,7 +78,9 @@ var loadState = {
         game.load.spritesheet('star', 'assets/star1.png',40, 40);
         //Lighting
         game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
- 
+        //Heart
+        game.load.spritesheet('heart', 'assets/heart.png',40, 40);
+
         //Bomb
         game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
     },
