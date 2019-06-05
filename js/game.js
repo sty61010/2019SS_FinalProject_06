@@ -18,6 +18,15 @@ var score1=0;
 var score2=0;
 var score3=0;
 var score4=0;
+var bomb1=0;
+var bomb2=0;
+var bomb3=0;
+var bomb4=0;
+var live1=0;
+var live2=0;
+var live3=0;
+var live4=0;
+
 //var myHealthBar1;
 //var myHealthBar2;
 // Add all the states

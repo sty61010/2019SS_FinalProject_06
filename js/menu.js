@@ -10,8 +10,7 @@ var menuState = {
         this.bg = game.add.image(0, 0, 'background_menu'); 
         //this.bg.alpha=0.5;
         // Display the name of the game
-        var nameLabel = game.add.text(game.width/2-100, 150, 'Final Explosion', 
-        { font: '60px Georgia', fill: '#ffffff' }); 
+        var nameLabel = game.add.text(game.width/2-100, 150, 'Final Explosion', { font: '60px Georgia', fill: '#ffffff' }); 
         nameLabel.anchor.setTo(0.5, 0.5);
 
         this.button_rank = game.add.button(game.width-150, 50, 'button_rank', this.checkRank, this, 1, 0, 0);

@@ -44,9 +44,11 @@ var loadState = {
         game.load.spritesheet('button_play', 'assets/playbutton.png', 249, 83);
         game.load.spritesheet('button_setting', 'assets/settingbutton.png', 250, 100);
         game.load.spritesheet('button_credict', 'assets/credictbutton.png', 250, 85);
+        game.load.spritesheet('button_play2', 'assets/play2_bt.png', 115, 46);
+        game.load.spritesheet('button_next', 'assets/next_bt.png', 115, 46);
         // Power up sprites
         game.load.image('boots', 'assets/boots.png');
-        game.load.image('star', 'assets/star.png');
+        // game.load.image('star', 'assets/star.png');
 
         // Audio clip sprites
         game.load.audio('bomb-sound', 'assets/bomb-sound.wav');
@@ -72,6 +74,11 @@ var loadState = {
         game.load.image('pixel2', 'assets/pixel.png');
         //Coin
         game.load.spritesheet('coin', 'assets/coin.png', 40, 40);
+        //Star
+        game.load.spritesheet('star', 'assets/star1.png',40, 40);
+        //Lighting
+        game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
+ 
         //Bomb
         game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
     },
