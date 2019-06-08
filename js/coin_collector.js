@@ -54,7 +54,7 @@ var coincollectState = {
         {
             var livestate = game.add.sprite(game.width-140+i*40 , 100, 'heart');
             livestate.body.immovable = true;
-            livestate.anchor.setTo(0);
+            livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
             livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
             livestate.play('heart');
@@ -66,7 +66,7 @@ var coincollectState = {
         {
             var livestate = game.add.sprite(game.width-140+i*40 , 200, 'heart');
             livestate.body.immovable = true;
-            livestate.anchor.setTo(0);
+            livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
             livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
             livestate.play('heart');
@@ -370,7 +370,7 @@ var coincollectState = {
         }
         var boots = game.add.sprite(x, y, 'lighting');
         boots.body.immovable = true;
-        boots.anchor.setTo(0);
+        boots.anchor.setTo(1);
         boots.animations.add('lighting', [0,1,2,3],5,true);
         boots.play('lighting');
         boot.kill();

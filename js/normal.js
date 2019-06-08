@@ -51,7 +51,7 @@ var normalState = {
         {
             var livestate = game.add.sprite(game.width-140+i*40 , 100, 'heart');
             livestate.body.immovable = true;
-            livestate.anchor.setTo(0);
+            livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
             livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
             livestate.play('heart');
@@ -63,7 +63,7 @@ var normalState = {
         {
             var livestate = game.add.sprite(game.width-140+i*40 , 200, 'heart');
             livestate.body.immovable = true;
-            livestate.anchor.setTo(0);
+            livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
             livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
             livestate.play('heart');
@@ -371,7 +371,7 @@ var normalState = {
         //        
         var starstate = game.add.sprite(x, y, 'star');
         starstate.body.immovable = true;
-        starstate.anchor.setTo(0);
+        starstate.anchor.setTo(1);
         starstate.animations.add('star', [0,1,2,3,4],5,true);
         starstate.play('star');
     },
