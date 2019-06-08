@@ -245,7 +245,11 @@ var killingState = {
         game.physics.arcade.overlap(this.player_2, this.glove_List,this.push, null, this);
 
         game.physics.arcade.overlap(this.player, this.gun_List, this.shot, null, this);
-        game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);        
+        game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);      
+        //win
+        if (this.kKey.isDown){
+            this.showGameWinner(1);
+        }  
 
     },
     createMap: function(){

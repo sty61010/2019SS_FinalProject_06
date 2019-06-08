@@ -341,7 +341,7 @@ var coincollectState3 = {
         //        
         var starstate = game.add.sprite(x, y, 'star');
         starstate.body.immovable = true;
-        starstate.anchor.setTo(1);
+        starstate.anchor.setTo(0);
         starstate.animations.add('star', [0,1,2,3,4],5,true);
         starstate.play('star');
     },
@@ -369,7 +369,7 @@ var coincollectState3 = {
         }
         var boots = game.add.sprite(x, y, 'lighting');
         boots.body.immovable = true;
-        boots.anchor.setTo(1);
+        boots.anchor.setTo(0);
         boots.animations.add('lighting', [0,1,2,3],5,true);
         boots.play('lighting');
         boot.kill();
