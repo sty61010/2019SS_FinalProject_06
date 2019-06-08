@@ -1,6 +1,6 @@
 // Initialize Phaser
 var game = new Phaser.Game(800,600, Phaser.AUTO, 'canvas'); // Define our global variable
-game.global = {  level: 1 , sound: 1, music: 0, reset:1}; 
+game.global = { sound: 1, music: 0, reset:1}; 
 // score1: 0 ,score2: 0, score3: 0, score4: 0,
 var scoreBoard = document.querySelectorAll(".score");
 var GAME_SIZE = 600;
@@ -28,6 +28,7 @@ var live3=1;
 var live4=1;
 var livegroup1;
 var livegroup2;
+var level=1;
 //var myHealthBar1;
 //var myHealthBar2;
 // Add all the states
@@ -38,8 +39,14 @@ game.state.add('mode', modeState);
 game.state.add('menu', menuState);
 // game.state.add('play', mainState);
 game.state.add('killing',killingState);
+game.state.add('killing2',killingState2);
+game.state.add('killing3',killingState3);
 game.state.add('normal', normalState);
+game.state.add('normal2', normalState2);
+game.state.add('normal3', normalState3);
 game.state.add('coincollect',coincollectState);
+game.state.add('coincollect2',coincollectState2);
+game.state.add('coincollect3',coincollectState3);
 game.state.add('win', winState);
 game.state.add('lose', loseState);
 game.state.add('rank', rankState);

@@ -1,4 +1,4 @@
-var normalState = {
+var normalState3 = {
     preload: function(){
 
     },
@@ -563,12 +563,12 @@ var normalState = {
             game.add.sprite(x + 40, y, 'explosion'),
             game.add.sprite(x - 40, y, 'explosion')
         ];
-        if(player == 1 && normalState.playerPower){
+        if(player == 1 && normalState3.playerPower){
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
-        } else if (player == 2 && normalState.playerPower_2) {
+        } else if (player == 2 && normalState3.playerPower_2) {
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
@@ -727,7 +727,7 @@ var normalState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList,treeList1,treeList2,treeList3,brickList1);
-                normalState.enablePlayerBomb(1);
+                normalState3.enablePlayerBomb(1);
             }, 2000);
            
 
@@ -761,7 +761,7 @@ var normalState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList,treeList1,treeList2,treeList3,brickList1);
-                normalState.enablePlayerBomb(2);
+                normalState3.enablePlayerBomb(2);
             }, 2000);
         }
     },
@@ -791,13 +791,10 @@ var normalState = {
         gameInPlay = true;
         music.stop();
         gameStart.play();
-        game.state.start('normal');
+        game.state.start('normal3');
     },
     nextLevel:function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
-        game.state.start('normal2');
-        level=2;
-
     }
 
 };

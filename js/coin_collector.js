@@ -104,6 +104,7 @@ var coincollectState = {
         this.dKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
         this.qKey=game.input.keyboard.addKey(Phaser.Keyboard.Q);
+        this.kKey=game.input.keyboard.addKey(Phaser.Keyboard.K);
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         // Creates listeners for player 2's controls
         this.cursor = game.input.keyboard.createCursorKeys();
@@ -123,7 +124,7 @@ var coincollectState = {
         scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
         scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
         scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        levelText = game.add.text(game.width-170, 440, levelString + game.global.level, {  font: '28px Georgia', fill: '#fff' });
+        levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
     },
     //=============================================================================================
     update: function(){
@@ -164,6 +165,10 @@ var coincollectState = {
         else if(score2==20){
             this.showGameWinner(2);
         }
+        if (this.kKey.isDown){
+            this.showGameWinner(1);
+        }
+
 
     },
     //=============================================================================================
@@ -380,7 +385,7 @@ var coincollectState = {
         var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'lighting');
         game.physics.arcade.enable(boots);
         boots.body.immovable = true;
-        boots.anchor.setTo(1);
+        boots.anchor.setTo(0);
         boots.animations.add('lighting', [0,1,2,3],5,true);
         boots.play('lighting');
         this.bootList.add(boots);
@@ -389,7 +394,7 @@ var coincollectState = {
         var star = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'star');
         game.physics.arcade.enable(star);
         star.body.immovable = true;
-        star.anchor.setTo(1);
+        star.anchor.setTo(0);
         star.animations.add('star', [0,1,2,3,4],5,true);
         star.play('star');
         this.starList.add(star);
@@ -399,7 +404,7 @@ var coincollectState = {
         game.physics.arcade.enable(coin);
         coin.body.immovable = true;
         // coin.scale.setTo(0.5);        
-        coin.anchor.setTo(1);
+        coin.anchor.setTo(0);
         coin.animations.add('coin', [0,1,2,3,4],5,true);
         coin.play('coin');
         this.coinList.add(coin);
@@ -589,13 +594,15 @@ var coincollectState = {
         live2=3;
         live3=3;
         live4=4;
-        gameInPlay = true;
+
         music.stop();
         gameStart.play();
         game.state.start('coincollect');
     },
     nextLevel:function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+        game.state.start('coincollect2');
+        level=2;
     }
 
 };

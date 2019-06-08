@@ -88,11 +88,20 @@ var loadState = {
         game.load.image('iceberg','assets/iceberg.png');
         game.load.image('bomb_increase','assets/bomb_increase.png');
         game.load.image('glove','assets/gloves.png');
+
         game.load.image('gun','assets/gun.png');
         game.load.image('laser_up','assets/laser_up.png');
         game.load.image('laser_down','assets/laser_down.png');
         game.load.image('laser_left','assets/laser_left.png');
         game.load.image('laser_right','assets/laser_right.png');
+        //normal
+        game.load.image('tree1', 'assets/mapAssets_1.png');
+        game.load.image('tree2', 'assets/mapAssets_2.png');
+        game.load.image('tree3', 'assets/mapAssets_3.png');
+        game.load.image('wall1', 'assets/mapAssets_5.png');
+        game.load.image('brick1', 'assets/mapAssets_4.png');
+        game.load.image('ground1', 'assets/mapAssets_6.png');
+        game.load.spritesheet('glove2', 'assets/glove.png', 40, 40);
     },
     create: function() {
 

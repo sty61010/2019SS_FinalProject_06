@@ -1,6 +1,6 @@
 
 
-var killingState = {
+var killingState3 = {
     preload: function(){
 
     },
@@ -119,7 +119,7 @@ var killingState = {
         scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
         scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
         scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        levelText = game.add.text(game.width-170, 440, levelString + game.global.level, {  font: '28px Georgia', fill: '#fff' });
+        levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
     },
     update: function(){ 
         if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
@@ -247,6 +247,10 @@ var killingState = {
         game.physics.arcade.overlap(this.player, this.gun_List, this.shot, null, this);
         game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);        
 
+        ///win
+        if (this.kKey.isDown){
+            this.showGameWinner(1);
+        }
     },
     createMap: function(){
         for (var x = 0; x < 15; x++) {
@@ -591,12 +595,12 @@ var killingState = {
             game.add.sprite(x + 40, y, 'explosion'),
             game.add.sprite(x - 40, y, 'explosion')
         ];
-        if(player == 1 && killingState.playerPower){
+        if(player == 1 && killingState3.playerPower){
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
-        } else if (player == 2 && killingState.playerPower_2) {
+        } else if (player == 2 && killingState3.playerPower_2) {
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
@@ -643,13 +647,13 @@ var killingState = {
                 this.playerSpeed = 0;
                 this.melt = true;
             }
-            setTimeout(function(){killingState.playerSpeed = 150;},2000);//!!!
+            setTimeout(function(){killingState3.playerSpeed = 150;},2000);//!!!
         }else{
             if(this.melt2 == false){
                 this.playerSpeed_2 = 0;
                 this.melt2 = true;
             }
-            setTimeout(function(){killingState.playerSpeed_2 = 150;},2000);       
+            setTimeout(function(){killingState3.playerSpeed_2 = 150;},2000);       
         }
 
         this.iceList.forEach(function(element){
@@ -812,7 +816,7 @@ var killingState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList);
-                killingState.enablePlayerBomb(1);
+                killingState3.enablePlayerBomb(1);
             }, 2000);
 
             setTimeout(this.thisEnableBomb, 2000);
@@ -842,7 +846,7 @@ var killingState = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList_2, wallList, brickList);
-                killingState.enablePlayerBomb(2);
+                killingState3.enablePlayerBomb(2);
             }, 2000);
 
         }
@@ -882,13 +886,10 @@ var killingState = {
         live2=3;
         live3=3;
         live4=4;
-        game.state.start('killing');
+        game.state.start('killing3');
     },
     nextLevel:function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
-        game.state.start('killing2');
-        level=2;
-
     }
 
 };

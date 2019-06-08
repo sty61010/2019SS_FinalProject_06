@@ -1,6 +1,9 @@
-var normalState = {
-    preload: function(){
 
+
+
+
+var coincollectState2 = {
+    preload: function(){
     },
     //=============================================================================================
     create: function(){
@@ -16,7 +19,7 @@ var normalState = {
         // Adds ground to entire map
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
-                this.addGround1(x, y);
+                this.addGround(x, y);
             }
         }
         // Group container of game sprites
@@ -85,16 +88,6 @@ var normalState = {
         this.explosionList = game.add.group();
         this.explosionList_2 = game.add.group();
         this.addPlayers();
-
-        //*** 
-        this.treeList1 = game.add.group();
-        this.treeList2 = game.add.group();
-        this.treeList3 = game.add.group();
-        this.brickList1 = game.add.group();
-        this.groundList1 = game.add.group();
-        this.wallList1 = game.add.group();
-        this.gloveList = game.add.group();
-
     },
     soundCreate:function(){
         bombSound = game.add.audio('bomb-sound');
@@ -144,21 +137,8 @@ var normalState = {
         game.physics.arcade.collide(this.player, this.wallList);
         game.physics.arcade.collide(this.player, this.brickList);
 
-        game.physics.arcade.collide(this.player, this.brickList1);
-        game.physics.arcade.collide(this.player, this.treeList1);
-        game.physics.arcade.collide(this.player, this.treeList2);
-        game.physics.arcade.collide(this.player, this.treeList3);
-        game.physics.arcade.collide(this.player, this.wallList1);
-
-
         game.physics.arcade.collide(this.player_2, this.wallList);
         game.physics.arcade.collide(this.player_2, this.brickList);
-
-        game.physics.arcade.collide(this.player_2, this.brickList1);
-        game.physics.arcade.collide(this.player_2, this.treeList1);
-        game.physics.arcade.collide(this.player_2, this.treeList2);
-        game.physics.arcade.collide(this.player_2, this.treeList3);
-        game.physics.arcade.collide(this.player_2, this.wallList1);
 
         game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
         game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
@@ -171,9 +151,6 @@ var normalState = {
 
         game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
         game.physics.arcade.overlap(this.player_2, this.bootList, this.speedUp, null, this);
-
-        //game.physics.arcade.overlap(this.player, this.gloveList, this.push, null, this);
-        //game.physics.arcade.overlap(this.player_2, this.gloveList, this.push, null, this);
 
         game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
         game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
@@ -188,15 +165,10 @@ var normalState = {
         else if(score2==20){
             this.showGameWinner(2);
         }
-        if(live1==0){
-            this.showGameWinner(2);
-        }
-        else if(live2==0){
-            this.showGameWinner(1);
-        }
         if (this.kKey.isDown){
             this.showGameWinner(1);
         }
+
     },
     //=============================================================================================
     player1Move:function(){
@@ -313,7 +285,6 @@ var normalState = {
             if (livegroup1.countLiving() < 1)
             {
                 this.player.kill();
-                //game.global.normal = 2;
                 this.showGameWinner(2);
             }
         }
@@ -329,7 +300,6 @@ var normalState = {
             if (livegroup2.countLiving() < 1)
             {
                 this.player_2.kill();
-                //game.global.normal = 1;
                 this.showGameWinner(1);
             }
         }
@@ -404,42 +374,12 @@ var normalState = {
         boots.play('lighting');
         boot.kill();
     },
-    /*push: function(player, boot){
-        powerUp.play();
-        var x=game.width-100;
-        var y;
-        if(player == this.player){
-            this.playerSpeed = 350;
-            y=50;
-        } else if(player==this.player_2){
-            this.playerSpeed_2 = 350;
-            y=150;
-        }
-        var gloves = game.add.sprite(x, y, 'glove');
-        gloves.body.immovable = true;
-        gloves.anchor.setTo(1);
-        gloves.animations.add('glove', [0,1,2],5,true);
-        gloves.play('glove');
-        glove.kill();
-    },*/
     addPlayers: function(){
         this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'bomber');
         game.physics.arcade.enable(this.player);
         this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'bomber');
         game.physics.arcade.enable(this.player_2);
     },
-    //*** 
-    addGlove: function(x, y){
-        var glove = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'glove2');
-        game.physics.arcade.enable(glove);
-        glove.body.immovable = true;
-        glove.anchor.setTo(0);
-        glove.animations.add('glove', [0,1,2],5,true);
-        glove.play('glove');
-        this.gloveList.add(glove);
-    },
-
-
     addBoots: function(x, y){
         var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'lighting');
         game.physics.arcade.enable(boots);
@@ -492,57 +432,21 @@ var normalState = {
         game.physics.arcade.enable(brick);
         brick.body.immovable = true;
         this.brickList.add(brick);
+
     },
     addGrass: function(x, y){
         var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'grass');
         game.physics.arcade.enable(grass);
         grass.body.immovable = true;
         this.grassList.add(grass);
+
     },
     addGround: function(x, y){
         var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground');
         wall.body.immovable = true;
     },
-
-    //*** 
-    addTree1: function(x, y){
-        var tree1 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tree1');
-        game.physics.arcade.enable(tree1);
-        tree1.body.immovable = true;
-        this.treeList1.add(tree1);
-    },
-    addTree2: function(x, y){
-        var tree2 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tree2');
-        game.physics.arcade.enable(tree2);
-        tree2.body.immovable = true;
-        this.treeList2.add(tree2);
-    },
-    addTree3: function(x, y){
-        var tree3 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tree3');
-        game.physics.arcade.enable(tree3);
-        tree3.body.immovable = true;
-        this.treeList3.add(tree3);
-    },
-    addWall1: function(x, y){
-        var wall1 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'wall1');
-        game.physics.arcade.enable(wall1);
-        wall1.body.immovable = true;
-        this.wallList1.add(wall1);
-    },
-    addBrick1: function(x, y){
-        var brick1 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'brick1');
-        game.physics.arcade.enable(brick1);
-        brick1.body.immovable = true;
-        this.brickList1.add(brick1);
-    },
-    addGround1: function(x, y){
-        var ground1 = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground1');
-        ground1.body.immovable = true;
-    },
-    
-    detonateBomb: function(player, x, y, explosionList, wallList, brickList,treeList1,treeList2,treeList3,brickList1){
-        if (game.global.sound == 1)
-            bombSound.play();
+    detonateBomb: function(player, x, y, explosionList, wallList, brickList){
+        bombSound.play();
         // this.bombExplosion(x,y);
         this.emitter = game.add.emitter(0, 0, 500);
         this.emitter.makeParticles('pixel');
@@ -563,12 +467,12 @@ var normalState = {
             game.add.sprite(x + 40, y, 'explosion'),
             game.add.sprite(x - 40, y, 'explosion')
         ];
-        if(player == 1 && normalState.playerPower){
+        if(player == 1 && coincollectState2.playerPower){
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
             fire.push(game.add.sprite(x - 80, y, 'explosion'));
-        } else if (player == 2 && normalState.playerPower_2) {
+        } else if (player == 2 && coincollectState2.playerPower_2) {
             fire.push(game.add.sprite(x, y + 80, 'explosion'));
             fire.push(game.add.sprite(x, y - 80, 'explosion'));
             fire.push(game.add.sprite(x + 80, y, 'explosion'));
@@ -588,41 +492,6 @@ var normalState = {
                 }
             }
         }
-
-        //*** 
-        for (i = 0; i < fire.length; i++) {
-            if(game.physics.arcade.overlap(fire[i], treeList1)){
-                fire[i].kill();
-                if(i > 0 && fire[i + 4] !== undefined){
-                    fire[i + 4].kill();
-                }
-            }
-        }
-        for (i = 0; i < fire.length; i++) {
-            if(game.physics.arcade.overlap(fire[i], treeList2)){
-                fire[i].kill();
-                if(i > 0 && fire[i + 4] !== undefined){
-                    fire[i + 4].kill();
-                }
-            }
-        }  
-        for (i = 0; i < fire.length; i++) {
-            if(game.physics.arcade.overlap(fire[i], treeList3)){
-                fire[i].kill();
-                if(i > 0 && fire[i + 4] !== undefined){
-                    fire[i + 4].kill();
-                }
-            }
-        }
-        for (i = 0; i < fire.length; i++) {
-            if(game.physics.arcade.overlap(fire[i],brickList1)){
-                fire[i].kill();
-                if(i > 0 && fire[i + 4] !== undefined){
-                    fire[i + 4].kill();
-                }
-            }
-        }
-
         setTimeout(function(){
             explosionList.forEach(function(element){
                 element.kill();
@@ -635,57 +504,12 @@ var normalState = {
                 }
                 return false;
             });
-            var temp1 = treeList1.filter(function(element){
-                for (var i = 0; i < fire.length; i++) {
-                    if(element.x == fire[i].x && element.y == fire[i].y){
-                        return true;
-                    }
-                }
-                return false;
-            });
-            var temp2 = treeList2.filter(function(element){
-                for (var i = 0; i < fire.length; i++) {
-                    if(element.x == fire[i].x && element.y == fire[i].y){
-                        return true;
-                    }
-                }
-                return false;
-            });
-            var temp3 = treeList3.filter(function(element){
-                for (var i = 0; i < fire.length; i++) {
-                    if(element.x == fire[i].x && element.y == fire[i].y){
-                        return true;
-                    }
-                }
-                return false;
-            });
-            var temp4 = brickList1.filter(function(element){
-                for (var i = 0; i < fire.length; i++) {
-                    if(element.x == fire[i].x && element.y == fire[i].y){
-                        return true;
-                    }
-                }
-                return false;
-            });
 
             temp.list.forEach(function(element){
                 element.kill();
             });
-            temp1.list.forEach(function(element){
-                element.kill();
-            });
-            temp2.list.forEach(function(element){
-                element.kill();
-            });
-            temp3.list.forEach(function(element){
-                element.kill();
-            });
-            temp4.list.forEach(function(element){
-                element.kill();
-            });
         }, 1000);
     },
-
     dropBomb: function(player){
         var gridX;
         var gridY;
@@ -694,12 +518,6 @@ var normalState = {
         var explosionList;
         var wallList;
         var brickList;
-        //*** 
-        var treeList1;
-        var treeList2;
-        var treeList3;
-        var brickList1;
-
         if(player == 1  && this.playerDrop){
             this.playerDrop = false;
             gridX = this.player.x - this.player.x % 40;
@@ -718,18 +536,11 @@ var normalState = {
             explosionList = this.explosionList;
             wallList = this.wallList;
             brickList = this.brickList;
-            //*** 
-            treeList1 = this.treeList1;
-            treeList2 = this.treeList2;
-            treeList3 = this.treeList3;
-            brickList1 = this.brickList1;
-
             setTimeout(function(){
                 bomb.kill();
-                detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList,treeList1,treeList2,treeList3,brickList1);
-                normalState.enablePlayerBomb(1);
+                detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList);
+                coincollectState2.enablePlayerBomb(1);
             }, 2000);
-           
 
             setTimeout(this.thisEnableBomb, 2000);
 
@@ -752,16 +563,11 @@ var normalState = {
             explosionList_2 = this.explosionList_2;
             wallList = this.wallList;
             brickList = this.brickList;
-            //*** 
-            treeList1 = this.treeList1;
-            treeList2 = this.treeList2;
-            treeList3 = this.treeList3;
-            brickList1 = this.brickList1;
 
             setTimeout(function(){
                 bomb.kill();
-                detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList,treeList1,treeList2,treeList3,brickList1);
-                normalState.enablePlayerBomb(2);
+                detonateBomb(player, bomb.x, bomb.y, explosionList_2, wallList, brickList);
+                coincollectState2.enablePlayerBomb(2);
             }, 2000);
         }
     },
@@ -774,8 +580,7 @@ var normalState = {
 
     },
     showGameWinner: function(player){
-        this.bgEnd = game.add.image(0, 0, 'background_score'); 
-        this.gameMessage = game.add.text(150, 150, 'Player ' +player+" Wins", { font: '60px Georgia', fill: '#ffffff' });
+        this.gameMessage = game.add.text(150, 150, 'Player ' +player+"Wins", { font: '60px Georgia', fill: '#ffffff' });
         this.play2_bt = game.add.button(200, game.height/2+100, 'button_play2', this.restartGame, this, 1, 0, 0);        
         this.next_bt = game.add.button(350, game.height/2+95, 'button_next', this.nextLevel, this, 1, 0, 0);   
     },
@@ -788,16 +593,17 @@ var normalState = {
         live2=3;
         live3=3;
         live4=4;
-        gameInPlay = true;
+
         music.stop();
         gameStart.play();
-        game.state.start('normal');
+        game.state.start('coincollect2');
     },
     nextLevel:function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
-        game.state.start('normal2');
-        level=2;
-
+        game.state.start('coincollect3');
+        level=3;
     }
 
 };
+
+
