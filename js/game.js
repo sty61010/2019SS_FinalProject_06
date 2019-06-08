@@ -37,6 +37,7 @@ game.state.add('mode', modeState);
 
 game.state.add('menu', menuState);
 // game.state.add('play', mainState);
+game.state.add('killing',killingState);
 game.state.add('normal', normalState);
 game.state.add('coincollect',coincollectState);
 game.state.add('win', winState);

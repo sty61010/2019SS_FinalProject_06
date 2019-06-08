@@ -83,6 +83,16 @@ var loadState = {
 
         //Bomb
         game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
+        ///killing
+        game.load.image('ice','assets/ice.png');
+        game.load.image('iceberg','assets/iceberg.png');
+        game.load.image('bomb_increase','assets/bomb_increase.png');
+        game.load.image('glove','assets/gloves.png');
+        game.load.image('gun','assets/gun.png');
+        game.load.image('laser_up','assets/laser_up.png');
+        game.load.image('laser_down','assets/laser_down.png');
+        game.load.image('laser_left','assets/laser_left.png');
+        game.load.image('laser_right','assets/laser_right.png');
     },
     create: function() {
 

@@ -34,7 +34,7 @@ var modeState = {
             this.buttonSound.play();
     },
     killing:function(){
-
+        game.state.start('killing');
     },
     coincollect:function(){
         game.state.start('coincollect');
