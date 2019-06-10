@@ -82,7 +82,9 @@ var loadState = {
         game.load.spritesheet('heart', 'assets/heart.png',40, 40);
 
         //Bomb
-        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
+        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115); 
+        game.load.spritesheet('bomb1', 'assets/bomb_3.png', 40, 40); 
+
         ///killing
         game.load.image('ice','assets/ice.png');
         game.load.image('iceberg','assets/iceberg.png');
