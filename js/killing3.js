@@ -795,15 +795,15 @@ var killingState3 = {
             gridY = this.player.y - this.player.y % 40;
 
 
-            bomb = game.add.sprite(gridX, gridY, 'bomb');
+            bomb = game.add.sprite(gridX, gridY, 'bomb1');
             if(!this.push_able) bomb.body.immovable = true;
             else bomb.body.immovable=false;
             this.bombList.add(bomb)            
 
-            bomb.anchor.setTo(0.5)
-            bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
-            bomb.play('bomb',true,true); 
+            bomb.anchor.setTo(0)
+            // bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb1',true,true); 
             game.physics.arcade.enable(bomb);
 
 
@@ -826,17 +826,17 @@ var killingState3 = {
             gridX = this.player_2.x - this.player_2.x % 40;
             gridY = this.player_2.y - this.player_2.y % 40;
 
-            bomb = game.add.sprite(gridX, gridY, 'bomb');
+            bomb = game.add.sprite(gridX, gridY, 'bomb1');
             game.physics.arcade.enable(bomb);
             if(!this.push_able2)bomb.body.immovable = true;
             else bomb.body.inmovable=false;
             this.bombList_2.add(bomb);
 
 
-            bomb.anchor.setTo(0.5)
-            bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
-            bomb.play('bomb',true,true); 
+            bomb.anchor.setTo(0)
+            // bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb1',true,true); 
             
             detonateBomb = this.detonateBomb;
             explosionList_2 = this.explosionList_2;

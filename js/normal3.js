@@ -618,10 +618,10 @@ var normalState3 = {
             gridX = this.player.x - this.player.x % 40;
             gridY = this.player.y - this.player.y % 40;
 
-            bomb = game.add.sprite(gridX, gridY, 'bomb');
-            bomb.anchor.setTo(0.5)
-            bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
+            bomb = game.add.sprite(gridX, gridY, 'bomb1');
+            bomb.anchor.setTo(0)
+            // bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
             bomb.play('bomb',true,true); 
             game.physics.arcade.enable(bomb);
             bomb.body.immovable = true;
@@ -644,11 +644,11 @@ var normalState3 = {
             gridX = this.player_2.x - this.player_2.x % 40;
             gridY = this.player_2.y - this.player_2.y % 40;
 
-            bomb = game.add.sprite(gridX, gridY, 'bomb');
+            bomb = game.add.sprite(gridX, gridY, 'bomb1');
 
             bomb.anchor.setTo(0)
-            bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb', [0,1,2,3,4,5,6,7], 5, true);
+            // bomb.scale.setTo(0.5,0.5);
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
             bomb.play('bomb',true,true);
             game.physics.arcade.enable(bomb);
             bomb.body.immovable = true;
