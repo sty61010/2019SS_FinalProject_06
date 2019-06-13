@@ -802,8 +802,8 @@ var killingState2 = {
 
             bomb.anchor.setTo(0)
             // bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
-            bomb.play('bomb1',true,true); 
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb',true,true); 
             game.physics.arcade.enable(bomb);
 
 
@@ -835,8 +835,8 @@ var killingState2 = {
 
             bomb.anchor.setTo(0)
             // bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
-            bomb.play('bomb1',true,true); 
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb',true,true); 
             
             detonateBomb = this.detonateBomb;
             explosionList_2 = this.explosionList_2;

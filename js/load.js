@@ -10,6 +10,31 @@ var loadState = {
         
         // Load all game assets
 
+        //candy
+        game.load.spritesheet('candy1', './assets/candy6.png', 40, 160);
+        game.load.spritesheet('candy2', './assets/candy7.png', 40, 160);
+        game.load.spritesheet('candy3', './assets/candy8.png', 40, 160);
+        game.load.spritesheet('candy4', './assets/candy9.png', 40, 160);
+        game.load.image('candy_ground', 'assets/candy5.png');
+
+        //house
+        game.load.image('house1','./assets/house1.png');
+        game.load.image('house2','./assets/house2.png');
+        game.load.image('house3','./assets/house3.png');
+        game.load.image('house4','./assets/house4.png');
+        game.load.image('house_ground','./assets/house5.png');
+        game.load.image('house5','./assets/house6.png');
+        game.load.image('house_ground2','./assets/house7.png');
+
+        //volcanoA
+        game.load.image('volcano1','./assets/volcano1.png');
+        game.load.image('volcano2','./assets/volcano2.png');
+        game.load.image('volcano3','./assets/volcano3.png');
+        game.load.image('volcano4','./assets/volcano4.png');
+        game.load.image('volcano_ground','./assets/volcano5.png');
+        game.load.image('volcano5','./assets/volcano6.png');
+        game.load.image('volcano_ground2','./assets/volcano7.png');
+
         // Map sprites
         game.load.image('ground', 'assets/ground.png');
         game.load.image('grass', 'assets/grass.png');
@@ -61,7 +86,10 @@ var loadState = {
         game.load.audio('button_sound', 'assets/button.wav');
         // Background
         game.load.image('background_menu', './assets/bg.jpg');
-        game.load.image('background_score', './assets/score_bg.jpg');
+        //game.load.image('background_score', './assets/score_bg.jpg');
+        game.load.image('background_score', './assets/newscore_bg.jpg');
+
+
         game.load.image('background_win', './assets/win_bg.jpg');
         game.load.image('background_lose', './assets/lose_bg.jpg');
 
@@ -75,16 +103,20 @@ var loadState = {
         //Coin
         game.load.spritesheet('coin', 'assets/coin.png', 40, 40);
         //Star
-        game.load.spritesheet('star', 'assets/star1.png',40, 40);
+        game.load.spritesheet('star', 'assets/star2.png',40, 40);
+        // game.load.spritesheet('star', 'assets/star1.png',28, 30);
+
         //Lighting
         game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
         //Heart
         game.load.spritesheet('heart', 'assets/heart.png',40, 40);
 
-        //Bomb
-        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115); 
-        game.load.spritesheet('bomb1', 'assets/bomb_3.png', 40, 40); 
+        //tube
+        game.load.spritesheet('tube', 'assets/tube.png',20, 35);
 
+        //Bomb
+        game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
+        game.load.spritesheet('bomb1', 'assets/bomb_3.png', 40, 40); 
         ///killing
         game.load.image('ice','assets/ice.png');
         game.load.image('iceberg','assets/iceberg.png');
@@ -104,6 +136,11 @@ var loadState = {
         game.load.image('brick1', 'assets/mapAssets_4.png');
         game.load.image('ground1', 'assets/mapAssets_6.png');
         game.load.spritesheet('glove2', 'assets/glove.png', 40, 40);
+        //boss
+        game.load.spritesheet('boss', 'assets/boss_3.png', 67, 120);
+        //boss_bullet
+        
+ 
     },
     create: function() {
 

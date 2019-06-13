@@ -119,7 +119,7 @@ var killingState = {
         scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
         scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
         scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        levelText = game.add.text(game.width-170, 440, levelString + game.global.level, {  font: '28px Georgia', fill: '#fff' });
+        levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
     },
     update: function(){ 
         if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
@@ -802,8 +802,8 @@ var killingState = {
 
             bomb.anchor.setTo(0)
             // bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
-            bomb.play('bomb1',true,true); 
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb',true,true); 
             game.physics.arcade.enable(bomb);
 
 
@@ -835,8 +835,8 @@ var killingState = {
 
             bomb.anchor.setTo(0)
             // bomb.scale.setTo(0.5,0.5);
-            bomb.animations.add('bomb1', [0,1,2,3,4,5], 5, true);
-            bomb.play('bomb1',true,true); 
+            bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
+            bomb.play('bomb',true,true); 
             
             detonateBomb = this.detonateBomb;
             explosionList_2 = this.explosionList_2;
