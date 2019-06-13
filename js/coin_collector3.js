@@ -243,9 +243,16 @@ var coincollectState3 = {
                     this.addRedFlag();
                     // this.addCoin();
                 }
-                if((x==6||x==7||x==8)&&(y==6||y==7||y==8))
-                    this.addWall(x,y);
                 if (x === 0 || y === 0 || x == 14 || y == 14){
+                    this.addWall(x, y);
+                }
+                else if((x==3||x==11)&&y>2&&y<12){
+                    this.addWall(x, y);
+                }
+                else if(y==3&&x<12&&x>2){
+                    this.addWall(x, y);
+                }
+                else if(y==11&&x<12&&x>2&&x!=7){
                     this.addWall(x, y);
                 }
                 else if(x % 2 === 0 && y % 2 === 0){
@@ -268,16 +275,6 @@ var coincollectState3 = {
                     this.addGrass(x, y);
 
                 }
-            }
-        }
-    },
-    createCoin:function(){
-        for(var x=0;x<15;x++){
-            for(var y=0;y<15;y++){
-                var rand=game.rnd.integerInRange(0, 100);
-                if(rand<20)
-                this.addCoin(x,y);
-                rand=0;
             }
         }
     },
@@ -433,27 +430,35 @@ var coincollectState3 = {
         this.flagList.add(redFlag);
     },
     addWall: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'wall');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy_wall')
         game.physics.arcade.enable(wall);
         wall.body.immovable = true;
         this.wallList.add(wall);
     },
     addBrick: function(x, y){
-        var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'brick');
+        var ran = Math.floor(Math.random() * 4) + 1 ; 
+        if (ran == 1)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy1');
+        else if(ran == 2)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy2');
+        else if(ran == 3)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy3');
+        else if(ran == 4)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy4');
         game.physics.arcade.enable(brick);
         brick.body.immovable = true;
         this.brickList.add(brick);
 
     },
     addGrass: function(x, y){
-        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'grass');
+        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy_ground');
         game.physics.arcade.enable(grass);
         grass.body.immovable = true;
         this.grassList.add(grass);
 
     },
     addGround: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'candy_ground2');
         wall.body.immovable = true;
     },
     detonateBomb: function(player, x, y, explosionList, wallList, brickList){

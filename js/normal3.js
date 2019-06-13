@@ -85,6 +85,7 @@ var normalState3 = {
         this.explosionList = game.add.group();
         this.explosionList_2 = game.add.group();
         this.addPlayers();
+        this.boss_bulletList=game.add.group();
 
     },
     soundCreate:function(){
@@ -172,6 +173,8 @@ var normalState3 = {
         game.physics.arcade.overlap(this.player, this.boss, null, null, this);
         game.physics.arcade.overlap(this.player_2, this.boss, null, null, this);
 
+        game.physics.arcade.overlap(this.player, this.boss_bulletList, this.burn, null, this);
+        game.physics.arcade.overlap(this.player_2, this.boss_bulletList, this.burn, null, this);
 
         //win
         if(score1 == 20){
@@ -224,6 +227,7 @@ var normalState3 = {
 
         if (this.spaceKey.justUp){
             this.dropBomb(1);
+            this.bossFire();
         }
     },
     player2Move:function(){
@@ -264,6 +268,7 @@ var normalState3 = {
         }
         if (this.qKey.isDown){
             this.dropBomb(2);
+            this.bossFire();
         }
     },
     player3Move:function(){
@@ -281,9 +286,9 @@ var normalState3 = {
             [3,0,1,3,0,1,0,3,0,0,0,3,0,2,3],
             [3,0,2,0,0,3,2,3,1,3,0,0,2,1,3],
             [3,2,3,0,3,0,0,0,1,0,3,0,3,1,3],
-            [3,1,1,1,3,2,0,0,0,1,2,1,3,0,3],
-            [3,1,0,0,0,2,0,0,0,1,0,0,0,1,3],
-            [3,2,3,0,3,0,0,0,0,0,3,0,3,2,3],
+            [3,1,1,1,3,2,0,0,1,1,2,1,3,0,3],
+            [3,1,0,0,0,2,3,3,3,1,0,0,0,1,3],
+            [3,2,3,0,3,0,0,0,1,0,3,0,3,2,3],
             [3,1,3,1,3,1,0,0,3,3,1,3,0,1,3],
             [3,0,1,3,0,2,0,3,0,0,0,3,0,1,3],
             [3,1,1,0,0,3,1,3,1,3,0,0,1,1,3],
@@ -295,7 +300,7 @@ var normalState3 = {
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
                 var map = map_volcano[x][y];
-                if(x==7&&y==7){
+                if(x==7 && y==7){
                     this.createBoss(x,y);
                 }
                 if (map == 0)
@@ -312,7 +317,6 @@ var normalState3 = {
                     }
                 else if (map == 3)
                    this.addWall(x, y);
-                
             }
         }
     },
@@ -353,14 +357,6 @@ var normalState3 = {
             }
         }
     },*/
-    createBoss:function(x,y){
-        this.boss=game.add.sprite(40*7.5, 40*7.5, 'boss');
-        this.boss.body.immovable = true;
-        this.boss.anchor.setTo(0.5);
-        this.boss.animations.add('boss', [0,1,2,3,4],5,true);
-        this.boss.play('boss'); 
-    }
-    ,
     burn: function(player,fire){
         fire.kill();
         if(player==this.player){
@@ -699,6 +695,31 @@ var normalState3 = {
     },
     nextLevel:function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+    },
+    createBoss:function(x,y){
+        this.boss=game.add.sprite(40*7.5, 40*7.5, 'boss');
+        this.boss.body.immovable = true;
+        this.boss.anchor.setTo(0.5);
+        this.boss.animations.add('boss', [0,1,2,3,4,5,6,7,8],5,true);
+        this.boss.play('boss'); 
+    },
+    bossFire:function(){
+        for(var i=0;i<1;i++)
+        {
+            var x, y;
+            x=game.rnd.integerInRange(-400,400);
+            y=game.rnd.integerInRange(-400,400);
+            var boss_bullet= game.add.sprite(this.boss.x, this.boss.y, 'boss_bullet');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+        }
+
     }
 
 };

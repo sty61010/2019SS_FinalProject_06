@@ -10,6 +10,20 @@ var loadState = {
         
         // Load all game assets
 
+        game.load.image('door', 'assets/spiral.png'); 
+
+
+        //boss
+        game.load.spritesheet('boss', 'assets/boss_3.png', 67, 120);
+        //boss_bullet
+        game.load.spritesheet('boss_bullet', 'assets/red_flame.png', 131, 169);
+
+        //menu
+        game.load.image('menu_1','./assets/menu_1.png');
+        game.load.spritesheet('menu_2', './assets/menu_2.png', 100, 98);
+        game.load.spritesheet('title', './assets/title_1.png', 512, 146);
+
+
         //candy
         game.load.spritesheet('candy1', './assets/candy6.png', 40, 160);
         game.load.spritesheet('candy2', './assets/candy7.png', 40, 160);
@@ -26,14 +40,56 @@ var loadState = {
         game.load.image('house5','./assets/house6.png');
         game.load.image('house_ground2','./assets/house7.png');
 
-        //volcanoA
+        //sea
+        game.load.image('sea1','./assets/sea1.png');
+        game.load.image('sea2','./assets/sea2.png');
+        game.load.image('sea3','./assets/sea3.png');
+        game.load.image('sea4','./assets/sea4.png');
+        game.load.image('sea_ground','./assets/ice5.png');
+        game.load.image('sea5','./assets/sea5.png');
+        game.load.image('sea_ground2','./assets/sea6.png');
+
+        //volcano
         game.load.image('volcano1','./assets/volcano1.png');
         game.load.image('volcano2','./assets/volcano2.png');
         game.load.image('volcano3','./assets/volcano3.png');
         game.load.image('volcano4','./assets/volcano4.png');
-        game.load.image('volcano_ground','./assets/volcano5.png');
+        game.load.image('volcano_ground','./assets/volcano7.png');
         game.load.image('volcano5','./assets/volcano6.png');
-        game.load.image('volcano_ground2','./assets/volcano7.png');
+        game.load.image('volcano_ground2','./assets/volcano5.png');
+
+        //candy
+        game.load.image('candy1','./assets/candy1.png');
+        game.load.image('candy2','./assets/candy2.png');
+        game.load.image('candy3','./assets/candy3.png');
+        game.load.image('candy4','./assets/candy4.png');
+        game.load.image('candy_ground','./assets/candy12.png');
+        game.load.image('candy5','./assets/candy10.png');
+        game.load.image('candy_ground2','./assets/candy5.png');
+        game.load.image('candy_wall','./assets/candy11.png');
+
+        //snow
+        game.load.image('snow1','./assets/ice1.png');
+        game.load.image('snow2','./assets/ice2.png');
+        game.load.image('snow3','./assets/ice3.png');
+        game.load.image('snow4','./assets/ice4.png');
+        game.load.image('snow_ground','./assets/ice6.png');
+        game.load.image('snow5','./assets/ice9.png');
+        game.load.image('snow_ground2','./assets/ice7.png');
+
+        //forest
+        game.load.image('forest1','./assets/forest1.png');
+        game.load.image('forest2','./assets/forest2.png');
+        game.load.image('forest3','./assets/forest3.png');
+        game.load.image('forest4','./assets/forest4.png');
+        game.load.image('forest_ground','./assets/forest8.png');
+        game.load.image('forest5','./assets/forest7.png');
+
+
+        //player
+        game.load.image('player1_original','./assets/player1_original.png');
+        game.load.spritesheet('player1', './assets/player1.png',36.5, 40);
+
 
         // Map sprites
         game.load.image('ground', 'assets/ground.png');
@@ -103,9 +159,7 @@ var loadState = {
         //Coin
         game.load.spritesheet('coin', 'assets/coin.png', 40, 40);
         //Star
-        game.load.spritesheet('star', 'assets/star2.png',40, 40);
-        // game.load.spritesheet('star', 'assets/star1.png',28, 30);
-
+        game.load.spritesheet('star', 'assets/star1.png',28, 30);
         //Lighting
         game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
         //Heart
@@ -116,7 +170,8 @@ var loadState = {
 
         //Bomb
         game.load.spritesheet('bomb', 'assets/bomb1.png', 123, 115);
-        game.load.spritesheet('bomb1', 'assets/bomb_3.png', 40, 40); 
+        game.load.spritesheet('bomb1', 'assets/bomb_3.png', 40, 40);
+
         ///killing
         game.load.image('ice','assets/ice.png');
         game.load.image('iceberg','assets/iceberg.png');
@@ -136,11 +191,6 @@ var loadState = {
         game.load.image('brick1', 'assets/mapAssets_4.png');
         game.load.image('ground1', 'assets/mapAssets_6.png');
         game.load.spritesheet('glove2', 'assets/glove.png', 40, 40);
-        //boss
-        game.load.spritesheet('boss', 'assets/boss_3.png', 67, 120);
-        //boss_bullet
-        
- 
     },
     create: function() {
 

@@ -7,11 +7,21 @@
 var menuState = { 
     create: function() {
         // Add a background image 
-        this.bg = game.add.image(0, 0, 'background_menu'); 
+        game.stage.backgroundColor = '#000000';
+        this.volcano = game.add.image(50, 400, 'menu_1');
+        this.explosion = game.add.sprite(150,280, 'menu_2');
+        this.explosion.animations.add('exp', [0,1,2,3,4], 5, true);
+        this.explosion.animations.play('exp');
+ 
+        //this.bg = game.add.image(0, 0, 'background_menu'); 
         //this.bg.alpha=0.5;
         // Display the name of the game
-        var nameLabel = game.add.text(game.width/2-100, 150, 'Final Explosion', { font: '60px Georgia', fill: '#ffffff' }); 
-        nameLabel.anchor.setTo(0.5, 0.5);
+        this.title = game.add.sprite(50,50, 'title');
+        this.title.animations.add('move', [0,1,2,3,4], 30, true);
+        this.title.animations.play('move');
+
+        //var nameLabel = game.add.text(game.width/2-100, 150, 'Final Explosion', { font: '60px Georgia', fill: '#ffffff' }); 
+        //nameLabel.anchor.setTo(0.5, 0.5);
 
         this.button_rank = game.add.button(game.width-150, 50, 'button_rank', this.checkRank, this, 1, 0, 0);
         this.button_rank.scale.setTo(0.5,0.5);

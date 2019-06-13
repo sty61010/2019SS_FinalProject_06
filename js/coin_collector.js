@@ -1,7 +1,3 @@
-
-
-
-
 var coincollectState = {
     preload: function(){
     },
@@ -244,9 +240,28 @@ var coincollectState = {
                     this.addRedFlag();
                     // this.addCoin();
                 }
-                if((x==6||x==7||x==8)&&(y==6||y==7||y==8))
-                    this.addWall(x,y);
                 if (x === 0 || y === 0 || x == 14 || y == 14){
+                    this.addWall(x, y);
+                }
+//special map
+                else if(x==7 && y!=1 && y!=13)
+                {
+                    this.addWall(x, y);
+                }
+                else if(y==7 && x!=1 && x!=13)
+                {
+                    this.addWall(x, y);
+                }
+                else if(x==3 && y==3 || x==3 && y==4 || x==4 && y==3 || x==4 && y==4 ){
+                    this.addWall(x, y);
+                }
+                else if(x==10 && y==10 || x==10 && y==11 || x==11 && y==10 || x==11 && y==11 ){
+                    this.addWall(x, y);
+                }
+                else if(x==3 && y==10 || x==3 && y==11 || x==4 && y==10 || x==4 && y==11 ){
+                    this.addWall(x, y);
+                }
+                else if(x==11 && y==3 || x==11 && y==4 || x==10 && y==3 || x==10 && y==4 ){
                     this.addWall(x, y);
                 }
                 else if(x % 2 === 0 && y % 2 === 0){
@@ -269,16 +284,6 @@ var coincollectState = {
                     this.addGrass(x, y);
 
                 }
-            }
-        }
-    },
-    createCoin:function(){
-        for(var x=0;x<15;x++){
-            for(var y=0;y<15;y++){
-                var rand=game.rnd.integerInRange(0, 100);
-                if(rand<20)
-                this.addCoin(x,y);
-                rand=0;
             }
         }
     },
@@ -434,27 +439,34 @@ var coincollectState = {
         this.flagList.add(redFlag);
     },
     addWall: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'wall');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea_ground2');
         game.physics.arcade.enable(wall);
         wall.body.immovable = true;
         this.wallList.add(wall);
     },
     addBrick: function(x, y){
-        var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'brick');
+        var ran = Math.floor(Math.random() * 4) + 1 ; 
+        if (ran == 1)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea1');
+        else if(ran == 2)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea2');
+        else if(ran == 3)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea3');
+        else if(ran == 4)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea4');
         game.physics.arcade.enable(brick);
         brick.body.immovable = true;
         this.brickList.add(brick);
 
     },
     addGrass: function(x, y){
-        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'grass');
+        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow_ground2');
         game.physics.arcade.enable(grass);
         grass.body.immovable = true;
         this.grassList.add(grass);
-
     },
     addGround: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'sea5');
         wall.body.immovable = true;
     },
     detonateBomb: function(player, x, y, explosionList, wallList, brickList){
@@ -614,6 +626,16 @@ var coincollectState = {
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
         game.state.start('coincollect2');
         level=2;
+    },
+    createCoin:function(){
+        for(var x=0;x<15;x++){
+            for(var y=0;y<15;y++){
+                var rand=game.rnd.integerInRange(0, 100);
+                if(rand<20)
+                this.addCoin(x,y);
+                rand=0;
+            }
+        }
     }
 
 };

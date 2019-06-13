@@ -262,9 +262,27 @@ var killingState2 = {
                 if (x === 0 || y === 0 || x == 14 || y == 14){
                     this.addWall(x, y);
                 }
-                else if(x % 2 === 0 && y % 2 === 0){
+//special map
+                else if (x === 3 && y>2 && y<12){
                     this.addWall(x, y);
-                } else if((x < 4 && y < 4) ||( x > 10 && y > 10)){
+                }
+                else if (x === 11 && y>2 && y<12){
+                    this.addWall(x, y);
+                }
+                else if (y === 3 && x>2 && x<12){
+                    this.addWall(x, y);
+                }
+                else if (x === 6 && y>5 && y<9){
+                    this.addWall(x, y);
+                }
+                else if (x === 8 && y>5 && y<9){
+                    this.addWall(x, y);
+                }
+                else if (y === 8 && x>5 && x<9){
+                    this.addWall(x, y);
+                }
+//
+                else if((x < 4 && y < 4) ||( x > 10 && y > 10)){
                     this.addGrass(x, y);
                 } else {
                     if(Math.floor(Math.random() * 3)){
@@ -756,7 +774,7 @@ var killingState2 = {
     },
 
     addWall: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'wall');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow5');
         game.physics.arcade.enable(wall);
         wall.body.immovable = true;
         this.wallList.add(wall);
@@ -764,7 +782,15 @@ var killingState2 = {
     },
 
     addBrick: function(x, y){
-        var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'brick');
+        var ran = Math.floor(Math.random() * 4) + 1 ; 
+        if (ran == 1)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow1');
+        else if(ran == 2)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow2');
+        else if(ran == 3)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow3');
+        else if(ran == 4)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow4');
         game.physics.arcade.enable(brick);
         brick.body.immovable = true;
         this.brickList.add(brick);
@@ -772,11 +798,10 @@ var killingState2 = {
     },
 
     addGrass: function(x, y){
-        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'grass');
+        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow_ground');
         game.physics.arcade.enable(grass);
         grass.body.immovable = true;
         this.grassList.add(grass);
-
     },
 
     
@@ -816,7 +841,7 @@ var killingState2 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList);
-                killingState2.enablePlayerBomb(1);
+                killingState.enablePlayerBomb(1);
             }, 2000);
 
             setTimeout(this.thisEnableBomb, 2000);
@@ -846,7 +871,7 @@ var killingState2 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList_2, wallList, brickList);
-                killingState2.enablePlayerBomb(2);
+                killingState.enablePlayerBomb(2);
             }, 2000);
 
         }
@@ -865,7 +890,7 @@ var killingState2 = {
     },
 
     addGround: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'snow_ground');
         wall.body.immovable = true;
 
     },

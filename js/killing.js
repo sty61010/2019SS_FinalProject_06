@@ -119,7 +119,7 @@ var killingState = {
         scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
         scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
         scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
+        levelText = game.add.text(game.width-170, 440, levelString + game.global.level, {  font: '28px Georgia', fill: '#fff' });
     },
     update: function(){ 
         if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
@@ -259,12 +259,28 @@ var killingState = {
                     this.addBlueFlag();
                     this.addRedFlag();
                 }
-                if (x === 0 || y === 0 || x == 14 || y == 14){
+                if (x == 0 || y == 0 || x == 14 || y == 14){
                     this.addWall(x, y);
                 }
-                else if(x % 2 === 0 && y % 2 === 0){
+//special map
+                else if (x == 7){
+                    if(y!=0 && y!=1 && y!=13 && y!=14)
                     this.addWall(x, y);
-                } else if((x < 4 && y < 4) ||( x > 10 && y > 10)){
+                }
+                else if(y == 7){
+                    if(x!=0 && x!=1 && x!=13 && x!=14)
+                    this.addWall(x, y);
+                }
+                else if (x == 2 && (y==6 || y==5) )
+                    this.addWall(x, y);
+                else if (x == 12 && (y==8 || y==9) )
+                    this.addWall(x, y);
+                else if (y == 2 && (x==8 || x==9) )
+                    this.addWall(x, y);
+                else if (y == 12 && (x==5 || x==6) )
+                    this.addWall(x, y);
+//
+                else if((x < 4 && y < 4) ||( x > 10 && y > 10)){
                     this.addGrass(x, y);
                 } else {
                     if(Math.floor(Math.random() * 3)){
@@ -756,7 +772,7 @@ var killingState = {
     },
 
     addWall: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'wall');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest5');
         game.physics.arcade.enable(wall);
         wall.body.immovable = true;
         this.wallList.add(wall);
@@ -764,7 +780,15 @@ var killingState = {
     },
 
     addBrick: function(x, y){
-        var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'brick');
+        var ran = Math.floor(Math.random() * 4) + 1 ; 
+        if (ran == 1)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest1');
+        else if(ran == 2)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest2');
+        else if(ran == 3)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest3');
+        else if(ran == 4)
+            var brick = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest4');
         game.physics.arcade.enable(brick);
         brick.body.immovable = true;
         this.brickList.add(brick);
@@ -772,7 +796,7 @@ var killingState = {
     },
 
     addGrass: function(x, y){
-        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'grass');
+        var grass = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest_ground');
         game.physics.arcade.enable(grass);
         grass.body.immovable = true;
         this.grassList.add(grass);
@@ -865,7 +889,7 @@ var killingState = {
     },
 
     addGround: function(x, y){
-        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'ground');
+        var wall = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'forest_ground');
         wall.body.immovable = true;
 
     },

@@ -85,6 +85,7 @@ var normalState2 = {
         this.explosionList = game.add.group();
         this.explosionList_2 = game.add.group();
         this.addPlayers();
+        this.doorList = game.add.group();
 
     },
     soundCreate:function(){
@@ -168,6 +169,9 @@ var normalState2 = {
         
         game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
         game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
+
+        game.physics.arcade.overlap(this.player, this.doorList, this.sent, null, this);
+        game.physics.arcade.overlap(this.player_2, this.doorList, this.sent, null, this);
 
         //win
         if(score1 == 20){
@@ -270,41 +274,44 @@ var normalState2 = {
     },
     //=============================================================================================
     createMap: function(){
-        // o->road 1->house 2->house+skill 3->wall
-        var map_house = [
-            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-            [3,0,0,0,0,1,3,3,3,1,0,0,0,2,3],
-            [3,0,1,3,0,1,0,3,0,0,0,3,0,2,3],
-            [3,0,2,0,0,3,2,3,1,3,0,0,2,1,3],
-            [3,2,3,0,3,0,0,0,1,0,3,0,3,1,3],
-            [3,1,1,1,3,2,0,0,1,1,2,1,3,0,3],
-            [3,1,0,0,0,2,3,3,3,1,0,0,0,1,3],
-            [3,2,3,0,3,0,0,0,1,0,3,0,3,2,3],
-            [3,1,3,1,3,1,0,0,3,3,1,3,0,1,3],
-            [3,0,1,3,0,2,0,3,0,0,0,3,0,1,3],
-            [3,1,1,0,0,3,1,3,1,3,0,0,1,1,3],
-            [3,0,3,0,3,0,1,1,1,3,0,3,3,2,3],
-            [3,2,0,0,0,2,3,3,3,1,0,0,0,1,3],
-            [3,1,1,1,3,1,0,0,1,1,2,1,0,0,3],
-            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-        ];
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
-                var map = map_house[x][y];
-                if (map == 0)
-                    this.addGrass(x,y);
-                else if (map == 1)
+                if( x == 1 && x == y){
+                    this.addBlueFlag();
+                    this.addRedFlag();
+                    // this.addCoin();
+                }
+                if (x === 0 || y === 0 || x == 14 || y == 14){
+                    this.addWall(x, y);
+                }
+                else if(y==3||y==5||y==11||y==9){
+                    if(x==3||x==4||x==10||x==11)
+                    this.addWall(x, y);
+                }
+                else if(x==4&&y==4 || x==4&&y==10 || x==10&&y==4 || x==10&&y==10)
+                    this.addWall(x, y);
+                else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
+                    this.addDoor(x,y);
+                else if(x % 2 === 0 && y % 2 === 0){
+                    if(!(x==2 &&y==4)&&!(x==12&&y==4)&&!(x==2&&y==10)&&!(x==12&&y==10))
                     this.addBrick(x,y);
-                else if (map == 2){
-                    var ran = Math.floor(Math.random() * 2) + 1 ; 
-                    if(ran == 1)
-                        this.addBoots(x, y);
-                    else if(ran == 2)
-                        this.addStar(x, y);
-                    this.addBrick(x,y);
+                } else if(x < 4 && y < 4 || x > 10 && y > 10){
+                    this.addGrass(x, y);
+                } else {
+                    if(Math.floor(Math.random() * 3)){
+
+                        if(Math.floor(Math.random() * 1.02)){
+                            this.addBoots(x, y);
+                        }
+                        if(Math.floor(Math.random() * 1.02)){
+                            this.addStar(x, y);
+                        }
+                    } 
+                    else {
                     }
-                else if (map == 3)
-                   this.addWall(x, y);
+                    this.addGrass(x, y);
+
+                }
             }
         }
     },
@@ -606,8 +613,8 @@ var normalState2 = {
             gridY = this.player.y - this.player.y % 40;
 
             bomb = game.add.sprite(gridX, gridY, 'bomb1');
-            bomb.anchor.setTo(0)
-            // bomb.scale.setTo(0.5,0.5);
+            bomb.anchor.setTo(0);
+            //bomb.scale.setTo(0.5,0.5);
             bomb.animations.add('bomb', [0,1,2,3,4,5], 5, true);
             bomb.play('bomb',true,true); 
             game.physics.arcade.enable(bomb);
@@ -686,6 +693,52 @@ var normalState2 = {
         game.state.start('normal3');
         level=3;
 
+    },
+    sent: function(player,door){
+        var where = game.rnd.integerInRange(20, 32)%4;
+        if (where == 0){
+            if(this.player==player){
+                this.player.x = 80;
+                this.player.y = 160;
+            }else{
+                this.player_2.x = 80;
+                this.player_2.y = 160;
+            }
+        }else if (where == 1){
+            if(this.player==player){
+                this.player.x = 480;
+                this.player.y = 160;
+            }else{
+                this.player_2.x = 480;
+                this.player_2.y = 160;
+            }
+        }else if( where == 2){
+            if(this.player==player){
+                this.player.x = 80;
+                this.player.y = 400;
+            }else{
+                this.player_2.x = 80;
+                this.player_2.y = 400;
+            }
+        }else{
+            if(this.player==player){
+                this.player.x = 480;
+                this.player.y = 400;
+            }else{
+                this.player_2.x = 480;
+                this.player_2.y = 400;
+            }
+        }
+    },
+    
+    
+    
+     addDoor: function(x,y){
+        var door = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'door');
+        game.physics.arcade.enable(door);
+        door.body.immovable = true;
+        this.doorList.add(door);
     }
+
 
 };

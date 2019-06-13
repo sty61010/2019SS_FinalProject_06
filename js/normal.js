@@ -192,25 +192,33 @@ var normalState = {
             if (this.cursor.left.isDown){
                 if (this.player.x>0){
                     this.player.body.velocity.x = -(this.playerSpeed);
-                    this.player.loadTexture('bomber-left', 0);
+                    this.player.animations.add('run', [3,6], 2, true);
+                    this.player.animations.play('run');
+                    //this.player.loadTexture('bomber-left', 0);
                 }
             }
             if (this.cursor.right.isDown){
                 if (this.player.x<600){
                     this.player.body.velocity.x = (this.playerSpeed);
-                    this.player.loadTexture('bomber-right', 0);
+                    this.player.animations.add('run', [0,1], 2, true);
+                    this.player.animations.play('run');
+                    //this.player.loadTexture('bomber-right', 0);
                 }
             }
             if (this.cursor.up.isDown){
                 if (this.player.y>0){
                     this.player.body.velocity.y = -(this.playerSpeed);
-                    this.player.loadTexture('bomber-back', 0);
+                    this.player.animations.add('run', [0,7], 2, true);
+                    this.player.animations.play('run');
+                    //this.player.loadTexture('bomber-back', 0);
                 }
             }
             if (this.cursor.down.isDown){
                 if (this.player.y<600){
                     this.player.body.velocity.y = (this.playerSpeed);
-                    this.player.loadTexture('bomber-front', 0);
+                    this.player.animations.add('run', [2,5], 2, true);
+                    this.player.animations.play('run');
+                    //this.player.loadTexture('bomber-front', 0);
                 }
             } 
         } else{
@@ -228,28 +236,36 @@ var normalState = {
                 if (this.aKey.isDown){
                     if (this.player_2.x>0){
                         this.player_2.body.velocity.x = -(this.playerSpeed_2);
-                        this.player_2.loadTexture('bomber-left', 0);
+                        this.player_2.animations.add('run', [3,6], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-left', 0);
                         // this.player_2.body.velocity.y = 0;
                     }
                 }
                 if (this.dKey.isDown){
                     if (this.player_2.x<600){
                         this.player_2.body.velocity.x = (this.playerSpeed_2);
-                        this.player_2.loadTexture('bomber-right', 0);
+                        this.player_2.animations.add('run', [0,1], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-right', 0);
                         // this.player_2.body.velocity.y = 0;
                     }
                 }
                 if (this.wKey.isDown){
                     if (this.player_2.y>0){
                         this.player_2.body.velocity.y = -(this.playerSpeed_2);
-                        this.player_2.loadTexture('bomber-back', 0);
+                        this.player_2.animations.add('run', [0,7], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-back', 0);
                         // this.player_2.body.velocity.x = 0;
                     }
                 }
                 if (this.sKey.isDown){
                     if (this.player_2.y<600){
                         this.player_2.body.velocity.y = (this.playerSpeed_2);
-                        this.player_2.loadTexture('bomber-front', 0);
+                        this.player_2.animations.add('run', [2,5], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-front', 0);
                         // this.player_2.body.velocity.x = 0;
                     }
                     }
@@ -270,41 +286,38 @@ var normalState = {
     },
     //=============================================================================================
     createMap: function(){
-        // o->road 1->house 2->house+skill 3->wall
-        var map_house = [
-            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-            [3,0,2,0,0,3,2,3,1,3,0,0,2,1,3],
-            [3,0,3,0,3,0,1,1,1,3,0,3,3,1,3],
-            [3,1,0,0,0,1,3,3,3,1,0,0,0,2,3],
-            [3,2,3,0,3,0,0,0,1,0,3,0,3,1,3],
-            [3,1,1,1,3,2,0,0,1,1,2,1,3,0,3],
-            [3,1,3,1,3,1,0,0,3,3,1,3,0,1,3],
-            [3,0,1,3,0,2,0,3,0,0,0,3,0,1,3],
-            [3,1,1,0,0,3,1,3,1,3,0,0,1,1,3],
-            [3,0,3,0,3,0,1,1,1,3,0,3,3,2,3],
-            [3,1,0,0,0,2,3,3,3,1,0,0,0,1,3],
-            [3,2,3,0,3,0,0,0,1,0,3,0,3,2,3],
-            [3,1,1,1,3,1,0,0,1,1,2,1,3,0,3],
-            [3,1,3,1,3,1,0,0,3,3,1,3,0,0,3],
-            [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-        ];
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
-                var map = map_house[x][y];
-                if (map == 0)
-                    this.addGrass(x,y);
-                else if (map == 1)
-                    this.addBrick(x,y);
-                else if (map == 2){
-                    var ran = Math.floor(Math.random() * 2) + 1 ; 
-                    if(ran == 1)
-                        this.addBoots(x, y);
-                    else if(ran == 2)
-                        this.addStar(x, y);
-                    this.addBrick(x,y);
+                if( x == 1 && x == y){
+                    this.addBlueFlag();
+                    this.addRedFlag();
+                    // this.addCoin();
                 }
-                else if (map == 3)
-                   this.addWall(x, y);
+                if((x==6||x==7||x==8)&&(y==6||y==7||y==8))
+                    this.addWall(x,y);
+                if (x === 0 || y === 0 || x == 14 || y == 14){
+                    this.addWall(x, y);
+                }
+                else if(x % 2 === 0 && y % 2 === 0){
+                    this.addBrick(x,y);
+                    this.addCoin(x,y);
+                } else if(x < 4 && y < 4 || x > 10 && y > 10){
+                    this.addGrass(x, y);
+                } else {
+                    if(Math.floor(Math.random() * 3)){
+
+                        if(Math.floor(Math.random() * 1.02)){
+                            this.addBoots(x, y);
+                        }
+                        if(Math.floor(Math.random() * 1.02)){
+                            this.addStar(x, y);
+                        }
+                    } 
+                    else {
+                    }
+                    this.addGrass(x, y);
+
+                }
             }
         }
     },
@@ -450,9 +463,9 @@ var normalState = {
         boot.kill();
     },
     addPlayers: function(){
-        this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'bomber');
+        this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'player1');
         game.physics.arcade.enable(this.player);
-        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'bomber');
+        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'player1');
         game.physics.arcade.enable(this.player_2);
     },
     addBoots: function(x, y){
