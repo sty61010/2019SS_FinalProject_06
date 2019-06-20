@@ -278,6 +278,16 @@ var coincollectState3 = {
             }
         }
     },
+    createCoin:function(){
+        for(var x=0;x<15;x++){
+            for(var y=0;y<15;y++){
+                var rand=game.rnd.integerInRange(0, 100);
+                if(rand<20)
+                this.addCoin(x,y);
+                rand=0;
+            }
+        }
+    },
     burn: function(player,fire){
         this.createCoin();
         fire.kill();

@@ -828,7 +828,7 @@ var killingState3 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList, wallList, brickList);
-                killingState.enablePlayerBomb(1);
+                killingState3.enablePlayerBomb(1);
             }, 2000);
 
             setTimeout(this.thisEnableBomb, 2000);
@@ -858,7 +858,7 @@ var killingState3 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList_2, wallList, brickList);
-                killingState.enablePlayerBomb(2);
+                killingState3.enablePlayerBomb(2);
             }, 2000);
 
         }

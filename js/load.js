@@ -89,6 +89,7 @@ var loadState = {
         //player
         game.load.image('player1_original','./assets/player1_original.png');
         game.load.spritesheet('player1', './assets/player1.png',36.5, 40);
+        game.load.spritesheet('player01', './assets/player01.png',40, 40);////////
 
 
         // Map sprites

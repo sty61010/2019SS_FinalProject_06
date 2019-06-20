@@ -29,6 +29,11 @@ var live4=1;
 var livegroup1;
 var livegroup2;
 var level=1;
+var animation1='down';
+var animation2='down';
+var animation3='down';
+var animation4='down';
+
 //var myHealthBar1;
 //var myHealthBar2;
 // Add all the states
