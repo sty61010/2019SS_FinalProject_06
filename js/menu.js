@@ -45,6 +45,13 @@ var menuState = {
         this.button_start.onInputOver.add(this.buttonOver,this);
 
     }, 
+    update: function() {
+        if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
+            game.state.start('signin');
+        }
+ 
+
+    }, 
     buttonOver:function(){
         this.buttonSound=game.add.audio('button_sound');
         if(game.global.sound==1)
