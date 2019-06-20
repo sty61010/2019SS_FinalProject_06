@@ -49,11 +49,11 @@ var normalState = {
         livegroup1 = game.add.group();
         for (var i = 0; i < live1; i++) 
         {
-            var livestate = game.add.sprite(game.width-140+i*40 , 100, 'heart');
+            var livestate = game.add.sprite(650+i*40 , 93, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
-            livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup1.add(livestate);
 
@@ -61,11 +61,11 @@ var normalState = {
         livegroup2 = game.add.group();
         for (var i = 0; i < live2; i++) 
         {
-            var livestate = game.add.sprite(game.width-140+i*40 , 200, 'heart');
+            var livestate = game.add.sprite(650+i*40 ,190, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
-            livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup2.add(livestate);
 
@@ -109,104 +109,92 @@ var normalState = {
         this.enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     },
     scoreboard:function(){
-        // scoreText1=game.add.text(620, 50, scoreString1+score1, { font: '30px Georgia', fill: '#fff' });
-        // scoreText2=game.add.text(620, 200, scoreString2+score2, { font: '30px Georgia', fill: '#fff' });
-        // scoreText3=game.add.text(620, 350, scoreString3+score3, { font: '30px Georgia', fill: '#fff' });
-        // scoreText4=game.add.text(620, 500, scoreString4+score4, { font: '30px Georgia', fill: '#fff' });
-        scoreString1 = 'Player 1: ';
-        scoreString2 = 'Player 2: ';
-        scoreString3 = 'Player 3: ';
-        scoreString4 = 'Player 4: ';
-        //levelString = 'Level : ';
-        scoreText1 = game.add.text(game.width-170, 40, scoreString1 + score1, {  font: '28px Georgia', fill: '#fff' });
-        scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
-        scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
-        scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        //levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
+        var player1_headshot = game.add.image(620,20, 'headshot1');        
+        var player2_headshot = game.add.image(620,118, 'headshot2');
+        var player3_headshot = game.add.image(620,218, 'headshot3');
+        var player4_headshot = game.add.image(620,318, 'headshot4');
+        var levelNumber = game.add.image(700,400,'levelNumber1');
+        this.button_pause = game.add.button(640,550, 'button_pause', this.clickPause, this, 1, 0, 0);
+        this.button_pause.anchor.setTo(0.5, 0.5);
+        this.button_pause.scale.setTo(0.7);
+        this.button_menu = game.add.button(700,550, 'button_menu', this.clickMenu, this, 1, 0, 0);
+        this.button_menu.anchor.setTo(0.5, 0.5);
+        this.button_menu.scale.setTo(0.7);
+        this.button_voice = game.add.button(760,550, 'button_voice', this.clickVoice, this, 1, 0, 0);
+        this.button_voice.anchor.setTo(0.5, 0.5);
+        this.button_voice.scale.setTo(0.7);
+
+        text = game.add.text(740,490, '00:59', { font: "40px Arial", fill: "#000000", align: "center" });
+        text.anchor.setTo(0.5, 0.5);
+        game.time.events.loop(Phaser.Timer.SECOND, this.updateCounter, this);
     },
     //=============================================================================================
     update: function(){
-        //Player Move
-        this.player1Move();
-        this.player2Move();
-        this.player3Move();
-        this.player4Move();
-        //Player animation
-        // this.plauer1Animation();
-        game.physics.arcade.collide(this.player, this.wallList);
-        game.physics.arcade.collide(this.player, this.brickList);
+        if ( game.global.pause == 0){
+            //Player Move
+            this.player1Move();
+            this.player2Move();
+            this.player3Move();
+            this.player4Move();
 
-        game.physics.arcade.collide(this.player, this.brickList1);
-        game.physics.arcade.collide(this.player, this.treeList1);
-        game.physics.arcade.collide(this.player, this.treeList2);
-        game.physics.arcade.collide(this.player, this.treeList3);
-        game.physics.arcade.collide(this.player, this.wallList1);
+            game.physics.arcade.collide(this.player, this.wallList);
+            game.physics.arcade.collide(this.player, this.brickList);
+
+            game.physics.arcade.collide(this.player, this.brickList1);
+            game.physics.arcade.collide(this.player, this.treeList1);
+            game.physics.arcade.collide(this.player, this.treeList2);
+            game.physics.arcade.collide(this.player, this.treeList3);
+            game.physics.arcade.collide(this.player, this.wallList1);
 
 
-        game.physics.arcade.collide(this.player_2, this.wallList);
-        game.physics.arcade.collide(this.player_2, this.brickList);
+            game.physics.arcade.collide(this.player_2, this.wallList);
+            game.physics.arcade.collide(this.player_2, this.brickList);
 
-        game.physics.arcade.collide(this.player_2, this.brickList1);
-        game.physics.arcade.collide(this.player_2, this.treeList1);
-        game.physics.arcade.collide(this.player_2, this.treeList2);
-        game.physics.arcade.collide(this.player_2, this.treeList3);
-        game.physics.arcade.collide(this.player_2, this.wallList1);
+            game.physics.arcade.collide(this.player_2, this.brickList1);
+            game.physics.arcade.collide(this.player_2, this.treeList1);
+            game.physics.arcade.collide(this.player_2, this.treeList2);
+            game.physics.arcade.collide(this.player_2, this.treeList3);
+            game.physics.arcade.collide(this.player_2, this.wallList1);
 
-        game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
-        game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
+            game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
+            game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
 
-        game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
-        game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
+            game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
+            game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
 
-        game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
-        game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
+            game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
+            game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
 
-        game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.bootList, this.speedUp, null, this);
+            game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.bootList, this.speedUp, null, this);
 
-        game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
+            game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
+            
+            game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
+            game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
+
+            //win
+            if(score1 == 20){
+                this.showGameWinner(1);
+            }
+            else if(score2==20){
+                this.showGameWinner(2);
+            }
+            if(live1==0){
+                this.showGameWinner(2);
+            }
+            else if(live2==0){
+                this.showGameWinner(1);
+            }
+            if (this.kKey.isDown){
+                this.showGameWinner(1);
+            }
+
+        }
         
-        game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
-        game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
-
-        //win
-        if(score1 == 20){
-            this.showGameWinner(1);
-        }
-        else if(score2==20){
-            this.showGameWinner(2);
-        }
-        if(live1==0){
-            this.showGameWinner(2);
-        }
-        else if(live2==0){
-            this.showGameWinner(1);
-        }
-        if (this.kKey.isDown){
-            this.showGameWinner(1);
-        }
     },
     //=============================================================================================
-    plauer1Animation:function(){
-        if(animation1=='down'){//down
-            this.player.animations.add('down', [0,4], 5, true);
-            this.player.animations.play('down',true,true);
-        }
-        else if(animation1=='up'){//up
-            this.player.animations.add('up', [10,14], 5, true);
-            this.player.animations.play('up',true);
-        }
-        else if(animation1=='left'){//left
-            this.player.animations.add('left', [15,19], 5, true);
-            this.player.animations.play('left',true,true);
-        }
-        else if(animation1=='right'){//right
-            this.player.animations.add('right', [5,9], 5, true);
-            this.player.animations.play('right',true,true);
-        }
-
-    },
     player1Move:function(){
         if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
             if (this.cursor.left.isDown){
@@ -249,6 +237,7 @@ var normalState = {
             this.player.body.velocity.x = 0;
             this.player.body.velocity.y = 0;
         }
+
         if (this.spaceKey.justUp){
             this.dropBomb(1);
         }
@@ -259,7 +248,7 @@ var normalState = {
                 if (this.aKey.isDown){
                     if (this.player_2.x>0){
                         this.player_2.body.velocity.x = -(this.playerSpeed_2);
-                        this.player_2.animations.add('run', [15,19], 2, true);
+                        this.player_2.animations.add('run', [3,6], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-left', 0);
                         // this.player_2.body.velocity.y = 0;
@@ -268,7 +257,7 @@ var normalState = {
                 if (this.dKey.isDown){
                     if (this.player_2.x<600){
                         this.player_2.body.velocity.x = (this.playerSpeed_2);
-                        this.player_2.animations.add('run', [5,9], 2, true);
+                        this.player_2.animations.add('run', [0,1], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-right', 0);
                         // this.player_2.body.velocity.y = 0;
@@ -277,7 +266,7 @@ var normalState = {
                 if (this.wKey.isDown){
                     if (this.player_2.y>0){
                         this.player_2.body.velocity.y = -(this.playerSpeed_2);
-                        this.player_2.animations.add('run', [10,14], 2, true);
+                        this.player_2.animations.add('run', [0,7], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-back', 0);
                         // this.player_2.body.velocity.x = 0;
@@ -286,7 +275,7 @@ var normalState = {
                 if (this.sKey.isDown){
                     if (this.player_2.y<600){
                         this.player_2.body.velocity.y = (this.playerSpeed_2);
-                        this.player_2.animations.add('run', [0,4], 2, true);
+                        this.player_2.animations.add('run', [2,5], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-front', 0);
                         // this.player_2.body.velocity.x = 0;
@@ -385,7 +374,7 @@ var normalState = {
         fire.kill();
         if(player==this.player){
             score2+=1;
-            scoreText2.text = scoreString2 + score2;
+            //scoreText2.text = scoreString2 + score2;
             ///live
             live = livegroup1.getFirstAlive();
             if (live)
@@ -401,7 +390,7 @@ var normalState = {
         }
         else if(player==this.player_2){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
             ///live
             live = livegroup2.getFirstAlive();
             if (live)
@@ -424,7 +413,7 @@ var normalState = {
         if(player==1){
             this.flagList.children[0].kill();
             score1+=5;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
             y=10;
             var Flag = game.add.sprite(x, y, 'red-flag');
             Flag.body.immovable = true;
@@ -432,7 +421,7 @@ var normalState = {
         else if (player==2){
             this.flagList.children[1].kill();
             score2+=5;
-            scoreText2.text = scoreString2 + score2;
+            //scoreText2.text = scoreString2 + score2;
             y=110;
             var Flag = game.add.sprite(x,y, 'blue-flag');
             Flag.body.immovable = true;
@@ -460,10 +449,10 @@ var normalState = {
         powerUp.play();
         if(player == this.player){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
         } else if(player==this.player_2){
             score2+=1;
-            scoreText2.text=scoreString2+score2;
+            //scoreText2.text=scoreString2+score2;
         }
         coin.kill();
     },
@@ -487,9 +476,9 @@ var normalState = {
     },
     addPlayers: function(){
         this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'player01');
-        game.physics.arcade.enable(this.player);
         this.player.scale.setTo(0.9);
-        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'player01');
+        game.physics.arcade.enable(this.player);
+        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'player02');
         this.player_2.scale.setTo(0.9);
         game.physics.arcade.enable(this.player_2);
     },
@@ -640,6 +629,9 @@ var normalState = {
         var brickList;
         if(player == 1  && this.playerDrop){
             this.playerDrop = false;
+            // gridX = this.player.x - this.player.x % 40;
+            // gridY = this.player.y - this.player.y % 40;
+
             gridX = this.player.x - this.player.x % 40;
             gridY = this.player.y - this.player.y % 40;
 
@@ -697,12 +689,42 @@ var normalState = {
         } else {
             this.playerDrop_2 = true;
         }
+
     },
     showGameWinner: function(player){
-        this.bgEnd = game.add.image(0, 0, 'background_score'); 
-        this.gameMessage = game.add.text(150, 150, 'Player ' +player+" Wins", { font: '60px Georgia', fill: '#ffffff' });
-        this.play2_bt = game.add.button(200, game.height/2+100, 'button_play2', this.restartGame, this, 1, 0, 0);        
-        this.next_bt = game.add.button(350, game.height/2+95, 'button_next', this.nextLevel, this, 1, 0, 0);   
+        this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
+        //this.bgEnd.scale.setTo(0.5);
+        this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
+
+         this.text = this.CustomText(game, game.world.centerX, game.world.centerY, 'Hello World!');
+         game.add.existing(this.text);
+         this.text.prototype = Object.create(Phaser.Text.prototype);
+        this.text.prototype.constructor = text;
+        this.text.prototype.update = function() {
+            this.angle += this.rotateSpeed;
+        };
+
+        //game.time.events.loop(Phaser.Timer.SECOND, this.changeColor(i), this);
+        this.play2_bt = game.add.button(230, 320, 'button_play2', this.restartGame, this, 1, 0, 0);        
+        this.next_bt = game.add.button(380, 320, 'button_next', this.nextLevel, this, 1, 0, 0);   
+    },
+    CustomText: function (game, x, y, text) {
+            Phaser.Text.call(this, game, x, y, text, { font: "65px Arial", fill: "#ff0044", align: "center" });
+            this.anchor.set(0.5);
+            this.rotateSpeed = 1;
+    },
+    changeColor: function(){
+        var i;
+        this.gameMessage = game.add.text(200, 220, 'Player ' +1+" Wins", { font: '60px Chalaathah' });
+        if(i == 1){
+            this.gameMessage.addColor('#000000');
+            i = 0;
+        }
+        else{
+            this.gameMessage.addColor('#ffffff');
+            i = 1;
+        }
+            
     },
     restartGame: function(){
         score1=0;
@@ -718,11 +740,46 @@ var normalState = {
         gameStart.play();
         game.state.start('normal');
     },
-    nextLevel:function(){
+    nextLevel: function(){
         game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
         game.state.start('normal2');
         level=2;
-
+    },
+    clickMenu: function(){
+        game.state.start('menu');
+    },
+    clickPause: function(){
+        if (game.global.pause == 1){
+            game.global.pause = 0;
+            console.log('pause:' + game.global.pause);
+        }
+        else {
+            game.global.pause = 1;
+            console.log('pause:' + game.global.pause);
+        }
+    },
+    clickVoice: function(){
+        if (game.global.music == 1){
+            game.global.music = 0;
+            music.stop();
+        }
+        else{
+            game.global.music = 1;
+            music.play();
+        }
+        console.log('music:'+game.global.music);
+        if (game.global.sound == 1){
+            game.global.sound = 0;
+        }
+        else{
+            game.global.sound = 1;
+        }
+        console.log('sound:'+game.global.sound);
+    },
+    updateCounter:function() {
+        counter--;
+        //console.log(counter);
+        text.setText('00:' + counter);
     }
 
 };

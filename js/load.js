@@ -9,8 +9,26 @@ var loadState = {
         game.load.setPreloadSprite(progressBar);
         
         // Load all game assets
+        game.load.image('door', 'assets/spiral.png');
 
-        game.load.image('door', 'assets/spiral.png'); 
+
+         //menu
+        game.load.image('menu_1','./assets/menu_1.png');
+        game.load.spritesheet('menu_2', './assets/menu_2.png', 100, 98);
+        game.load.spritesheet('title', './assets/title_1.png', 512, 146);
+
+        //background
+        game.load.image('bg_menu','./assets/bg_1.jpg');
+        game.load.image('bg_menu2','./assets/bg_2.jpg');
+        game.load.image('bg_menu3','./assets/bg_3.jpg')
+
+
+        
+        //sprite
+        game.load.spritesheet('player01', './assets/player01.png',40, 40);
+        game.load.spritesheet('player02', './assets/player02.png',40, 40);
+        game.load.spritesheet('player03', './assets/player03.png',40, 40);
+        game.load.spritesheet('player04', './assets/player04.png',40, 40);
 
 
         //boss
@@ -18,10 +36,7 @@ var loadState = {
         //boss_bullet
         game.load.spritesheet('boss_bullet', 'assets/red_flame.png', 131, 169);
 
-        //menu
-        game.load.image('menu_1','./assets/menu_1.png');
-        game.load.spritesheet('menu_2', './assets/menu_2.png', 100, 98);
-        game.load.spritesheet('title', './assets/title_1.png', 512, 146);
+       
 
 
         //candy
@@ -89,8 +104,22 @@ var loadState = {
         //player
         game.load.image('player1_original','./assets/player1_original.png');
         game.load.spritesheet('player1', './assets/player1.png',36.5, 40);
-        game.load.spritesheet('player01', './assets/player01.png',40, 40);////////
 
+        //scoreboard
+        //player headshot
+        game.load.image('headshot1','./assets/headshot_01.png');
+        game.load.image('headshot2','./assets/headshot_02.png');
+        game.load.image('headshot3','./assets/headshot_03.png');
+        game.load.image('headshot4','./assets/headshot_04.png');
+        //level number
+        game.load.image('levelNumber1','./assets/levelNumber1.png');
+        game.load.image('levelNumber2','./assets/levelNumber2.png');
+        game.load.image('levelNumber3','./assets/levelNumber3.png');
+        //button
+        //game.load.spritesheet('button_pause', './assets/button_pause.png',100, 93);
+        game.load.spritesheet('button_pause', './assets/button_stop.png',100, 95);
+        game.load.spritesheet('button_voice', './assets/button_voice.png',100, 95);
+        game.load.spritesheet('button_menu', './assets/button_menu.png',100, 95);
 
         // Map sprites
         game.load.image('ground', 'assets/ground.png');
@@ -164,7 +193,7 @@ var loadState = {
         //Lighting
         game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
         //Heart
-        game.load.spritesheet('heart', 'assets/heart.png',40, 40);
+        game.load.spritesheet('heart', 'assets/heart.png',48, 40);
 
         //tube
         game.load.spritesheet('tube', 'assets/tube.png',20, 35);

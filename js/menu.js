@@ -8,6 +8,8 @@ var menuState = {
     create: function() {
         // Add a background image 
         game.stage.backgroundColor = '#000000';
+        this.bg = game.add.tileSprite(0, 0, 1280, 720, 'bg_menu2');
+        
         this.volcano = game.add.image(50, 400, 'menu_1');
         this.explosion = game.add.sprite(150,280, 'menu_2');
         this.explosion.animations.add('exp', [0,1,2,3,4], 5, true);
@@ -44,13 +46,14 @@ var menuState = {
         this.button_sound.onInputOver.add(this.buttonOver,this);
         this.button_start.onInputOver.add(this.buttonOver,this);
 
-    }, 
-    update: function() {
+
+
+    },
+    update:function(){
+        this.bg.tilePosition.x -= 3;
         if(game.input.keyboard.isDown(Phaser.Keyboard.S)){
             game.state.start('signin');
         }
- 
-
     }, 
     buttonOver:function(){
         this.buttonSound=game.add.audio('button_sound');

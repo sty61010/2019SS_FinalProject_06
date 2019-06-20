@@ -48,11 +48,11 @@ var coincollectState = {
         livegroup1 = game.add.group();
         for (var i = 0; i < live1; i++) 
         {
-            var livestate = game.add.sprite(game.width-140+i*40 , 100, 'heart');
+            var livestate = game.add.sprite(650+i*40 , 93, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
-            livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup1.add(livestate);
 
@@ -60,11 +60,11 @@ var coincollectState = {
         livegroup2 = game.add.group();
         for (var i = 0; i < live2; i++) 
         {
-            var livestate = game.add.sprite(game.width-140+i*40 , 200, 'heart');
+            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
-            livestate.animations.add('heart', [0,1,2,3,4,5,6],5,true);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup2.add(livestate);
 
@@ -107,20 +107,26 @@ var coincollectState = {
         this.enterKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     },
     scoreboard:function(){
-        // scoreText1=game.add.text(620, 50, scoreString1+score1, { font: '30px Georgia', fill: '#fff' });
-        // scoreText2=game.add.text(620, 200, scoreString2+score2, { font: '30px Georgia', fill: '#fff' });
-        // scoreText3=game.add.text(620, 350, scoreString3+score3, { font: '30px Georgia', fill: '#fff' });
-        // scoreText4=game.add.text(620, 500, scoreString4+score4, { font: '30px Georgia', fill: '#fff' });
-        scoreString1 = 'Player 1: ';
-        scoreString2 = 'Player 2: ';
-        scoreString3 = 'Player 3: ';
-        scoreString4 = 'Player 4: ';
-        levelString = 'Level : ';
-        scoreText1 = game.add.text(game.width-170, 40, scoreString1 + score1, {  font: '28px Georgia', fill: '#fff' });
-        scoreText2 = game.add.text(game.width-170, 140, scoreString2 + score2, {  font: '28px Georgia', fill: '#fff' });
-        scoreText3 = game.add.text(game.width-170, 240, scoreString3 + score3, {  font: '28px Georgia', fill: '#fff' });
-        scoreText4 = game.add.text(game.width-170, 340, scoreString4 + score4, {  font: '28px Georgia', fill: '#fff' });
-        levelText = game.add.text(game.width-170, 440, levelString + level, {  font: '28px Georgia', fill: '#fff' });
+        var player1_headshot = game.add.image(620,20, 'headshot1');
+        var player2_headshot = game.add.image(620,118, 'headshot2');
+        var player3_headshot = game.add.image(620,218, 'headshot3');
+        var player4_headshot = game.add.image(620,318, 'headshot4');
+        var levelNumber = game.add.image(700,400,'levelNumber1');
+        this.button_pause = game.add.button(640,550, 'button_pause', this.clickPause, this, 1, 0, 0);
+        this.button_pause.anchor.setTo(0.5, 0.5);
+        this.button_pause.scale.setTo(0.7);
+        this.button_menu = game.add.button(700,550, 'button_menu', this.clickMenu, this, 1, 0, 0);
+        this.button_menu.anchor.setTo(0.5, 0.5);
+        this.button_menu.scale.setTo(0.7);
+        this.button_voice = game.add.button(760,550, 'button_voice', this.clickVoice, this, 1, 0, 0);
+        this.button_voice.anchor.setTo(0.5, 0.5);
+        this.button_voice.scale.setTo(0.7);
+
+        text = game.add.text(740,490, '00:59', { font: "40px Arial", fill: "#000000", align: "center" });
+        text.anchor.setTo(0.5, 0.5);
+        game.time.events.loop(Phaser.Timer.SECOND, this.updateCounter, this);
+
+
     },
     //=============================================================================================
     update: function(){
@@ -171,51 +177,88 @@ var coincollectState = {
     player1Move:function(){
         if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
             if (this.cursor.left.isDown){
-                this.player.body.velocity.x = -(this.playerSpeed);
-                this.player.loadTexture('bomber-left', 0);
+                animation1='left';
+                this.player.animations.add('run3', [15,19], 2, true);
+                this.player.animations.play('run3');
+                if (this.player.x>0){
+                    this.player.body.velocity.x = -(this.playerSpeed);
+                }
+                // if(animation1!='left')this.plauer1Animation();
             }
             if (this.cursor.right.isDown){
-                this.player.body.velocity.x = (this.playerSpeed);
-                this.player.loadTexture('bomber-right', 0);
+                animation1='right';
+                this.player.animations.add('run4', [5,9], 2, true);
+                this.player.animations.play('run4');
+                if (this.player.x<600){
+                    this.player.body.velocity.x = (this.playerSpeed);
+                }
+                // if(animation1!='right')this.plauer1Animation();
             }
             if (this.cursor.up.isDown){
-                this.player.body.velocity.y = -(this.playerSpeed);
-                this.player.loadTexture('bomber-back', 0);
+                animation1='up';
+                this.player.animations.add('run2', [10,14], 2, true);
+                this.player.animations.play('run2');
+                if (this.player.y>0){
+                    this.player.body.velocity.y = -(this.playerSpeed);
+                }
+                // if(animation1!='up')this.plauer1Animation();
             }
             if (this.cursor.down.isDown){
-                this.player.body.velocity.y = (this.playerSpeed);
-                this.player.loadTexture('bomber-front', 0);
-            }
+                animation1='down';
+                this.player.animations.add('run1', [0,4], 2, true);
+                this.player.animations.play('run1');
+                if (this.player.y<600){
+                    this.player.body.velocity.y = (this.playerSpeed);
+                }
+                // if(animation1!='down')this.plauer1Animation();
+            } 
         } else{
             this.player.body.velocity.x = 0;
             this.player.body.velocity.y = 0;
         }
-
         if (this.spaceKey.justUp){
             this.dropBomb(1);
         }
     },
     player2Move:function(){
         if (this.aKey.isDown || this.sKey.isDown || this.dKey.isDown || this.wKey.isDown){
-            if (this.aKey.isDown){
-                this.player_2.body.velocity.x = -(this.playerSpeed_2);
-                this.player_2.loadTexture('bomber-left', 0);
-                // this.player_2.body.velocity.y = 0;
-            }
-            if (this.dKey.isDown){
-                this.player_2.body.velocity.x = (this.playerSpeed_2);
-                this.player_2.loadTexture('bomber-right', 0);
-                // this.player_2.body.velocity.y = 0;
-            }
-            if (this.wKey.isDown){
-                this.player_2.body.velocity.y = -(this.playerSpeed_2);
-                this.player_2.loadTexture('bomber-back', 0);
-                // this.player_2.body.velocity.x = 0;
-            }
-            if (this.sKey.isDown){
-                this.player_2.body.velocity.y = (this.playerSpeed_2);
-                this.player_2.loadTexture('bomber-front', 0);
-                // this.player_2.body.velocity.x = 0;
+            if(this.player_2.x<600 && this.player_2.y<600){
+                if (this.aKey.isDown){
+                    if (this.player_2.x>0){
+                        this.player_2.body.velocity.x = -(this.playerSpeed_2);
+                        this.player_2.animations.add('run', [15,19], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-left', 0);
+                        // this.player_2.body.velocity.y = 0;
+                    }
+                }
+                if (this.dKey.isDown){
+                    if (this.player_2.x<600){
+                        this.player_2.body.velocity.x = (this.playerSpeed_2);
+                        this.player_2.animations.add('run', [5,9], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-right', 0);
+                        // this.player_2.body.velocity.y = 0;
+                    }
+                }
+                if (this.wKey.isDown){
+                    if (this.player_2.y>0){
+                        this.player_2.body.velocity.y = -(this.playerSpeed_2);
+                        this.player_2.animations.add('run', [10,14], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-back', 0);
+                        // this.player_2.body.velocity.x = 0;
+                    }
+                }
+                if (this.sKey.isDown){
+                    if (this.player_2.y<600){
+                        this.player_2.body.velocity.y = (this.playerSpeed_2);
+                        this.player_2.animations.add('run', [0,4], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-front', 0);
+                        // this.player_2.body.velocity.x = 0;
+                    }
+                }
             }
         } else{
             this.player_2.body.velocity.x = 0;
@@ -231,6 +274,7 @@ var coincollectState = {
     player4Move:function(){
 
     },
+    
     //=============================================================================================
     createMap: function(){
         for (var x = 0; x < 15; x++) {
@@ -292,7 +336,7 @@ var coincollectState = {
         fire.kill();
         if(player==this.player){
             score2+=1;
-            scoreText2.text = scoreString2 + score2;
+            //scoreText2.text = scoreString2 + score2;
             ///live
             live = livegroup1.getFirstAlive();
             if (live)
@@ -307,7 +351,7 @@ var coincollectState = {
         }
         else if(player==this.player_2){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
             ///live
             live = livegroup2.getFirstAlive();
             if (live)
@@ -329,7 +373,7 @@ var coincollectState = {
         if(player==1){
             this.flagList.children[0].kill();
             score1+=5;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
             y=10;
             var Flag = game.add.sprite(x, y, 'red-flag');
             Flag.body.immovable = true;
@@ -337,7 +381,7 @@ var coincollectState = {
         else if (player==2){
             this.flagList.children[1].kill();
             score2+=5;
-            scoreText2.text = scoreString2 + score2;
+            //scoreText2.text = scoreString2 + score2;
             y=110;
             var Flag = game.add.sprite(x,y, 'blue-flag');
             Flag.body.immovable = true;
@@ -366,10 +410,10 @@ var coincollectState = {
         powerUp.play();
         if(player == this.player){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            //scoreText1.text = scoreString1 + score1;
         } else if(player==this.player_2){
             score2+=1;
-            scoreText2.text=scoreString2+score2;
+           //scoreText2.text=scoreString2+score2;
         }
         coin.kill();
     },
@@ -392,9 +436,11 @@ var coincollectState = {
         boot.kill();
     },
     addPlayers: function(){
-        this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'bomber');
+        this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'player01');
+        this.player.scale.setTo(0.9);
         game.physics.arcade.enable(this.player);
-        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'bomber');
+        this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'player02');
+        this.player_2.scale.setTo(0.9);
         game.physics.arcade.enable(this.player_2);
     },
     addBoots: function(x, y){
@@ -601,12 +647,13 @@ var coincollectState = {
         } else {
             this.playerDrop_2 = true;
         }
-
     },
     showGameWinner: function(player){
-        this.gameMessage = game.add.text(150, 150, 'Player ' +player+"Wins", { font: '60px Georgia', fill: '#ffffff' });
-        this.play2_bt = game.add.button(200, game.height/2+100, 'button_play2', this.restartGame, this, 1, 0, 0);        
-        this.next_bt = game.add.button(350, game.height/2+95, 'button_next', this.nextLevel, this, 1, 0, 0);   
+        this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
+        //this.bgEnd.scale.setTo(0.5);
+        this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
+        this.play2_bt = game.add.button(230, 320, 'button_play2', this.restartGame, this, 1, 0, 0);        
+        this.next_bt = game.add.button(380, 320, 'button_next', this.nextLevel, this, 1, 0, 0);   
     },
     restartGame: function(){
         score1=0;
@@ -636,8 +683,36 @@ var coincollectState = {
                 rand=0;
             }
         }
-    }
+    },
+    clickMenu:function(){
+        game.state.start('menu');
+    },
+    clickPause:function(){
 
+    },
+    clickVoice:function(){
+        if (game.global.music == 1){
+            game.global.music = 0;
+            music.stop();
+        }
+        else{
+            game.global.music = 1;
+            music.play();
+        }
+        console.log('music:'+game.global.music);
+        if (game.global.sound == 1){
+            game.global.sound = 0;
+        }
+        else{
+            game.global.sound = 1;
+        }
+        console.log('sound:'+game.global.sound);
+    },
+    updateCounter:function() {
+        counter--;
+        //console.log(counter);
+        text.setText('00:' + counter);
+    }
 };
 
 

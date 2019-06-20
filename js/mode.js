@@ -7,7 +7,7 @@
 var modeState = { 
     create: function() {
         // Add a background image 
-        this.bg = game.add.image(0, 0, 'background_menu'); 
+        this.bg = game.add.image(0, 0, 'bg_menu'); 
         //this.bg.alpha=0.5;
         // Display the name of the game
         var nameLabel = game.add.text(game.width/2, 50, 'Game Mode', { font: '60px Georgia', fill: '#ffffff' }); 

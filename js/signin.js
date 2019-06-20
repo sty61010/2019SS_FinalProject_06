@@ -1,5 +1,3 @@
-
-
 var signinState = { 
     create: function() {
         // Add a background image 
@@ -496,7 +494,7 @@ var signinState = {
           return self._borderWidth;
         }
       },
-
+  
       /**
        * Get/set the border color.
        * @param  {String} data Border color.

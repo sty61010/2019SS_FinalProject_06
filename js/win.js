@@ -2,7 +2,7 @@ var winState = {
     create: function() {
 
         console.log('win state ok');
-        game.add.image(0, 0, 'background_win'); 
+        game.add.image(0, 0, 'bg_menu3'); 
         var nameLabel = game.add.text(game.width/2-200, 80, 'You win', 
         { font: '80px Georgia', fill: '#fff' }); 
         nameLabel.anchor.setTo(0.5, 0.5);

@@ -1,7 +1,7 @@
 var loseState = { 
     create: function() {
 
-        game.add.image(0, 0, 'background_lose'); 
+        game.add.image(0, 0, 'bg_menu3'); 
         var nameLabel = game.add.text(game.width/2-200, 80, 'You lose', 
         { font: '80px Georgia', fill: '#fff' }); 
         nameLabel.anchor.setTo(0.5, 0.5);
