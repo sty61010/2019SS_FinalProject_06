@@ -21,8 +21,20 @@ var signinState = {
         this.emailInput.canvasInput.value('sty61010@gmail.com');
         this.emailInput.canvasInput.focus();
 
-    
+        name=this.nameInput.canvasInput.value();
+        email=this.emailInput.canvasInput.value();
+        ///////
     },
+    ///////
+    clickStart:function(){
+        name=this.nameInput.canvasInput.value();
+        email=this.emailInput.canvasInput.value();
+        console.log(name);
+        console.log(''+email);
+        pushData();
+
+    },
+    ////////
     buttonOver:function(){
         this.buttonSound=game.add.audio('button_sound');
         if(game.global.sound==1)

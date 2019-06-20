@@ -32,6 +32,11 @@ var level=1;
 var text;
 var counter = 60;
 var i = 0;
+//////
+var name;
+var email;
+var finalscore=0;
+//////
 //var myHealthBar1;
 //var myHealthBar2;
 // Add all the states

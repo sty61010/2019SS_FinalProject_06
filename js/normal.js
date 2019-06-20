@@ -248,7 +248,7 @@ var normalState = {
                 if (this.aKey.isDown){
                     if (this.player_2.x>0){
                         this.player_2.body.velocity.x = -(this.playerSpeed_2);
-                        this.player_2.animations.add('run', [3,6], 2, true);
+                        this.player_2.animations.add('run', [15,19], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-left', 0);
                         // this.player_2.body.velocity.y = 0;
@@ -257,7 +257,7 @@ var normalState = {
                 if (this.dKey.isDown){
                     if (this.player_2.x<600){
                         this.player_2.body.velocity.x = (this.playerSpeed_2);
-                        this.player_2.animations.add('run', [0,1], 2, true);
+                        this.player_2.animations.add('run', [5,9], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-right', 0);
                         // this.player_2.body.velocity.y = 0;
@@ -266,7 +266,7 @@ var normalState = {
                 if (this.wKey.isDown){
                     if (this.player_2.y>0){
                         this.player_2.body.velocity.y = -(this.playerSpeed_2);
-                        this.player_2.animations.add('run', [0,7], 2, true);
+                        this.player_2.animations.add('run', [10,14], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-back', 0);
                         // this.player_2.body.velocity.x = 0;
@@ -275,7 +275,7 @@ var normalState = {
                 if (this.sKey.isDown){
                     if (this.player_2.y<600){
                         this.player_2.body.velocity.y = (this.playerSpeed_2);
-                        this.player_2.animations.add('run', [2,5], 2, true);
+                        this.player_2.animations.add('run', [0,4], 2, true);
                         this.player_2.animations.play('run');
                         //this.player_2.loadTexture('bomber-front', 0);
                         // this.player_2.body.velocity.x = 0;
@@ -696,9 +696,9 @@ var normalState = {
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
 
-         this.text = this.CustomText(game, game.world.centerX, game.world.centerY, 'Hello World!');
-         game.add.existing(this.text);
-         this.text.prototype = Object.create(Phaser.Text.prototype);
+        this.text = this.CustomText(game, game.world.centerX, game.world.centerY, 'Hello World!');
+        game.add.existing(this.text);
+        this.text.prototype = Object.create(Phaser.Text.prototype);
         this.text.prototype.constructor = text;
         this.text.prototype.update = function() {
             this.angle += this.rotateSpeed;
