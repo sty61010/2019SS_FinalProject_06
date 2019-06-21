@@ -26,6 +26,7 @@ var live1 = 3;
 var live2 = 3;
 var live3 = 12;
 var live4 = 12;
+var live5 = 12;
 var livegroup1;
 var livegroup2;
 var level=1;

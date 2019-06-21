@@ -55,7 +55,7 @@ var normalState = {
         //Live UI
         this.liveCreate();
 
-        counter = 119;
+        counter = 120;
 
     },
     liveCreate:function(){
@@ -441,25 +441,41 @@ var normalState = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player3.body.x){
+                this.player3.animations.add('run3', [15,19], 2, true);
+                this.player3.animations.play('run3');
+                this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player3.body.x){
+                this.player3.animations.add('run', [5,9], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player3.body.y){
+                this.player3.animations.add('run', [0,4], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player3.body.y){
+                this.player3.animations.add('run', [10,14], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -544,25 +560,41 @@ var normalState = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player4.body.x)this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player4.body.x){
+                this.player4.animations.add('run3', [15,19], 2, true);
+                this.player4.animations.play('run3');
+                this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player4.body.x)this.player4.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player4.body.x){
+                this.player4.animations.add('run', [5,9], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player4.body.y)this.player4.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player4.body.y){
+                this.player4.animations.add('run', [0,4], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player4.body.y)this.player4.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player4.body.y){
+                this.player4.animations.add('run', [10,14], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -1167,16 +1199,16 @@ var normalState = {
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);
@@ -1187,5 +1219,4 @@ var normalState = {
             this.showGameWinner(2);
         }
     }
-
 };

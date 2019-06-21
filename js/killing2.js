@@ -106,7 +106,7 @@ var killingState2 = {
         // gameStart = game.add.audio('game-start');
         // roundEnd = game.add.audio('round-end');
 
-        counter = 119;
+        counter = 120;
 
     },
     scoreboard:function(){
@@ -423,7 +423,7 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
         livegroup1 = game.add.group();
         for (var i = 0; i < live1; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 93, 'heart');
+            var livestate = game.add.sprite(730 - i*40 , 90, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -435,7 +435,7 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
         livegroup2 = game.add.group();
         for (var i = 0; i < live2; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            var livestate = game.add.sprite(730 - i*40 , 190, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -998,6 +998,7 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
 
     },
     showGameWinner: function(player){
+        //bomb.animations.stop(null,true);
         this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
@@ -1058,16 +1059,16 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);

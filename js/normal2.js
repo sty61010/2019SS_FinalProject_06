@@ -58,12 +58,14 @@ var normalState2 = {
         //Live UI
         this.liveCreate();
 
+        counter = 120;
+
     },
     liveCreate:function(){
         livegroup1 = game.add.group();
         for (var i = 0; i < live1; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 93, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 93, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -75,7 +77,7 @@ var normalState2 = {
         livegroup2 = game.add.group();
         for (var i = 0; i < live2; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 190, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -85,9 +87,9 @@ var normalState2 = {
 
         }
         livegroup3 = game.add.group();
-        for (var i = 0; i < live3; i++) 
+        for (var i = 0; i < live3/4; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 290, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -97,9 +99,9 @@ var normalState2 = {
 
         }
         livegroup4 = game.add.group();
-        for (var i = 0; i < live4; i++) 
+        for (var i = 0; i < live4/4; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 390, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -111,7 +113,7 @@ var normalState2 = {
         livegroup5 = game.add.group();
         for (var i = 0; i < live4; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            var livestate = game.add.sprite(1000,1000, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -482,25 +484,41 @@ var normalState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player3.body.x){
+                this.player3.animations.add('run', [15,19], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player3.body.x){
+                this.player3.animations.add('run', [5,9], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
+            if(tmpy > this.player3.body.y){
+                this.player3.animations.add('run', [0,4], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
+            if(tmpy < this.player3.body.y){
+                this.player3.animations.add('run', [10,14], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         // console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -585,25 +603,41 @@ var normalState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player4.body.x)this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player4.body.x){
+                this.player4.animations.add('run', [15,19], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player4.body.x)this.player4.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player4.body.x){
+                this.player4.animations.add('run', [5,9], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
-            if(tmpy > this.player4.body.y)this.player4.body.velocity.y = (this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
+            if(tmpy > this.player4.body.y){
+                this.player4.animations.add('run', [0,4], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
-            if(tmpy < this.player4.body.y)this.player4.body.velocity.y = -(this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
+            if(tmpy < this.player4.body.y){
+                this.player4.animations.add('run', [10,14], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -689,25 +723,41 @@ var normalState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player5.body.x)this.player5.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player5.body.x){
+                this.player5.animations.add('run', [15,19], 2, true);
+                this.player5.animations.play('run');
+                this.player5.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player5.body.x)this.player5.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player5.body.x){
+                this.player5.animations.add('run', [5,9], 2, true);
+                this.player5.animations.play('run');
+                this.player5.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
-            if(tmpy > this.player5.body.y)this.player5.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player5.body.y){
+                this.player5.animations.add('run', [0,4], 2, true);
+                this.player5.animations.play('run');
+                this.player5.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
-            if(tmpy < this.player5.body.y)this.player5.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player5.body.y){
+                this.player5.animations.add('run', [10,14], 2, true);
+                this.player5.animations.play('run');
+                this.player5.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -844,8 +894,7 @@ var normalState2 = {
             if (livegroup3.countLiving() < 1)
             {
                 this.player3.kill();
-                //game.global.normal = 1;
-                // this.showGameWinner(1);
+          
             }
         }
         else if(player==this.player4){
@@ -860,8 +909,7 @@ var normalState2 = {
             if (livegroup4.countLiving() < 1)
             {
                 this.player4.kill();
-                //game.global.normal = 1;
-                // this.showGameWinner(1);
+       
             }
         } else if(player==this.player5){
             score1+=1;
@@ -875,8 +923,7 @@ var normalState2 = {
             if (livegroup5.countLiving() < 1)
             {
                 this.player5.kill();
-                //game.global.normal = 1;
-                // this.showGameWinner(1);
+        
             }
         }
         
@@ -1293,8 +1340,8 @@ var normalState2 = {
         live1=3;
         live2=3;
         live3=12;
-        live4=8;
-        live4=10;
+        live4=12;
+        live5=12;
         gameInPlay = true;
         music.stop();
         gameStart.play();
@@ -1418,16 +1465,16 @@ var normalState2 = {
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);

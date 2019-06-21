@@ -54,7 +54,7 @@ var coincollectState2 = {
         //Live UI
         this.liveCreate();
 
-        counter = 119;
+        counter = 120;
 
 
     },
@@ -426,25 +426,41 @@ var coincollectState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player3.body.x){
+                this.player3.animations.add('run3', [15,19], 2, true);
+                this.player3.animations.play('run3');
+                this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player3.body.x){
+                this.player3.animations.add('run', [5,9], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player3.body.y){
+                this.player3.animations.add('run', [0,4], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player3.body.y){
+                this.player3.animations.add('run', [10,14], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -452,7 +468,7 @@ var coincollectState2 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 3){
+        if (diff == 3 && live3 > 0){
             this.dropBomb(3);
         }
     },
@@ -529,25 +545,41 @@ var coincollectState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player4.body.x)this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player4.body.x){
+                this.player4.animations.add('run3', [15,19], 2, true);
+                this.player4.animations.play('run3');
+                this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player4.body.x)this.player4.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player4.body.x){
+                this.player4.animations.add('run', [5,9], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player4.body.y)this.player4.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player4.body.y){
+                this.player4.animations.add('run', [0,4], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player4.body.y)this.player4.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player4.body.y){
+                this.player4.animations.add('run', [10,14], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -555,7 +587,7 @@ var coincollectState2 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 1){
+        if (diff == 1 && live4){
             this.dropBomb(4);
         }
     },
@@ -743,7 +775,7 @@ var coincollectState2 = {
             this.playerSpeed_2 = 350;
             y=150;
         }
-        var boots = game.add.sprite(x, y, 'lighting');
+        var boots = game.add.sprite(x, y, 'tube');
         boots.body.immovable = true;
         boots.anchor.setTo(1);
         boots.animations.add('lighting', [0,1,2,3],5,true);
@@ -766,11 +798,11 @@ var coincollectState2 = {
         game.physics.arcade.enable(this.player4);
     },
     addBoots: function(x, y){
-        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'lighting');
+        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tube');
         game.physics.arcade.enable(boots);
         boots.body.immovable = true;
         boots.anchor.setTo(0);
-        boots.animations.add('lighting', [0,1,2,3],5,true);
+        boots.animations.add('lighting', [0,1,2,3,4],5,true);
         boots.play('lighting');
         this.bootList.add(boots);
     },
@@ -985,7 +1017,7 @@ var coincollectState2 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList3, wallList, brickList);
-                ncoincollectState2.enablePlayerBomb(3);
+                coincollectState2.enablePlayerBomb(3);
             }, 2000);
         } else if (player == 4  && this.playerDrop4){
             this.playerDrop4 = false;
@@ -1027,6 +1059,13 @@ var coincollectState2 = {
 
     },
     showGameWinner: function(player){
+        // this.player3.kill();
+        // this.player4.kill();
+        // live1=0;
+        // live2=0;
+        // live3=0;
+        // live4=0;
+
         this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
@@ -1040,8 +1079,8 @@ var coincollectState2 = {
         score4=0;
         live1=3;
         live2=3;
-        live3=3;
-        live4=4;
+        live3=12;
+        live4=12;
 
         music.stop();
         gameStart.play();
@@ -1096,16 +1135,16 @@ var coincollectState2 = {
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);
@@ -1116,6 +1155,7 @@ var coincollectState2 = {
             this.showGameWinner(2);
         }
     }
+    
 
 };
 

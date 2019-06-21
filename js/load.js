@@ -38,6 +38,7 @@ var loadState = {
         //boss
         game.load.spritesheet('boss', 'assets/boss_3.png', 67, 120);
         game.load.spritesheet('boss2', 'assets/boss4.png', 28.3, 30);
+        game.load.spritesheet('boss3', 'assets/boss5.png', 53.5, 80);
         //boss_bullet
         game.load.spritesheet('boss_bullet', 'assets/red_flame.png', 131, 169);
         game.load.spritesheet('boss_bullet2', 'assets/blue_flame.png', 60, 60);

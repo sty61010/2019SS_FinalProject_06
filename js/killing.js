@@ -106,7 +106,7 @@ var killingState = {
         // gameStart = game.add.audio('game-start');
         // roundEnd = game.add.audio('round-end');
 
-        counter = 119;
+        counter = 120;
 
     },
     scoreboard:function(){
@@ -997,6 +997,7 @@ var killingState = {
 
     },
     showGameWinner: function(player){
+       // bomb.animations.stop(null,true);
         this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
@@ -1057,16 +1058,16 @@ var killingState = {
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);

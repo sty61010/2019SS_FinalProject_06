@@ -51,7 +51,7 @@ var coincollectState3 = {
         //Live UI
         this.liveCreate();
 
-        counter = 119;
+        counter = 120;
 
 
     },
@@ -123,6 +123,8 @@ var coincollectState3 = {
         this.explosionList3 = game.add.group();
         this.explosionList4 = game.add.group();
         this.addPlayers();
+
+        this.boss_bulletList=game.add.group();
     },
     soundCreate:function(){
         bombSound = game.add.audio('bomb-sound');
@@ -245,7 +247,8 @@ var coincollectState3 = {
             game.physics.arcade.overlap(this.player3, this.coinList, this.getCoin, null, this);
         	game.physics.arcade.overlap(this.player4, this.coinList, this.getCoin, null, this);
 
-
+            game.physics.arcade.overlap(this.player, this.boss_bulletList,this.getCoin, null, this);   
+            game.physics.arcade.overlap(this.player_2, this.boss_bulletList,this.getCoin, null, this); 
             //win
             if(score1 == 20){
                 this.showGameWinner(1);
@@ -305,6 +308,8 @@ var coincollectState3 = {
 
         if (this.spaceKey.justUp){
             this.dropBomb(1);
+            this.bossFire();
+
         }
     },
     player2Move:function(){
@@ -351,6 +356,8 @@ var coincollectState3 = {
         }
         if (this.qKey.isDown){
             this.dropBomb(2);
+            this.bossFire();
+
         }
     },
     player3Move:function(){
@@ -426,25 +433,41 @@ var coincollectState3 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player3.body.x){
+                this.player3.animations.add('run3', [15,19], 2, true);
+                this.player3.animations.play('run3');
+                this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player3.body.x){
+                this.player3.animations.add('run', [5,9], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player3.body.y){
+                this.player3.animations.add('run', [0,4], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player3.body.y){
+                this.player3.animations.add('run', [10,14], 2, true);
+                this.player3.animations.play('run');
+                this.player3.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -452,7 +475,7 @@ var coincollectState3 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 3){
+        if (diff == 3 && live3 > 0){
             this.dropBomb(3);
         }
     },
@@ -523,31 +546,48 @@ var coincollectState3 = {
         // cc = tmpy%this.PIXEL_SIZE;
         // nowy = (tmpx-cc)/this.PIXEL_SIZE;
 
+
         if (diff === 2) {
             // this.move = Move.Left;
             // console.log(this.player_2.body.x);
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player4.body.x)this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player4.body.x){
+                this.player4.animations.add('run3', [15,19], 2, true);
+                this.player4.animations.play('run3');
+                this.player4.body.velocity.x = -1*(this.playerSpeed3);
+            }
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player4.body.x)this.player4.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player4.body.x){
+                this.player4.animations.add('run', [5,9], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.x = (this.playerSpeed3);
+            }
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player4.body.y)this.player4.body.velocity.y = (this.playerSpeed3);
+            if(tmpy > this.player4.body.y){
+                this.player4.animations.add('run', [0,4], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = (this.playerSpeed3);
+            }
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
             tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player4.body.y)this.player4.body.velocity.y = -(this.playerSpeed3);
+            if(tmpy < this.player4.body.y){
+                this.player4.animations.add('run', [10,14], 2, true);
+                this.player4.animations.play('run');
+                this.player4.body.velocity.y = -(this.playerSpeed3);
+            }
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -555,7 +595,7 @@ var coincollectState3 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 1){
+        if (diff == 1 && live4 > 0){
             this.dropBomb(4);
         }
     },
@@ -563,6 +603,7 @@ var coincollectState3 = {
     createMap: function(){
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
+                this.createBoss();
                 if( x == 1 && x == y){
                     this.addBlueFlag();
                     this.addRedFlag();
@@ -762,10 +803,10 @@ var coincollectState3 = {
             this.playerSpeed_2 = 350;
             y=150;
         }
-        var boots = game.add.sprite(x, y, 'lighting');
+        var boots = game.add.sprite(x, y, 'tube');
         boots.body.immovable = true;
         boots.anchor.setTo(1);
-        boots.animations.add('lighting', [0,1,2,3],5,true);
+        boots.animations.add('lighting', [0,1,2,3,4],5,true);
         boots.play('lighting');
         boot.kill();
     },
@@ -786,11 +827,11 @@ var coincollectState3 = {
         this.player4.scale.setTo(0.9);
     },
     addBoots: function(x, y){
-        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'lighting');
+        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tube');
         game.physics.arcade.enable(boots);
         boots.body.immovable = true;
         boots.anchor.setTo(0);
-        boots.animations.add('lighting', [0,1,2,3],5,true);
+        boots.animations.add('lighting', [0,1,2,3,4],5,true);
         boots.play('lighting');
         this.bootList.add(boots);
     },
@@ -862,7 +903,7 @@ var coincollectState3 = {
         bombSound.play();
         // this.bombExplosion(x,y);
         this.emitter = game.add.emitter(0, 0, 500);
-        this.emitter.makeParticles('pixel');
+        this.emitter.makeParticles('pixel2');
         this.emitter.setYSpeed(-500, 500);
         this.emitter.setXSpeed(-500, 500);
         this.emitter.setScale(2, 0, 2, 0, 800);
@@ -1047,11 +1088,20 @@ var coincollectState3 = {
 
     },
     showGameWinner: function(player){
+        // this.player3.kill();
+        // this.player4.kill();
+        // live1=0;
+        // live2=0;
+        // live3=0;
+        // live4=0;
+
         this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
         this.play2_bt = game.add.button(230, 320, 'button_play2', this.restartGame, this, 1, 0, 0);        
-        this.next_bt = game.add.button(380, 320, 'button_next', this.nextLevel, this, 1, 0, 0);   
+        this.next_bt = game.add.button(380, 320, 'button_next', this.nextLevel, this, 1, 0, 0); 
+        
+        
     },
     restartGame: function(){
         score1=0;
@@ -1070,6 +1120,8 @@ var coincollectState3 = {
     nextLevel:function(){
         //game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
         game.state.start('win');
+
+        pushData();
     },
     clickMenu:function(){
         game.state.start('menu');
@@ -1105,16 +1157,16 @@ var coincollectState3 = {
     updateCounter:function() {
         counter--;
         //console.log(counter);
-        if(counter>0){
-            if(counter>59){
-                var second = counter-59;
-                if(second>9)
+        if(counter > 0){
+            if(counter >= 60){
+                var second = counter - 60; 
+                if(counter >= 70)
                     text.setText('01:' + second);
                 else
                     text.setText('01:0' + second);
             }   
             else{
-                if(second>10)
+                if(counter>=10)
                     text.setText('00:' + counter);
                 else
                     text.setText('00:0' + counter);
@@ -1124,8 +1176,85 @@ var coincollectState3 = {
         else{
             this.showGameWinner(2);
         }
-    }
+    },
+    createBoss:function(){
 
+        this.boss=game.add.sprite(40*4, 40*3.5, 'boss3');
+        this.boss.body.immovable = true;
+        this.boss.anchor.setTo(0.5);
+        this.boss.scale.setTo(1.2);
+        this.boss.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss.play('boss'); 
+
+        this.boss1=game.add.sprite(40*4, 40*10.5, 'boss3');
+        this.boss1.body.immovable = true;
+        this.boss1.anchor.setTo(0.5);
+        this.boss1.scale.setTo(1.2);
+        this.boss1.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss1.play('boss'); 
+
+        this.boss2=game.add.sprite(40*11, 40*3.5, 'boss3');
+        this.boss2.body.immovable = true;
+        this.boss2.anchor.setTo(0.5);
+        this.boss2.scale.setTo(1.2);
+        this.boss2.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss2.play('boss'); 
+
+        this.boss3=game.add.sprite(40*11, 40*10.5, 'boss3');
+        this.boss3.body.immovable = true;
+        this.boss3.anchor.setTo(0.5);
+        this.boss3.scale.setTo(1.2);
+        this.boss3.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss3.play('boss'); 
+
+    },
+    bossFire:function(){
+        for(var i=0;i<1;i++)
+        {
+            var x, y;
+            x=game.rnd.integerInRange(-400,400);
+            y=game.rnd.integerInRange(-400,400);
+            var boss_bullet= game.add.sprite(this.boss.x, this.boss.y, 'coin');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3,4],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss1.x, this.boss1.y, 'coin');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3,4],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss2.x, this.boss2.y, 'coin');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3,4],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss3.x, this.boss3.y, 'coin');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+        }
+    }
 };
 
 
