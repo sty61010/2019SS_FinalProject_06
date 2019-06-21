@@ -1020,6 +1020,7 @@ this.addDoor(x,y);///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         pushData();
     },
     clickMenu:function(){
+        music.stop();
         game.state.start('menu');
     },
     clickPause:function(){
@@ -1044,6 +1045,12 @@ this.addDoor(x,y);///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         console.log('music:'+game.global.music);
         if (game.global.sound == 1){
             game.global.sound = 0;
+            bombSound.stop();
+            powerUp.stop();
+            winner.stop();
+            intro.stop(); 
+            gameStart.stop(); 
+            roundEnd.stop();
         }
         else{
             game.global.sound = 1;

@@ -10,8 +10,9 @@ var normalState = {
         score4 = 0;
         this.BLOCK_COUNT = 15;
         this.PIXEL_SIZE = GAME_SIZE / this.BLOCK_COUNT;
-        music = game.add.audio('bg-music', 1, true);
-        // music.play();
+        music.stop();
+        music = game.add.audio('bg-music-2', 1, true);
+        music.play();
         this.bg_score = game.add.image(600, 0, 'background_score'); 
         game.stage.backgroundColor = "#000000";
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -754,7 +755,8 @@ var normalState = {
     },
 
     getFlag: function(player){
-        powerUp.play();
+        if(game.global.sound == 1)
+            powerUp.play();
         var x=game.width-210;
         var y;
         if(player==1){
@@ -775,7 +777,8 @@ var normalState = {
         }
     },
     starUp: function(player,star){
-        powerUp.play();
+        if(game.global.sound == 1)
+            powerUp.play();
         var x=game.width-130;
         var y;
         if(player == this.player){
@@ -799,7 +802,8 @@ var normalState = {
         starstate.play('star');
     },
     getCoin:function(player, coin){
-        powerUp.play();
+        if(game.global.sound == 1)
+            powerUp.play();
         if(player == this.player){
             score1+=1;
             scoreText1.text = score1;
@@ -817,7 +821,8 @@ var normalState = {
         coin.kill();
     },
     speedUp: function(player, boot){
-        powerUp.play();
+        if(game.global.sound == 1)
+            powerUp.play();
         var x=game.width-100;
         var y;
         if(player == this.player){
@@ -923,7 +928,8 @@ var normalState = {
     },
     
     detonateBomb: function(player, x, y, explosionList, wallList, brickList){
-        bombSound.play();
+        if(game.global.sound == 1)
+            bombSound.play();
         // this.bombExplosion(x,y);
         this.emitter = game.add.emitter(0, 0, 500);
         this.emitter.makeParticles('pixel');
@@ -1157,7 +1163,8 @@ var normalState = {
         live4=12;
         gameInPlay = true;
         music.stop();
-        gameStart.play();
+        if(game.global.sound == 1)
+            gameStart.play();
         game.state.start('normal');
     },
     nextLevel: function(){
@@ -1166,6 +1173,7 @@ var normalState = {
         level=2;
     },
     clickMenu: function(){
+        music.stop();
         game.state.start('menu');
     },
     clickPause: function(){
@@ -1190,6 +1198,12 @@ var normalState = {
         console.log('music:'+game.global.music);
         if (game.global.sound == 1){
             game.global.sound = 0;
+            bombSound.stop();
+            powerUp.stop();
+            winner.stop();
+            intro.stop(); 
+            gameStart.stop(); 
+            roundEnd.stop(); 
         }
         else{
             game.global.sound = 1;

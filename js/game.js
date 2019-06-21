@@ -1,7 +1,5 @@
 // Initialize Phaser
-
 var game = new Phaser.Game(800,600, Phaser.CANVAS, 'canvas'); // Define our global variable
-
 game.global = { sound: 1, music: 1, reset:1, pause:0 }; 
 // score1: 0 ,score2: 0, score3: 0, score4: 0,
 var scoreBoard = document.querySelectorAll(".score");
@@ -64,4 +62,3 @@ game.state.add('lose', loseState);
 game.state.add('rank', rankState);
 // Start the 'boot' state
 game.state.start('boot');
-

@@ -1026,6 +1026,7 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
 
     },
     clickMenu:function(){
+        music.stop();
         game.state.start('menu');
     },
     clickPause:function(){
@@ -1050,6 +1051,12 @@ else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
         console.log('music:'+game.global.music);
         if (game.global.sound == 1){
             game.global.sound = 0;
+            bombSound.stop();
+            powerUp.stop();
+            winner.stop();
+            intro.stop(); 
+            gameStart.stop(); 
+            roundEnd.stop();
         }
         else{
             game.global.sound = 1;

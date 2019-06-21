@@ -18,6 +18,8 @@ var loadState = {
         game.load.spritesheet('title', './assets/title_1.png', 512, 146);
         game.load.image('menu_3','./assets/menu_3.png');
         game.load.spritesheet('menu_4', './assets/volcano_2.png', 125,210);
+        game.load.spritesheet('menu_5', './assets/din.png', 301,223);
+
 
 
         //background
@@ -27,6 +29,7 @@ var loadState = {
         game.load.image('bg_menu4','./assets/bg_4.jpg');
         game.load.image('bg_menu5','./assets/bg_5.jpg');
         game.load.image('bg_menu6','./assets/bg_6.jpg');
+    
 
 
         //sprite
@@ -172,13 +175,14 @@ var loadState = {
         // game.load.image('star', 'assets/star.png');
 
         // Audio clip sprites
+        game.load.audio('bg-music-2', 'assets/music_1.wav');
         game.load.audio('bomb-sound', 'assets/bomb-sound.wav');
         game.load.audio('power-up', 'assets/power-up.wav');
         game.load.audio('winner', 'assets/winner.wav');
         game.load.audio('intro', 'assets/intro.wav');
         game.load.audio('game-start', 'assets/game-start.wav');
         game.load.audio('round-end', 'assets/round-end.wav');
-        game.load.audio('bg-music', 'assets/48-battle.mp3');
+        game.load.audio('bg-music', 'assets/bg_music.wav');
         game.load.audio('button_sound', 'assets/button.wav');
         // Background
         game.load.image('background_menu', './assets/bg.jpg');

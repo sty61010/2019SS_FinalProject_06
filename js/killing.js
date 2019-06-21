@@ -9,8 +9,9 @@ var killingState = {
         this.BLOCK_COUNT = 15;
         this.PIXEL_SIZE = GAME_SIZE / this.BLOCK_COUNT;
 
-        // music = game.add.audio('bg-music', 1, true);
-        // music.play();
+        music.stop();
+        music = game.add.audio('bg-music-2', 1, true);
+        music.play();
         this.bg_score = game.add.image(600, 0, 'background_score'); 
         game.stage.backgroundColor = "#49311C";
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -1025,6 +1026,7 @@ var killingState = {
 
     },
     clickMenu:function(){
+        music.stop();
         game.state.start('menu');
     },
     clickPause:function(){
@@ -1049,6 +1051,12 @@ var killingState = {
         console.log('music:'+game.global.music);
         if (game.global.sound == 1){
             game.global.sound = 0;
+            bombSound.stop();
+            powerUp.stop();
+            winner.stop();
+            intro.stop(); 
+            gameStart.stop(); 
+            roundEnd.stop();
         }
         else{
             game.global.sound = 1;

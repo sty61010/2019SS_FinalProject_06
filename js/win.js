@@ -24,50 +24,20 @@ var winState = {
 
         printData();
 
-
     }, 
     start: function() {
 
     },
     clickMode: function(){
+        music.stop();
         game.state.start('mode');
     },
     clickMenu: function() {
+        music.stop();
         game.state.start('menu');
-    },
-    clickRestart: function () {
-        game.global.score1 = 1;
-        game.global.score2 = 1;
-        game.global.level = 1;
-        game.state.start('play');
-    },
-    clickMenu: function () {
-        game.global.score1 = 1;
-        game.global.score2 = 1;
-        game.global.level = 1;
-        game.state.start('menu');
-        
     }
 };
-// function printData() {
-//     var scoreRef = firebase.database().ref('scoreboard').orderByChild("score").limitToFirst(5);
-//     var index=1;
-//     scoreRef.once('value', function (snapshot) {
-//         for (var i in snapshot.val()) {
-//             // console.log(i);
 
-//             var namedata=snapshot.val()[i].name;
-//             var scoredata=snapshot.val()[i].score;
-//             scoredata*=-1;
-//             var scoreString='Rank'+index+' '+namedata+':'+scoredata;
-//             // if(index<=5){
-//             game.add.text(400, 180+index*45, scoreString, { font: '27px Covik Sans', fill: '#000000' });
-//             // }
-//             //console.log('name:'+namedata+'score:'+scoredata);
-//             index++;
-//         }
-//     })
-// };
 function printData() {
     var scoreRef = firebase.database().ref('scoreboard').orderByChild("score").limitToFirst(5);
     var index=1;
