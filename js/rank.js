@@ -10,7 +10,7 @@ var rankState = {
         this.button_start.anchor.setTo(0.5, 0.5);
         this.button_start.scale.setTo(0.5);
         this.button_start.onInputOver.add(this.buttonOver,this);
-        pushData();
+        printData();
     }, 
     buttonOver:function(){
         this.buttonSound=game.add.audio('button_sound');
@@ -19,16 +19,19 @@ var rankState = {
     }
 }; 
 function printData() {
-    var scoreRef = firebase.database().ref('scoreboard');
+    var scoreRef = firebase.database().ref('scoreboard').orderByChild("score").limitToFirst(5);
     var index=1;
     scoreRef.once('value', function (snapshot) {
         for (var i in snapshot.val()) {
+            // console.log(i);
+
             var namedata=snapshot.val()[i].name;
             var scoredata=snapshot.val()[i].score;
-            var scoreString=''+index+':'+namedata+scoredata;
-            if(index<=5){
-                // game.add.text(game.width/2-100, 150+index*50, scoreString, { font: '60px Georgia', fill: '#ffffff' });
-            }
+            scoredata*=-1;
+            var scoreString='Rank'+index+' '+namedata+':'+scoredata;
+            // if(index<=5){
+                game.add.text(game.width/2-200, 100+index*50, scoreString, { font: '60px Georgia', fill: '#ffffff' });
+            // }
             console.log('name:'+namedata+'score'+scoredata);
             index++;
         }
@@ -36,17 +39,23 @@ function printData() {
 };
 function pushData(){
     var scoreRef = firebase.database().ref('scoreboard');
-
     var newPostKey = firebase.database().ref().child('scoreboard').push().key;
+    finalname=name1;
+    finalscore=score1;
+    if(score1<score2){
+        finalname=name2;
+        finalscore=score2;
+    }
+    finalscore*=-1;
     var postData = {
         id:newPostKey,
-        name:name,
-        email:email,
+        name:finalname,
         score:finalscore,
         time:Date()
     };
     var updates = {};
     updates[newPostKey] = postData;
+    console.log(updates);
     scoreRef.update(updates);
 }
 

@@ -12,29 +12,29 @@ var signinState = {
         this.button_start.anchor.setTo(0.5, 0.5);
         this.button_start.scale.setTo(0.5);
         //////////
-        this.nameInput = this.createInput(this.game.world.centerX, 200);
-        this.nameInput.anchor.set(0.5);
-        this.nameInput.canvasInput.value('George');
-        this.nameInput.canvasInput.focus();
+        this.name1Input = this.createInput(this.game.world.centerX, 200);
+        this.name1Input.anchor.set(0.5);
+        this.name1Input.canvasInput.value('George');
+        this.name1Input.canvasInput.focus();
 
-        this.emailInput = this.createInput(this.game.world.centerX, 300);
-        this.emailInput.anchor.set(0.5);
-        this.emailInput.canvasInput.value('sty61010@gmail.com');
-        this.emailInput.canvasInput.focus();
+        this.name2Input = this.createInput(this.game.world.centerX, 300);
+        this.name2Input.anchor.set(0.5);
+        this.name2Input.canvasInput.value('Weiwei');
+        this.name2Input.canvasInput.focus();
 
-        name=this.nameInput.canvasInput.value();
-        email=this.emailInput.canvasInput.value();
+        name1=this.name1Input.canvasInput.value();
+        name2=this.name2Input.canvasInput.value();
         ///////
         
 
     
     },
     clickStart:function(){
-      name=this.nameInput.canvasInput.value();
-      email=this.emailInput.canvasInput.value();
-      console.log(name);
-      console.log(''+email);
-      //pushData();
+      name1=this.name1Input.canvasInput.value();
+      name2=this.name2Input.canvasInput.value();
+      console.log("name1:"+name1);
+      console.log('name2:'+name2);
+      // pushData();
       game.state.start('mode');
   },
     buttonOver:function(){
