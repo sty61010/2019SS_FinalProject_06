@@ -47,6 +47,9 @@ var coincollectState3 = {
         //Live UI
         this.liveCreate();
 
+        counter = 119;
+
+
     },
     liveCreate:function(){
         livegroup1 = game.add.group();
@@ -136,45 +139,47 @@ var coincollectState3 = {
     },
     //=============================================================================================
     update: function(){
-        //Player Move
-        this.player1Move();
-        this.player2Move();
-        this.player3Move();
-        this.player4Move();
+        if ( game.global.pause == 0){
+            //Player Move
+            this.player1Move();
+            this.player2Move();
+            this.player3Move();
+            this.player4Move();
 
-        game.physics.arcade.collide(this.player, this.wallList);
-        game.physics.arcade.collide(this.player, this.brickList);
+            game.physics.arcade.collide(this.player, this.wallList);
+            game.physics.arcade.collide(this.player, this.brickList);
 
-        game.physics.arcade.collide(this.player_2, this.wallList);
-        game.physics.arcade.collide(this.player_2, this.brickList);
+            game.physics.arcade.collide(this.player_2, this.wallList);
+            game.physics.arcade.collide(this.player_2, this.brickList);
 
-        game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
-        game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
+            game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
+            game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
 
-        game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
-        game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
+            game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
+            game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
 
-        game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
-        game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
+            game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
+            game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
 
-        game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.bootList, this.speedUp, null, this);
+            game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.bootList, this.speedUp, null, this);
 
-        game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
-        
-        game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
-        game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
+            game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
+            
+            game.physics.arcade.overlap(this.player, this.coinList, this.getCoin, null, this);
+            game.physics.arcade.overlap(this.player_2, this.coinList, this.getCoin, null, this);
 
-        //win
-        if(score1 == 20){
-            this.showGameWinner(1);
-        }
-        else if(score2==20){
-            this.showGameWinner(2);
-        }
-        if (this.kKey.isDown){
-            this.showGameWinner(1);
+            //win
+            if(score1 == 20){
+                this.showGameWinner(1);
+            }
+            else if(score2==20){
+                this.showGameWinner(2);
+            }
+            if (this.kKey.isDown){
+                this.showGameWinner(1);
+            }
         }
 
     },
@@ -673,13 +678,21 @@ var coincollectState3 = {
         game.state.start('coincollect3');
     },
     nextLevel:function(){
-        game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+        //game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+        game.state.start('win');
     },
     clickMenu:function(){
         game.state.start('menu');
     },
     clickPause:function(){
-
+        if (game.global.pause == 1){
+            game.global.pause = 0;
+            console.log('pause:' + game.global.pause);
+        }
+        else {
+            game.global.pause = 1;
+            console.log('pause:' + game.global.pause);
+        }
     },
     clickVoice:function(){
         if (game.global.music == 1){

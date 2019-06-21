@@ -34,8 +34,8 @@ var signinState = {
       email=this.emailInput.canvasInput.value();
       console.log(name);
       console.log(''+email);
-      pushData();
-
+      //pushData();
+      game.state.start('mode');
   },
     buttonOver:function(){
         this.buttonSound=game.add.audio('button_sound');

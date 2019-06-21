@@ -46,6 +46,9 @@ var killingState3 = {
         this.explosionList = game.add.group();
         this.explosionList_2 = game.add.group();
 
+        this.boss_bulletList = game.add.group();
+
+
 
         // Adds walls, bricks and powerups
         this.createMap();
@@ -81,6 +84,7 @@ var killingState3 = {
         this.wKey = game.input.keyboard.addKey(Phaser.Keyboard.W);
         this.kKey=game.input.keyboard.addKey(Phaser.Keyboard.K);
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        this.qKey = game.input.keyboard.addKey(Phaser.Keyboard.Q);
 
         // Creates listeners for player 2's controls
         this.cursor = game.input.keyboard.createCursorKeys();
@@ -103,6 +107,8 @@ var killingState3 = {
         // intro = game.add.audio('intro');
         // gameStart = game.add.audio('game-start');
         // roundEnd = game.add.audio('round-end');
+
+        counter = 119;
 
     },
     scoreboard:function(){
@@ -130,171 +136,181 @@ var killingState3 = {
 
     },
     update: function(){ 
-        if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
-            if (this.cursor.left.isDown){
-                animation1='left';
-                this.player.animations.add('run3', [15,19], 2, true);
-                this.player.animations.play('run3');
-                if (this.player.x>0){
-                    this.player.body.velocity.x = -(this.playerSpeed);
+        if ( game.global.pause == 0){
+            if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
+                if (this.cursor.left.isDown){
+                    animation1='left';
+                    this.player.animations.add('run3', [15,19], 2, true);
+                    this.player.animations.play('run3');
+                    if (this.player.x>0){
+                        this.player.body.velocity.x = -(this.playerSpeed);
+                    }
+                    // if(animation1!='left')this.plauer1Animation();
                 }
-                // if(animation1!='left')this.plauer1Animation();
+                if (this.cursor.right.isDown){
+                    animation1='right';
+                    this.player.animations.add('run4', [5,9], 2, true);
+                    this.player.animations.play('run4');
+                    if (this.player.x<600){
+                        this.player.body.velocity.x = (this.playerSpeed);
+                    }
+                    // if(animation1!='right')this.plauer1Animation();
+                }
+                if (this.cursor.up.isDown){
+                    animation1='up';
+                    this.player.animations.add('run2', [10,14], 2, true);
+                    this.player.animations.play('run2');
+                    if (this.player.y>0){
+                        this.player.body.velocity.y = -(this.playerSpeed);
+                    }
+                    // if(animation1!='up')this.plauer1Animation();
+                }
+                if (this.cursor.down.isDown){
+                    animation1='down';
+                    this.player.animations.add('run1', [0,4], 2, true);
+                    this.player.animations.play('run1');
+                    if (this.player.y<600){
+                        this.player.body.velocity.y = (this.playerSpeed);
+                    }
+                    // if(animation1!='down')this.plauer1Animation();
+                } 
+            } else{
+                this.player.body.velocity.x = 0;
+                this.player.body.velocity.y = 0;
             }
-            if (this.cursor.right.isDown){
-                animation1='right';
-                this.player.animations.add('run4', [5,9], 2, true);
-                this.player.animations.play('run4');
-                if (this.player.x<600){
-                    this.player.body.velocity.x = (this.playerSpeed);
-                }
-                // if(animation1!='right')this.plauer1Animation();
+    //@@
+            if (this.spaceKey.justUp){
+                if(this.frozen_attackable == true)
+                    this.frozen_attack(1);
+                else if(this.shot_able == true)
+                    this.shot_attack(1);
+                else  this.dropBomb(1); 
+                this.bossFire();           
             }
-            if (this.cursor.up.isDown){
-                animation1='up';
-                this.player.animations.add('run2', [10,14], 2, true);
-                this.player.animations.play('run2');
-                if (this.player.y>0){
-                    this.player.body.velocity.y = -(this.playerSpeed);
+
+            if (this.aKey.isDown || this.sKey.isDown || this.dKey.isDown || this.wKey.isDown){
+                if (this.aKey.isDown){
+                    if (this.player_2.x>0){
+                        this.player_2.body.velocity.x = -(this.playerSpeed_2);
+                        this.player_2.animations.add('run', [15,19], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-left', 0);
+                        // this.player_2.body.velocity.y = 0;
+                    }
                 }
-                // if(animation1!='up')this.plauer1Animation();
+                if (this.dKey.isDown){
+                    if (this.player_2.x<600){
+                        this.player_2.body.velocity.x = (this.playerSpeed_2);
+                        this.player_2.animations.add('run', [5,9], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-right', 0);
+                        // this.player_2.body.velocity.y = 0;
+                    }
+                }
+                if (this.wKey.isDown){
+                    if (this.player_2.y>0){
+                        this.player_2.body.velocity.y = -(this.playerSpeed_2);
+                        this.player_2.animations.add('run', [10,14], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-back', 0);
+                        // this.player_2.body.velocity.x = 0;
+                    }
+                }
+                if (this.sKey.isDown){
+                    if (this.player_2.y<600){
+                        this.player_2.body.velocity.y = (this.playerSpeed_2);
+                        this.player_2.animations.add('run', [0,4], 2, true);
+                        this.player_2.animations.play('run');
+                        //this.player_2.loadTexture('bomber-front', 0);
+                        // this.player_2.body.velocity.x = 0;
+                    }
+                }
+            } else{
+                this.player_2.body.velocity.x = 0;
+                this.player_2.body.velocity.y = 0;
             }
-            if (this.cursor.down.isDown){
-                animation1='down';
-                this.player.animations.add('run1', [0,4], 2, true);
-                this.player.animations.play('run1');
-                if (this.player.y<600){
-                    this.player.body.velocity.y = (this.playerSpeed);
-                }
-                // if(animation1!='down')this.plauer1Animation();
-            } 
-        } else{
-            this.player.body.velocity.x = 0;
-            this.player.body.velocity.y = 0;
-        }
-//@@
-        if (this.enterKey.justUp){
-            if(this.frozen_attackable == true)
-                this.frozen_attack(1);
-            else if(this.shot_able == true)
-                this.shot_attack(1);
-            else  this.dropBomb(1);            
-        }
-
-        if (this.aKey.isDown || this.sKey.isDown || this.dKey.isDown || this.wKey.isDown){
-            if (this.aKey.isDown){
-                if (this.player_2.x>0){
-                    this.player_2.body.velocity.x = -(this.playerSpeed_2);
-                    this.player_2.animations.add('run', [15,19], 2, true);
-                    this.player_2.animations.play('run');
-                    //this.player_2.loadTexture('bomber-left', 0);
-                    // this.player_2.body.velocity.y = 0;
-                }
+    //@@@
+            if (this.qKey.justUp){
+                if(this.frozen_attackable_2 == true)
+                this.frozen_attack(2);
+                else if(this.shot_able2 == true)
+                    this.shot_attack(2);
+                else  this.dropBomb(2);    
+                this.bossFire();            
             }
-            if (this.dKey.isDown){
-                if (this.player_2.x<600){
-                    this.player_2.body.velocity.x = (this.playerSpeed_2);
-                    this.player_2.animations.add('run', [5,9], 2, true);
-                    this.player_2.animations.play('run');
-                    //this.player_2.loadTexture('bomber-right', 0);
-                    // this.player_2.body.velocity.y = 0;
-                }
+
+            game.physics.arcade.collide(this.player, this.wallList);
+            game.physics.arcade.collide(this.player, this.brickList);
+
+            game.physics.arcade.collide(this.player_2, this.wallList);
+            game.physics.arcade.collide(this.player_2, this.brickList);
+
+            game.physics.arcade.collide(this.bombList, this.wallList);
+            game.physics.arcade.collide(this.bombList, this.brickList);
+
+            game.physics.arcade.collide(this.laser, this.wallList,this.laserkill);
+            game.physics.arcade.collide(this.laser, this.brickList,this.brickkill);
+
+            game.physics.arcade.collide(this.laser2, this.wallList,this.laserkill);
+            game.physics.arcade.collide(this.laser2, this.brickList,this.brickkill);
+
+            game.physics.arcade.collide(this.laser, this.player_2,this.playerkill);
+            game.physics.arcade.collide(this.laser2, this.player,this.playerkill);
+
+            game.physics.arcade.collide(this.bombList_2, this.wallList);
+            game.physics.arcade.collide(this.bombList_2, this.brickList);
+
+            game.physics.arcade.collide(this.player, this.bombList);
+            game.physics.arcade.collide(this.player, this.bombList_2);
+
+            game.physics.arcade.collide(this.player_2, this.bombList);
+            game.physics.arcade.collide(this.player_2, this.bombList_2);
+
+            game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
+            game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
+
+            game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
+            game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
+
+            game.physics.arcade.overlap(this.player, this.icebergList_2, function(){this.frozen(1);}, null, this);
+            game.physics.arcade.overlap(this.player_2, this.icebergList, function(){this.frozen(2);}, null, this);
+
+            game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
+            game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
+
+            game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.bootList,this.speedUp, null, this);
+
+            game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
+            game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
+
+            game.physics.arcade.overlap(this.player, this.iceList, this.get_ice, null, this);
+            game.physics.arcade.overlap(this.player_2, this.iceList, this.get_ice, null, this);
+
+            game.physics.arcade.overlap(this.player, this.bomb_increase_List, this.number_increase, null, this);
+            game.physics.arcade.overlap(this.player_2, this.bomb_increase_List, this.number_increase, null, this);
+
+            game.physics.arcade.overlap(this.player, this.glove_List, this.push, null, this);
+            game.physics.arcade.overlap(this.player_2, this.glove_List,this.push, null, this);
+
+            game.physics.arcade.overlap(this.player, this.gun_List, this.shot, null, this);
+            game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);      
+            
+            game.physics.arcade.overlap(this.player, this.boss_bulletList,function(){this.frozen(1);}, null, this);   
+            game.physics.arcade.overlap(this.player_2, this.boss_bulletList,function(){this.frozen(2);}, null, this);        
+     
+
+
+            ///win
+            if (this.kKey.isDown){
+                this.showGameWinner(1);
             }
-            if (this.wKey.isDown){
-                if (this.player_2.y>0){
-                    this.player_2.body.velocity.y = -(this.playerSpeed_2);
-                    this.player_2.animations.add('run', [10,14], 2, true);
-                    this.player_2.animations.play('run');
-                    //this.player_2.loadTexture('bomber-back', 0);
-                    // this.player_2.body.velocity.x = 0;
-                }
-            }
-            if (this.sKey.isDown){
-                if (this.player_2.y<600){
-                    this.player_2.body.velocity.y = (this.playerSpeed_2);
-                    this.player_2.animations.add('run', [0,4], 2, true);
-                    this.player_2.animations.play('run');
-                    //this.player_2.loadTexture('bomber-front', 0);
-                    // this.player_2.body.velocity.x = 0;
-                }
-            }
-        } else{
-            this.player_2.body.velocity.x = 0;
-            this.player_2.body.velocity.y = 0;
-        }
-//@@@
-        if (this.spaceKey.justUp){
-            if(this.frozen_attackable_2 == true)
-            this.frozen_attack(2);
-            else if(this.shot_able2 == true)
-                this.shot_attack(2);
-            else  this.dropBomb(2);     
-        }
-
-        game.physics.arcade.collide(this.player, this.wallList);
-        game.physics.arcade.collide(this.player, this.brickList);
-
-        game.physics.arcade.collide(this.player_2, this.wallList);
-        game.physics.arcade.collide(this.player_2, this.brickList);
-
-        game.physics.arcade.collide(this.bombList, this.wallList);
-        game.physics.arcade.collide(this.bombList, this.brickList);
-
-        game.physics.arcade.collide(this.laser, this.wallList,this.laserkill);
-        game.physics.arcade.collide(this.laser, this.brickList,this.brickkill);
-
-        game.physics.arcade.collide(this.laser2, this.wallList,this.laserkill);
-        game.physics.arcade.collide(this.laser2, this.brickList,this.brickkill);
-
-        game.physics.arcade.collide(this.laser, this.player_2,this.playerkill);
-        game.physics.arcade.collide(this.laser2, this.player,this.playerkill);
-
-        game.physics.arcade.collide(this.bombList_2, this.wallList);
-        game.physics.arcade.collide(this.bombList_2, this.brickList);
-
-        game.physics.arcade.collide(this.player, this.bombList);
-        game.physics.arcade.collide(this.player, this.bombList_2);
-
-        game.physics.arcade.collide(this.player_2, this.bombList);
-        game.physics.arcade.collide(this.player_2, this.bombList_2);
-
-        game.physics.arcade.overlap(this.player, this.explosionList, this.burn, null, this);
-        game.physics.arcade.overlap(this.player, this.explosionList_2, this.burn, null, this);
-
-        game.physics.arcade.overlap(this.player_2, this.explosionList_2, this.burn, null, this);
-        game.physics.arcade.overlap(this.player_2, this.explosionList, this.burn, null, this);
-
-        game.physics.arcade.overlap(this.player, this.icebergList_2, function(){this.frozen(1);}, null, this);
-        game.physics.arcade.overlap(this.player_2, this.icebergList, function(){this.frozen(2);}, null, this);
-
-        game.physics.arcade.overlap(this.explosionList, this.flagList.children[0], function(){this.getFlag(1);}, null, this);
-        game.physics.arcade.overlap(this.explosionList_2, this.flagList.children[1], function(){this.getFlag(2);}, null, this);
-
-        game.physics.arcade.overlap(this.player, this.bootList, this.speedUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.bootList,this.speedUp, null, this);
-
-        game.physics.arcade.overlap(this.player, this.starList, this.starUp, null, this);
-        game.physics.arcade.overlap(this.player_2, this.starList, this.starUp, null, this);
-
-        game.physics.arcade.overlap(this.player, this.iceList, this.get_ice, null, this);
-        game.physics.arcade.overlap(this.player_2, this.iceList, this.get_ice, null, this);
-
-        game.physics.arcade.overlap(this.player, this.bomb_increase_List, this.number_increase, null, this);
-        game.physics.arcade.overlap(this.player_2, this.bomb_increase_List, this.number_increase, null, this);
-
-        game.physics.arcade.overlap(this.player, this.glove_List, this.push, null, this);
-        game.physics.arcade.overlap(this.player_2, this.glove_List,this.push, null, this);
-
-        game.physics.arcade.overlap(this.player, this.gun_List, this.shot, null, this);
-        game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);        
-
-        ///win
-        if (this.kKey.isDown){
-            this.showGameWinner(1);
         }
     },
     createMap: function(){
         for (var x = 0; x < 15; x++) {
             for (var y = 0; y < 15; y++) {
+                this.createBoss();
                 if( x == 1 && x == y){
                     this.addBlueFlag();
                     this.addRedFlag();
@@ -940,13 +956,21 @@ var killingState3 = {
         game.state.start('killing3');
     },
     nextLevel:function(){
-        game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+        //game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+        game.state.start('win');
     },
     clickMenu:function(){
         game.state.start('menu');
     },
     clickPause:function(){
-
+        if (game.global.pause == 1){
+            game.global.pause = 0;
+            console.log('pause:' + game.global.pause);
+        }
+        else {
+            game.global.pause = 1;
+            console.log('pause:' + game.global.pause);
+        }
     },
     clickVoice:function(){
         if (game.global.music == 1){
@@ -988,6 +1012,85 @@ var killingState3 = {
         else{
             this.showGameWinner(2);
         }
+    },
+    createBoss:function(){
+
+        this.boss=game.add.sprite(40*7.5, 40*6.5, 'boss2');
+        this.boss.body.immovable = true;
+        this.boss.anchor.setTo(0.5);
+        this.boss.scale.setTo(1.2);
+        this.boss.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss.play('boss'); 
+
+        this.boss1=game.add.sprite(40*7.5, 40*8.5, 'boss2');
+        this.boss1.body.immovable = true;
+        this.boss1.anchor.setTo(0.5);
+        this.boss1.scale.setTo(1.2);
+        this.boss1.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss1.play('boss'); 
+
+        this.boss2=game.add.sprite(40*6.5, 40*7.5, 'boss2');
+        this.boss2.body.immovable = true;
+        this.boss2.anchor.setTo(0.5);
+        this.boss2.scale.setTo(1.2);
+        this.boss2.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss2.play('boss'); 
+
+        this.boss3=game.add.sprite(40*8.5, 40*7.5, 'boss2');
+        this.boss3.body.immovable = true;
+        this.boss3.anchor.setTo(0.5);
+        this.boss3.scale.setTo(1.2);
+        this.boss3.animations.add('boss', [0,1,2,3,4,5],5,true);
+        this.boss3.play('boss'); 
+
+    },
+    bossFire:function(){
+        for(var i=0;i<1;i++)
+        {
+            var x, y;
+            x=game.rnd.integerInRange(-400,400);
+            y=game.rnd.integerInRange(-400,400);
+            var boss_bullet= game.add.sprite(this.boss.x, this.boss.y, 'boss_bullet2');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss1.x, this.boss1.y, 'boss_bullet2');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss2.x, this.boss2.y, 'boss_bullet2');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+
+            var boss_bullet= game.add.sprite(this.boss3.x, this.boss3.y, 'boss_bullet2');
+            game.physics.arcade.enable(boss_bullet);
+            boss_bullet.anchor.setTo(0.5);
+            // boss_bullet.scale.setTo(0.5);
+            boss_bullet.body.velocity.x=x;
+            boss_bullet.body.velocity.y=y;
+            boss_bullet.animations.add('boss_bullet', [0,1,2,3],5,true);
+            boss_bullet.play('boss_bullet');
+            this.boss_bulletList.add(boss_bullet);
+        }
+
     }
 
 };

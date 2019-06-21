@@ -18,14 +18,12 @@ var loadState = {
         game.load.spritesheet('title', './assets/title_1.png', 512, 146);
         game.load.image('menu_3','./assets/menu_3.png');
 
-
         //background
         game.load.image('bg_menu','./assets/bg_1.jpg');
         game.load.image('bg_menu2','./assets/bg_2.jpg');
-        game.load.image('bg_menu3','./assets/bg_3.jpg')
-        game.load.image('bg_menu4','./assets/bg_4.jpg')
-
-
+        game.load.image('bg_menu3','./assets/bg_3.jpg');
+        game.load.image('bg_menu4','./assets/bg_4.jpg');
+        game.load.image('bg_menu5','./assets/bg_5.jpg');
 
         
         //sprite
@@ -37,8 +35,11 @@ var loadState = {
 
         //boss
         game.load.spritesheet('boss', 'assets/boss_3.png', 67, 120);
+        game.load.spritesheet('boss2', 'assets/boss4.png', 28.3, 30);
         //boss_bullet
         game.load.spritesheet('boss_bullet', 'assets/red_flame.png', 131, 169);
+        game.load.spritesheet('boss_bullet2', 'assets/blue_flame.png', 60, 60);
+
 
        
 
@@ -162,6 +163,10 @@ var loadState = {
         game.load.spritesheet('button_play2', 'assets/play2_bt.png', 115, 46);
         game.load.spritesheet('button_next', 'assets/next_bt.png', 115, 46);
         game.load.spritesheet('button_click', 'assets/button_click.png', 237, 178);
+        game.load.spritesheet('button_signin', './assets/lock_bt.png', 169, 149);
+        game.load.spritesheet('button_menu2', './assets/button_menu2.png',150,80);
+
+
 
 
         // Power up sprites
@@ -181,6 +186,7 @@ var loadState = {
         game.load.image('background_menu', './assets/bg.jpg');
         //game.load.image('background_score', './assets/score_bg.jpg');
         game.load.image('background_score', './assets/newscore_bg.jpg');
+        
 
 
         game.load.image('background_win', './assets/win_bg.jpg');

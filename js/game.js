@@ -1,6 +1,6 @@
 // Initialize Phaser
 var game = new Phaser.Game(800,600, Phaser.CANVAS, 'canvas'); // Define our global variable
-game.global = { sound: 1, music: 0, reset:1, pause:0 }; 
+game.global = { sound: 1, music: 1, reset:1, pause:0 }; 
 // score1: 0 ,score2: 0, score3: 0, score4: 0,
 var scoreBoard = document.querySelectorAll(".score");
 var GAME_SIZE = 600;
@@ -14,10 +14,10 @@ var scoreText3;
 var scoreString4;
 var scoreText4;
 var bg_score;
-var score1;
-var score2;
-var score3;
-var score4;
+var score1 = 0;
+var score2 = 0;
+var score3 = 0;
+var score4 = 0;
 var bomb1=0;
 var bomb2=0;
 var bomb3=0;

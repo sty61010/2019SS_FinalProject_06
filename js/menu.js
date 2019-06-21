@@ -35,10 +35,12 @@ var menuState = {
         this.button_start.anchor.setTo(0.5, 0.5);
         this.button_mode = game.add.button(game.width-150, 350, 'button_mode', this.modeChange, this, 1, 0, 0);
         this.button_mode.scale.setTo(0.5, 0.5);
-        // if (game.global.sound == 1){
-        //     music = game.add.audio('bg-music');
-        //     music.play();
-        // }
+        this.button_signin = game.add.button(game.width-150, 450, 'button_signin', this.signinPage, this, 0, 1, 0);
+        this.button_signin.scale.setTo(0.5, 0.5);
+        if (game.global.sound == 1){
+            music = game.add.audio('bg-music');
+            music.play();
+        }
 
         this.button_rank.onInputOver.add(this.buttonOver,this);
         this.button_mode.onInputOver.add(this.buttonOver,this);
@@ -73,6 +75,8 @@ var menuState = {
     },
     clickStart: function () {
         game.state.start('normal');
+        //game.state.start('win');
+
     },
     musicChange: function () {
         if (game.global.music == 1){
@@ -94,4 +98,7 @@ var menuState = {
         }
         console.log('sound:'+game.global.sound);
     },
+    signinPage: function(){
+        game.state.start('signin');
+    }
 };
