@@ -17,43 +17,72 @@ var winState = {
         var nameLabel4 = game.add.text(130,410, ': '+score4, { font: '80px Georgia', fill: '#fff' }); 
 
         this.button_restart = game.add.button(60, 510, 'button_menu2', this.clickMenu, this, 1, 0, 0);
-        //button_restart.scale.setTo(0.5);
+        this.button_mode = game.add.button(200, 510, 'button_mode2', this.clickMode, this, 1, 0, 0);
 
-        //nameLabel.anchor.setTo(0.5, 0.5);
-        
-        //  The score
-        //scoreString = 'Score : ';
-        //scoreText = game.add.text(80, game.height/2-150, scoreString + game.global.score, {  font: '36px Georgia', fill: '#fff' });
+        printData();
 
-        //  The level
-        // levelString = 'Level : ';
-        // levelText = game.add.text(80, game.height/2-150, levelString + game.global.level, { font: '36px Georgia', fill: '#fff' });
-
-        // this.button_restart = game.add.button(game.width/2-100, 300, 'button_restart', this.clickRestart, this, 0, 0, 0);
-        // this.button_back = game.add.button(game.width/2-100, 400, 'button_back', this.clickMenu, this, 0, 0, 0);
 
     }, 
     start: function() {
 
     },
+    clickMode: function(){
+        game.state.start('mode');
+    },
     clickMenu: function() {
         game.state.start('menu');
     },
     clickRestart: function () {
-
         game.global.score1 = 1;
         game.global.score2 = 1;
         game.global.level = 1;
-
         game.state.start('play');
-    
     },
     clickMenu: function () {
         game.global.score1 = 1;
         game.global.score2 = 1;
         game.global.level = 1;
-
         game.state.start('menu');
         
     }
 };
+function printData() {
+    var scoreRef = firebase.database().ref('scoreboard').orderByChild("score").limitToFirst(5);
+    var index=1;
+    scoreRef.once('value', function (snapshot) {
+        for (var i in snapshot.val()) {
+            // console.log(i);
+
+            var namedata=snapshot.val()[i].name;
+            var scoredata=snapshot.val()[i].score;
+            scoredata*=-1;
+            var scoreString='Rank'+index+' '+namedata+':'+scoredata;
+            // if(index<=5){
+            game.add.text(400, 100+index*50, scoreString, { font: '40px Georgia', fill: '#ffffff' });
+            // }
+            //console.log('name:'+namedata+'score:'+scoredata);
+            index++;
+        }
+    })
+};
+function pushData(){
+    var scoreRef = firebase.database().ref('scoreboard');
+    var newPostKey = firebase.database().ref().child('scoreboard').push().key;
+    finalname=name1;
+    finalscore=score1;
+    if(score1<score2){
+        finalname=name2;
+        finalscore=score2;
+    }
+    finalscore*=-1;
+    var postData = {
+        id:newPostKey,
+        name:finalname,
+        score:finalscore,
+        time:Date()
+    };
+    var updates = {};
+    updates[newPostKey] = postData;
+    //console.log(updates);
+    scoreRef.update(updates);
+}

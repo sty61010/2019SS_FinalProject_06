@@ -14,7 +14,7 @@ var scoreText3;
 var scoreString4;
 var scoreText4;
 var bg_score;
-var score1 = 5;
+var score1 = 0;
 var score2 = 0;
 var score3 = 0;
 var score4 = 0;
@@ -33,9 +33,7 @@ var text;
 var counter = 119;
 var i = 0;
 
-var name1;
-var name2;
-var finalname;
+var name;
 var email;
 var finalscore=0;
 //var myHealthBar1;
@@ -45,7 +43,7 @@ game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('mode', modeState);
 game.state.add('signin', signinState);
-
+game.state.add('info', infoState);
 game.state.add('menu', menuState);
 // game.state.add('play', mainState);
 game.state.add('killing',killingState);

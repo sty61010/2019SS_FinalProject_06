@@ -10,10 +10,12 @@ var menuState = {
         game.stage.backgroundColor = '#000000';
         this.bg = game.add.tileSprite(0, 0, 1280, 720, 'bg_menu2');
         
-        this.volcano = game.add.image(50, 400, 'menu_1');
-        this.explosion = game.add.sprite(150,280, 'menu_2');
-        this.explosion.animations.add('exp', [0,1,2,3,4], 5, true);
-        this.explosion.animations.play('exp');
+        //this.volcano = game.add.image(50, 400, 'menu_1');
+        //this.explosion = game.add.sprite(150,280, 'menu_2');
+         this.volcano = game.add.sprite(70,250, 'menu_4');
+         this.volcano.animations.add('exp', [0,1,2,3,4,5,6,7], 5, true);
+         this.volcano.animations.play('exp');
+
  
         //this.bg = game.add.image(0, 0, 'background_menu'); 
         //this.bg.alpha=0.5;
@@ -25,18 +27,22 @@ var menuState = {
         //var nameLabel = game.add.text(game.width/2-100, 150, 'Final Explosion', { font: '60px Georgia', fill: '#ffffff' }); 
         //nameLabel.anchor.setTo(0.5, 0.5);
 
-        this.button_rank = game.add.button(game.width-150, 50, 'button_rank', this.checkRank, this, 1, 0, 0);
+        this.button_rank = game.add.button(580, 80, 'button_rank', this.checkRank, this, 0, 1, 0);
         this.button_rank.scale.setTo(0.5,0.5);
-        this.button_music = game.add.button(game.width-150, 150, 'button_music', this.musicChange, this, 1, 0, 0);
+        this.button_music = game.add.button(580, 180, 'button_music', this.musicChange, this, 1, 0, 0);
         this.button_music.scale.setTo(0.5,0.5);
-        this.button_sound = game.add.button(game.width-150, 250, 'button_sound', this.soundChange, this, 1, 0, 0);
+        this.button_sound = game.add.button(580, 280, 'button_sound', this.soundChange, this, 1, 0, 0);
         this.button_sound.scale.setTo(0.5,0.5);
+        this.button_mode = game.add.button(680, 80, 'button_mode', this.modeChange, this, 1, 0, 0);
+        this.button_mode.scale.setTo(0.5, 0.5);
+        this.button_signin = game.add.button(680, 180, 'button_signin', this.signinPage, this, 0, 1, 0);
+        this.button_signin.scale.setTo(0.5, 0.5);
+        this.button_signin = game.add.button(680, 280, 'button_info', this.infoPage, this, 0, 1, 0);
+        this.button_signin.scale.setTo(1.2, 1.2); 
+
         this.button_start = game.add.button(game.width/2, game.height/2+100, 'button_play', this.clickStart, this, 1, 0, 0);
         this.button_start.anchor.setTo(0.5, 0.5);
-        this.button_mode = game.add.button(game.width-150, 350, 'button_mode', this.modeChange, this, 1, 0, 0);
-        this.button_mode.scale.setTo(0.5, 0.5);
-        this.button_signin = game.add.button(game.width-150, 450, 'button_signin', this.signinPage, this, 0, 1, 0);
-        this.button_signin.scale.setTo(0.5, 0.5);
+
         if (game.global.sound == 1){
             music = game.add.audio('bg-music');
             music.play();
@@ -68,7 +74,7 @@ var menuState = {
         game.state.start('normal'); 
     },
     checkRank: function () {
-        game.state.start('rank');
+        game.state.start('win');
     },
     modeChange: function(){
         game.state.start('mode');
@@ -100,5 +106,8 @@ var menuState = {
     },
     signinPage: function(){
         game.state.start('signin');
+    },
+    infoPage: function(){
+        game.state.start('info');
     }
 };

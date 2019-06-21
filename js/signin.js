@@ -11,7 +11,7 @@ var signinState = {
         this.button_start = game.add.button(game.width/2, game.height/2+200, 'button_play', this.clickStart, this, 1, 0, 0);
         this.button_start.anchor.setTo(0.5, 0.5);
         this.button_start.scale.setTo(0.5);
-        //////////
+
         this.name1Input = this.createInput(this.game.world.centerX, 200);
         this.name1Input.anchor.set(0.5);
         this.name1Input.canvasInput.value('George');
@@ -24,7 +24,7 @@ var signinState = {
 
         name1=this.name1Input.canvasInput.value();
         name2=this.name2Input.canvasInput.value();
-        ///////
+
         
 
     
@@ -34,7 +34,7 @@ var signinState = {
       name2=this.name2Input.canvasInput.value();
       console.log("name1:"+name1);
       console.log('name2:'+name2);
-      // pushData();
+      //pushData();
       game.state.start('mode');
   },
     buttonOver:function(){

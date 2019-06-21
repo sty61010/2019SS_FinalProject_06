@@ -139,7 +139,6 @@ var killingState3 = {
         if ( game.global.pause == 0){
             if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
                 if (this.cursor.left.isDown){
-                    this.dir='left';
                     animation1='left';
                     this.player.animations.add('run3', [15,19], 2, true);
                     this.player.animations.play('run3');
@@ -149,7 +148,6 @@ var killingState3 = {
                     // if(animation1!='left')this.plauer1Animation();
                 }
                 if (this.cursor.right.isDown){
-                    this.dir='right';
                     animation1='right';
                     this.player.animations.add('run4', [5,9], 2, true);
                     this.player.animations.play('run4');
@@ -159,7 +157,6 @@ var killingState3 = {
                     // if(animation1!='right')this.plauer1Animation();
                 }
                 if (this.cursor.up.isDown){
-                    this.dir='up';
                     animation1='up';
                     this.player.animations.add('run2', [10,14], 2, true);
                     this.player.animations.play('run2');
@@ -169,7 +166,6 @@ var killingState3 = {
                     // if(animation1!='up')this.plauer1Animation();
                 }
                 if (this.cursor.down.isDown){
-                    this.dir='down';
                     animation1='down';
                     this.player.animations.add('run1', [0,4], 2, true);
                     this.player.animations.play('run1');
@@ -194,7 +190,6 @@ var killingState3 = {
 
             if (this.aKey.isDown || this.sKey.isDown || this.dKey.isDown || this.wKey.isDown){
                 if (this.aKey.isDown){
-                    this.dir2='left'
                     if (this.player_2.x>0){
                         this.player_2.body.velocity.x = -(this.playerSpeed_2);
                         this.player_2.animations.add('run', [15,19], 2, true);
@@ -204,7 +199,6 @@ var killingState3 = {
                     }
                 }
                 if (this.dKey.isDown){
-                    this.dir2='right';
                     if (this.player_2.x<600){
                         this.player_2.body.velocity.x = (this.playerSpeed_2);
                         this.player_2.animations.add('run', [5,9], 2, true);
@@ -214,7 +208,6 @@ var killingState3 = {
                     }
                 }
                 if (this.wKey.isDown){
-                    this.dir2='up';
                     if (this.player_2.y>0){
                         this.player_2.body.velocity.y = -(this.playerSpeed_2);
                         this.player_2.animations.add('run', [10,14], 2, true);
@@ -224,7 +217,6 @@ var killingState3 = {
                     }
                 }
                 if (this.sKey.isDown){
-                    this.dir2='down';
                     if (this.player_2.y<600){
                         this.player_2.body.velocity.y = (this.playerSpeed_2);
                         this.player_2.animations.add('run', [0,4], 2, true);
