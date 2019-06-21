@@ -10,7 +10,7 @@ var loadState = {
         
         // Load all game assets
         game.load.image('door', 'assets/spiral.png');
-
+        game.load.image('board','./assets/board.png');
 
          //menu
         game.load.image('menu_1','./assets/menu_1.png');
@@ -204,6 +204,9 @@ var loadState = {
         game.load.spritesheet('lighting', 'assets/lighting.png',40, 40);
         //Heart
         game.load.spritesheet('heart', 'assets/heart.png',48, 40);
+        //snow
+        game.load.spritesheet('snow', 'assets/snow.png',40, 40);
+
 
         //tube
         game.load.spritesheet('tube', 'assets/tube.png',20, 35);
@@ -230,7 +233,7 @@ var loadState = {
         game.load.image('wall1', 'assets/mapAssets_5.png');
         game.load.image('brick1', 'assets/mapAssets_4.png');
         game.load.image('ground1', 'assets/mapAssets_6.png');
-        game.load.spritesheet('glove2', 'assets/glove.png', 40, 40);
+        game.load.spritesheet('glove2', 'assets/glove_2.png', 40, 40);
 
         game.load.spritesheet('fire', './assets/fire.png',  37.5,110);
 

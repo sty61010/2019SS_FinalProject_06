@@ -46,7 +46,7 @@ var killingState2 = {
         this.explosionList = game.add.group();
         this.explosionList_2 = game.add.group();
 
-
+        this.doorList = game.add.group();
         // Adds walls, bricks and powerups
         this.createMap();
 
@@ -138,6 +138,7 @@ var killingState2 = {
             if (this.cursor.down.isDown || this.cursor.up.isDown || this.cursor.right.isDown || this.cursor.left.isDown){
                 if (this.cursor.left.isDown){
                     animation1='left';
+                    this.dir='left';
                     this.player.animations.add('run3', [15,19], 2, true);
                     this.player.animations.play('run3');
                     if (this.player.x>0){
@@ -147,6 +148,7 @@ var killingState2 = {
                 }
                 if (this.cursor.right.isDown){
                     animation1='right';
+                    this.dir='right';
                     this.player.animations.add('run4', [5,9], 2, true);
                     this.player.animations.play('run4');
                     if (this.player.x<600){
@@ -156,6 +158,7 @@ var killingState2 = {
                 }
                 if (this.cursor.up.isDown){
                     animation1='up';
+                    this.dir='up';
                     this.player.animations.add('run2', [10,14], 2, true);
                     this.player.animations.play('run2');
                     if (this.player.y>0){
@@ -165,6 +168,7 @@ var killingState2 = {
                 }
                 if (this.cursor.down.isDown){
                     animation1='down';
+                    this.dir='down';
                     this.player.animations.add('run1', [0,4], 2, true);
                     this.player.animations.play('run1');
                     if (this.player.y<600){
@@ -187,6 +191,7 @@ var killingState2 = {
 
             if (this.aKey.isDown || this.sKey.isDown || this.dKey.isDown || this.wKey.isDown){
                 if (this.aKey.isDown){
+                    this.dir='left';
                     if (this.player_2.x>0){
                         this.player_2.body.velocity.x = -(this.playerSpeed_2);
                         this.player_2.animations.add('run', [15,19], 2, true);
@@ -196,6 +201,7 @@ var killingState2 = {
                     }
                 }
                 if (this.dKey.isDown){
+                    this.dir='right';
                     if (this.player_2.x<600){
                         this.player_2.body.velocity.x = (this.playerSpeed_2);
                         this.player_2.animations.add('run', [5,9], 2, true);
@@ -205,6 +211,7 @@ var killingState2 = {
                     }
                 }
                 if (this.wKey.isDown){
+                    this.dir='up';
                     if (this.player_2.y>0){
                         this.player_2.body.velocity.y = -(this.playerSpeed_2);
                         this.player_2.animations.add('run', [10,14], 2, true);
@@ -214,6 +221,7 @@ var killingState2 = {
                     }
                 }
                 if (this.sKey.isDown){
+                    this.dir='down';
                     if (this.player_2.y<600){
                         this.player_2.body.velocity.y = (this.playerSpeed_2);
                         this.player_2.animations.add('run', [0,4], 2, true);
@@ -290,13 +298,58 @@ var killingState2 = {
             game.physics.arcade.overlap(this.player_2, this.glove_List,this.push, null, this);
 
             game.physics.arcade.overlap(this.player, this.gun_List, this.shot, null, this);
-            game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this);        
+            game.physics.arcade.overlap(this.player_2, this.gun_List,this.shot, null, this); 
+            
+            game.physics.arcade.overlap(this.player, this.doorList, this.sent, null, this);
+            game.physics.arcade.overlap(this.player_2, this.doorList, this.sent, null, this);
 
             //win
             if (this.kKey.isDown){
                 this.showGameWinner(1);
             }
         }
+    },
+    sent: function(player,door){
+        var where = game.rnd.integerInRange(20, 32)%4;
+        if (where == 0){
+            if(this.player==player){
+                this.player.x = 80;
+                this.player.y = 160;
+            }else{
+                this.player_2.x = 80;
+                this.player_2.y = 160;
+            }
+        }else if (where == 1){
+            if(this.player==player){
+                this.player.x = 480;
+                this.player.y = 160;
+            }else{
+                this.player_2.x = 480;
+                this.player_2.y = 160;
+            }
+        }else if( where == 2){
+            if(this.player==player){
+                this.player.x = 80;
+                this.player.y = 400;
+            }else{
+                this.player_2.x = 80;
+                this.player_2.y = 400;
+            }
+        }else{
+            if(this.player==player){
+                this.player.x = 480;
+                this.player.y = 400;
+            }else{
+                this.player_2.x = 480;
+                this.player_2.y = 400;
+            }
+        }
+    },
+    addDoor: function(x,y){
+        var door = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'door');
+        game.physics.arcade.enable(door);
+        door.body.immovable = true;
+        this.doorList.add(door);
     },
     createMap: function(){
         for (var x = 0; x < 15; x++) {
@@ -309,6 +362,8 @@ var killingState2 = {
                     this.addWall(x, y);
                 }
 //special map
+else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
+                    this.addDoor(x,y);///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 else if (x === 3 && y>2 && y<12){
                     this.addWall(x, y);
                 }
@@ -328,6 +383,7 @@ var killingState2 = {
                     this.addWall(x, y);
                 }
 //
+
                 else if((x < 4 && y < 4) ||( x > 10 && y > 10)){
                     this.addGrass(x, y);
                 } else {
@@ -461,10 +517,10 @@ var killingState2 = {
         }
 
 
-        var boots = game.add.sprite(x, y, 'lighting');
+        var boots = game.add.sprite(x, y, 'tube');
         boots.body.immovable = true;
-        boots.anchor.setTo(1);
-        boots.animations.add('lighting', [0,1,2,3],5,true);
+        boots.anchor.setTo(0);
+        boots.animations.add('lighting', [0,1,2,3,4],5,true);
         boots.play('lighting');
 
 
@@ -752,17 +808,15 @@ var killingState2 = {
     },
    
     addBoots: function(x, y){
-        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'lighting');
+
+        var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tube');
         game.physics.arcade.enable(boots);
         boots.body.immovable = true;
-        this.bootList.add(boots);
-
-
-
         boots.anchor.setTo(0);
-        boots.animations.add('lighting', [0,1,2,3],5,true);
-        boots.play('lighting');
-
+        boots.animations.add('tube', [0,1,2,3,4],5,true);
+        boots.play('tube');
+        this.bootList.add(boots);
+        
     },
     addStar: function(x, y){
         var star = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'star');
@@ -782,10 +836,14 @@ var killingState2 = {
         this.bomb_increase_List.add(bb);  
     },
     addGloves: function(x,y){
-        var gloves = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'glove');
+        var gloves = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'glove2');
         game.physics.arcade.enable(gloves);
         gloves.body.immovable = true;
         this.glove_List.add(gloves); 
+
+        gloves.anchor.setTo(0);
+        gloves.animations.add('glove2', [0,1,2,3,4,5],5,true);
+        gloves.play('glove2');
     },
     addGuns: function(x,y){
         var gun = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'gun');

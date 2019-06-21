@@ -1,3 +1,4 @@
+
 var normalState2 = {
     preload: function(){
 
@@ -93,6 +94,30 @@ var normalState2 = {
             livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup3.add(livestate);
+
+        }
+        livegroup4 = game.add.group();
+        for (var i = 0; i < live4; i++) 
+        {
+            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            livestate.body.immovable = true;
+            livestate.anchor.setTo(1);
+            livestate.scale.setTo(0.7);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
+            livestate.play('heart');
+            livegroup4.add(livestate);
+
+        }
+        livegroup5 = game.add.group();
+        for (var i = 0; i < live4; i++) 
+        {
+            var livestate = game.add.sprite(650+i*40 , 190, 'heart');
+            livestate.body.immovable = true;
+            livestate.anchor.setTo(1);
+            livestate.scale.setTo(0.7);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
+            livestate.play('heart');
+            livegroup5.add(livestate);
 
         }
     },
@@ -265,6 +290,10 @@ var normalState2 = {
         
             game.physics.arcade.overlap(this.player, this.doorList, this.sent, null, this);
             game.physics.arcade.overlap(this.player_2, this.doorList, this.sent, null, this);
+            game.physics.arcade.overlap(this.player3, this.doorList, this.sent, null, this);
+            game.physics.arcade.overlap(this.player4, this.doorList, this.sent, null, this);
+            game.physics.arcade.overlap(this.player5, this.doorList, this.sent, null, this);
+            
 
             //win
             if(score1 == 20){
@@ -464,22 +493,22 @@ var normalState2 = {
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
+            tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
             if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
+            tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
             if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
         }
-        console.log(tmpx);
+        // console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
         nowx = (tmpx-cc)/this.PIXEL_SIZE;
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 3){
+        if (1){
             this.dropBomb(3);
         }
     },
@@ -521,19 +550,19 @@ var normalState2 = {
             //     // counter += 1;
             // }
             // console.log(diff);
-            if(this.player.body.x > this.player3.body.x && tx>ty){
+            if(this.player.body.x > this.player4.body.x && tx>ty){
                 diff = 1;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.x < this.player3.body.x && tx>ty){
+            if(this.player.body.x < this.player4.body.x && tx>ty){
                 diff = 2;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.y > this.player3.body.y && ty>tx){
+            if(this.player.body.y > this.player4.body.y && ty>tx){
                 diff = 3;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.y < this.player3.body.y && ty>tx){
+            if(this.player.body.y < this.player4.body.y && ty>tx){
                 diff = 4;
                 if(prevdiff != diff)prevdiff = diff;
             }
@@ -556,25 +585,25 @@ var normalState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player4.body.x)this.player4.body.velocity.x = -1*(this.playerSpeed3);
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player4.body.x)this.player4.body.velocity.x = (this.playerSpeed3);
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
+            if(tmpy > this.player4.body.y)this.player4.body.velocity.y = (this.playerSpeed3);
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
+            if(tmpy < this.player4.body.y)this.player4.body.velocity.y = -(this.playerSpeed3);
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -582,8 +611,9 @@ var normalState2 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 3){
-            this.dropBomb(3);
+        if (1){
+            this.dropBomb(4);
+            // console.log('1111111111111');
         }
     },
     player5Move:function(){
@@ -592,8 +622,8 @@ var normalState2 = {
         var nowy;
         var begin = 1;
         var tmpx,tmpy, cc;
-        var tx = this.player.body.x - this.player3.x;
-        var ty = this.player.body.y - this.player3.y;
+        var tx = this.player.body.x - this.player5.x;
+        var ty = this.player.body.y - this.player5.y;
         if(tx < 0){
             tx = -tx;
         }
@@ -624,19 +654,19 @@ var normalState2 = {
             //     // counter += 1;
             // }
             // console.log(diff);
-            if(this.player.body.x > this.player3.body.x && tx>ty){
+            if(this.player.body.x > this.player5.body.x && tx>ty){
                 diff = 1;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.x < this.player3.body.x && tx>ty){
+            if(this.player.body.x < this.player5.body.x && tx>ty){
                 diff = 2;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.y > this.player3.body.y && ty>tx){
+            if(this.player.body.y > this.player5.body.y && ty>tx){
                 diff = 3;
                 if(prevdiff != diff)prevdiff = diff;
             }
-            if(this.player.body.y < this.player3.body.y && ty>tx){
+            if(this.player.body.y < this.player5.body.y && ty>tx){
                 diff = 4;
                 if(prevdiff != diff)prevdiff = diff;
             }
@@ -659,25 +689,25 @@ var normalState2 = {
 
             tmpx = nowx*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
             
-            if(tmpx < this.player3.body.x)this.player3.body.velocity.x = -1*(this.playerSpeed3);
+            if(tmpx < this.player5.body.x)this.player5.body.velocity.x = -1*(this.playerSpeed3);
         } 
         if (diff === 1) {
             // this.player_2.body.velocity.x = (this.playerSpeed_2)
             // this.move = Move.Right;
             tmpx = nowx*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpx > this.player3.body.x)this.player3.body.velocity.x = (this.playerSpeed3);
+            if(tmpx > this.player5.body.x)this.player5.body.velocity.x = (this.playerSpeed3);
         } 
         if (diff === 3) {
             // this.move = Move.Up;
             // this.player_2.body.velocity.y = -(this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE + 2*this.PIXEL_SIZE;
-            if(tmpy > this.player3.body.y)this.player3.body.velocity.y = (this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE + 3*this.PIXEL_SIZE;
+            if(tmpy > this.player5.body.y)this.player5.body.velocity.y = (this.playerSpeed3);
         } 
         if (diff === 4) {
             // this.move = Move.Down;
             // this.player_2.body.velocity.y = (this.playerSpeed_2)
-            tmpy = nowy*this.PIXEL_SIZE - 2*this.PIXEL_SIZE;
-            if(tmpy < this.player3.body.y)this.player3.body.velocity.y = -(this.playerSpeed3);
+            tmpy = nowy*this.PIXEL_SIZE - 3*this.PIXEL_SIZE;
+            if(tmpy < this.player5.body.y)this.player5.body.velocity.y = -(this.playerSpeed3);
         }
         console.log(tmpx);
         cc = tmpx%this.PIXEL_SIZE;
@@ -685,8 +715,8 @@ var normalState2 = {
         cc = tmpy%this.PIXEL_SIZE;
         nowy = (tmpx-cc)/this.PIXEL_SIZE;
         // console.log(nowy);
-        if (diff == 3){
-            this.dropBomb(3);
+        if (diff == 2){
+            this.dropBomb(5);
         }
     },
     //=============================================================================================
@@ -710,7 +740,7 @@ var normalState2 = {
                 else if(x==3&&y==4 || x==3&&y==10 || x==11&&y==4 || x==11&&y==10)
                     this.addDoor(x,y);
                 else if(x % 2 === 0 && y % 2 === 0){
-                    if(!(x==2 &&y==4)&&!(x==12&&y==4)&&!(x==2&&y==10)&&!(x==12&&y==10))
+                    if(!(x==2 &&y==4)&&!(x==12&&y==4)&&!(x==2&&y==10)&&!(x==12&&y==10)&&!(x==2&&y==2)&&!(x==2&&y==6)&&!(x==2&&y==8)&&!(x==2&&y==12)&&!(x==12&&y==2)&&!(x==12&&y==12))
                     this.addBrick(x,y);
                 } else if(x < 4 && y < 4 || x > 10 && y > 10){
                     this.addGrass(x, y);
@@ -822,12 +852,12 @@ var normalState2 = {
             score1+=1;
             scoreText1.text = scoreString1 + score1;
             ///live
-            live = livegroup2.getFirstAlive();
+            live = livegroup4.getFirstAlive();
             if (live)
             {
                 live.kill();
             }
-            if (livegroup2.countLiving() < 1)
+            if (livegroup4.countLiving() < 1)
             {
                 this.player4.kill();
                 //game.global.normal = 1;
@@ -837,12 +867,12 @@ var normalState2 = {
             score1+=1;
             scoreText1.text = scoreString1 + score1;
             ///live
-            live = livegroup3.getFirstAlive();
+            live = livegroup5.getFirstAlive();
             if (live)
             {
                 live.kill();
             }
-            if (livegroup3.countLiving() < 1)
+            if (livegroup5.countLiving() < 1)
             {
                 this.player5.kill();
                 //game.global.normal = 1;
@@ -940,20 +970,24 @@ var normalState2 = {
     },
     addPlayers: function(){
         this.player = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'player01');
-        this.player.scale.setTo(0.9);
+        this.player.scale.setTo(0.8);
         game.physics.arcade.enable(this.player);
+
         this.player_2 = game.add.sprite(this.PIXEL_SIZE, this.PIXEL_SIZE, 'player02');
-        this.player_2.scale.setTo(0.9);
+        this.player_2.scale.setTo(0.8);
         game.physics.arcade.enable(this.player_2);
         
         this.player3 = game.add.sprite(GAME_SIZE - 2 * this.PIXEL_SIZE, this.PIXEL_SIZE, 'player03');
         game.physics.arcade.enable(this.player3);
+        this.player3.scale.setTo(0.8);
 
         this.player4 = game.add.sprite(this.PIXEL_SIZE, GAME_SIZE - 2 * this.PIXEL_SIZE, 'player04');
         game.physics.arcade.enable(this.player4);
+        this.player4.scale.setTo(0.8);
 
-        this.player5 = game.add.sprite(this.PIXEL_SIZE * 8, GAME_SIZE - 8 * this.PIXEL_SIZE, 'player03');
+        this.player5 = game.add.sprite(this.PIXEL_SIZE * 7, GAME_SIZE - 8 * this.PIXEL_SIZE, 'player03');
         game.physics.arcade.enable(this.player5);
+        this.player5.scale.setTo(0.8);
     },
     addBoots: function(x, y){
         var boots = game.add.sprite(x * this.PIXEL_SIZE, y * this.PIXEL_SIZE, 'tube');
@@ -1100,6 +1134,7 @@ var normalState2 = {
         var explosionList;
         var wallList;
         var brickList;
+        // console.log(player);
         if(player == 1  && this.playerDrop){
             this.playerDrop = false;
             gridX = this.player.x - this.player.x % 40;
@@ -1152,6 +1187,7 @@ var normalState2 = {
                 normalState2.enablePlayerBomb(2);
             }, 2000);
         } else if (player == 3  && this.playerDrop3){
+            
             this.playerDrop3 = false;
             gridX = this.player3.x - this.player3.x % 40;
             gridY = this.player3.y - this.player3.y % 40;
@@ -1174,7 +1210,7 @@ var normalState2 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList3, wallList, brickList);
-                normalState.enablePlayerBomb(3);
+                normalState2.enablePlayerBomb(3);
             }, 2000);
         } else if (player == 4  && this.playerDrop4){
             this.playerDrop4 = false;
@@ -1199,7 +1235,7 @@ var normalState2 = {
             setTimeout(function(){
                 bomb.kill();
                 detonateBomb(player, bomb.x, bomb.y, explosionList4, wallList, brickList);
-                normalState.enablePlayerBomb(4);
+                normalState2.enablePlayerBomb(4);
             }, 2000);
         } else if (player == 5  && this.playerDrop5){
             this.playerDrop5 = false;
@@ -1223,15 +1259,15 @@ var normalState2 = {
 
             setTimeout(function(){
                 bomb.kill();
-                detonateBomb(player, bomb.x, bomb.y, explosionList5, wallList, brickList);
-                normalState.enablePlayerBomb(5);
+                detonateBomb(player5, bomb.x, bomb.y, explosionList5, wallList, brickList);
+                normalState2.enablePlayerBomb(5);
             }, 2000);
         } 
     },
     enablePlayerBomb: function(player){
         if(player == 1){
             this.playerDrop = true;
-        } else if(player == 2) {
+        } else if(player == 2){
             this.playerDrop_2 = true;
         } else if(player == 3) {
             this.playerDrop3 = true;
@@ -1246,8 +1282,6 @@ var normalState2 = {
         this.bgEnd = game.add.image(0, 0, 'bg_menu3'); 
         //this.bgEnd.scale.setTo(0.5);
         this.gameMessage = game.add.text(200, 220, 'Player ' + player +" Wins", { font: '60px Chalaathah',fill: "#ffffff" });
-
-        this.gameMessage = game.add.text(150, 150, 'Player ' +player+" Wins", { font: '60px Georgia', fill: '#ffffff' });
         this.play2_bt = game.add.button(230,320, 'button_play2', this.restartGame, this, 1, 0, 0);        
         this.next_bt = game.add.button(380,320, 'button_next', this.nextLevel, this, 1, 0, 0);   
     },
@@ -1267,7 +1301,7 @@ var normalState2 = {
         game.state.start('normal2');
     },
     nextLevel:function(){
-        game.add.text(150, 150, "Level Up", { font: '60px Georgia', fill: '#ffffff' });
+
         game.state.start('normal3');
         level=3;
 
@@ -1278,33 +1312,69 @@ var normalState2 = {
             if(this.player==player){
                 this.player.x = 80;
                 this.player.y = 160;
-            }else{
+            }else if(this.player_2 == player){
                 this.player_2.x = 80;
                 this.player_2.y = 160;
+            }else if(this.player3 == player){
+                this.player3.x = 80;
+                this.player3.y = 160;
+            }else if(this.player4 == player){
+                this.player4.x = 80;
+                this.player4.y = 160;
+            }else if(this.player5 == player){
+                this.player5.x = 80;
+                this.player5.y = 160;
             }
         }else if (where == 1){
             if(this.player==player){
                 this.player.x = 480;
                 this.player.y = 160;
-            }else{
+            }else if(this.player_2 == player){
                 this.player_2.x = 480;
                 this.player_2.y = 160;
+            }else if(this.player3 == player){
+                this.player3.x = 480;
+                this.player3.y = 160;
+            }else if(this.player4 == player){
+                this.player4.x = 480;
+                this.player4.y = 160;
+            }else if(this.player5 == player){
+                this.player5.x = 480;
+                this.player5.y = 160;
             }
         }else if( where == 2){
             if(this.player==player){
                 this.player.x = 80;
                 this.player.y = 400;
-            }else{
+            }else if(this.player_2 == player){
                 this.player_2.x = 80;
                 this.player_2.y = 400;
+            }else if(this.player3 == player){
+                this.player3.x = 80;
+                this.player3.y = 400;
+            }else if(this.player4 == player){
+                this.player4.x = 80;
+                this.player4.y = 400;
+            }else if(this.player5 == player){
+                this.player5.x = 80;
+                this.player5.y = 400;
             }
         }else{
             if(this.player==player){
                 this.player.x = 480;
                 this.player.y = 400;
-            }else{
+            }else if(this.player_2 == player){
                 this.player_2.x = 480;
                 this.player_2.y = 400;
+            }else if(this.player3 == player){
+                this.player3.x = 480;
+                this.player3.y = 400;
+            }else if(this.player4 == player){
+                this.player4.x = 480;
+                this.player4.y = 400;
+            }else if(this.player5 == player){
+                this.player5.x = 480;
+                this.player5.y = 400;
             }
         }
     },

@@ -6,6 +6,8 @@ var normalState = {
     create: function(){
         score1 = 0;
         score2 = 0;
+        score3 = 0;
+        score4 = 0;
         this.BLOCK_COUNT = 15;
         this.PIXEL_SIZE = GAME_SIZE / this.BLOCK_COUNT;
         music = game.add.audio('bg-music', 1, true);
@@ -58,21 +60,20 @@ var normalState = {
     },
     liveCreate:function(){
         livegroup1 = game.add.group();
-        for (var i = 0; i < live1; i++) 
+        for (var i = 0 ; i < live1 ; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 , 93, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 90, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
             livestate.animations.add('heart', [0,1,2,3,4],5,true);
             livestate.play('heart');
             livegroup1.add(livestate);
-
         }
         livegroup2 = game.add.group();
         for (var i = 0; i < live2; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 ,190, 'heart');
+            var livestate = game.add.sprite(730-i*40 ,190, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -82,9 +83,21 @@ var normalState = {
 
         }
         livegroup3 = game.add.group();
-        for (var i = 0; i < live3; i++) 
+        for (var i = 0; i < live3/4; i++) 
         {
-            var livestate = game.add.sprite(650+i*40 ,190, 'heart');
+            var livestate = game.add.sprite(730-i*40 , 290, 'heart');
+            livestate.body.immovable = true;
+            livestate.anchor.setTo(1);
+            livestate.scale.setTo(0.7);
+            livestate.animations.add('heart', [0,1,2,3,4],5,true);
+            livestate.play('heart');
+            livegroup3.add(livestate);
+
+        }
+        livegroup4 = game.add.group();
+        for (var i = 0; i < live4/4; i++) 
+        {
+            var livestate = game.add.sprite(730-i*40 , 390, 'heart');
             livestate.body.immovable = true;
             livestate.anchor.setTo(1);
             livestate.scale.setTo(0.7);
@@ -157,6 +170,8 @@ var normalState = {
 
         scoreText1 = game.add.text(750, 20, score1, { font: '30px Georgia', fill: '#fff' });
         scoreText2 = game.add.text(750, 118, score2, { font: '30px Georgia', fill: '#fff' });
+        scoreText3 = game.add.text(750, 220, score3, { font: '30px Georgia', fill: '#fff' });
+        scoreText4 = game.add.text(750, 318, score4, { font: '30px Georgia', fill: '#fff' });
          
     },
     //=============================================================================================
@@ -670,7 +685,9 @@ var normalState = {
         }
         else if(player==this.player3){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            scoreText1.text = score1;
+            score2+=1;
+            scoreText2.text = score2;
             ///live
             live = livegroup3.getFirstAlive();
             if (live)
@@ -686,14 +703,16 @@ var normalState = {
         }
         else if(player==this.player4){
             score1+=1;
-            scoreText1.text = scoreString1 + score1;
+            scoreText1.text = score1;
+            score2+=1;
+            scoreText2.text = score2;
             ///live
-            live = livegroup3.getFirstAlive();
+            live = livegroup4.getFirstAlive();
             if (live)
             {
                 live.kill();
             }
-            if (livegroup2.countLiving() < 1)
+            if (livegroup4.countLiving() < 1)
             {
                 this.player4.kill();
                 //game.global.normal = 1;
@@ -1102,8 +1121,8 @@ var normalState = {
         score4=0;
         live1=3;
         live2=3;
-        live3=8;
-        live4=4;
+        live3=12;
+        live4=12;
         gameInPlay = true;
         music.stop();
         gameStart.play();
